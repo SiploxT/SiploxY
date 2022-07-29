@@ -51,6 +51,10 @@ client.on("message", (message) => {
     if(!args) return message.channel.send("Necesitas poner algo para que pueda decirlo.") 
 
     message.channel.send(args)
+
+    message.delete()
+    .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+    .catch(console.error);
     }
 
     
