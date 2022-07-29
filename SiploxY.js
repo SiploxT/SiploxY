@@ -7,7 +7,7 @@ const discordTTS = require("discord-tts");
 let prefix = config.prefix;
 
 client.on("ready", () => {
-    console.log(`Toy listo`);
+    console.log(`Toy listo ·w·`);
 });
 
 client.on("message", (message) => {
@@ -40,19 +40,14 @@ client.on("message", (message) => {
 
         message.channel.send({ embed: embedDatos });
     }
-    if(message.content.startsWith(prefix+"decir")) {
-	let decir = args.join(' ')
-	const voiceChannel = message.member.voice.channel;
+    if(message.content.startsWith(prefix + "8ball")) {
+        let respuesta = ["Sis", "Non", "Puede ser", "Es lo mas probable", "Las probabilidades son bajas", "No lo creo", "Definitivamente.", "Definitivamente no."  ]
+        var random = respuesta[Math.floor(Math.random() * respuesta.length)]
+      const embed = new Discord.MessageEmbed()/
+      
+      
+      message.channel.send(random)
+    }
 
-	if(!decir) return message.channel.send('**<a:No:769884924995829800> | ¿Que quieres que diga?**') 
-    if(!voiceChannel) return message.channel.send('**<a:No:769884924995829800> | Entra a un canal de voz y vuelve a intentarlo.**')
-
-    voiceChannel.join().then(connection => { 
-        const stream = discordTTS.getVoiceStream(decir);
-        const dispatcher = connection.play(stream);
-        dispatcher.on("finish",()=>voiceChannel.leave())
-  })
-
-  };
 })
 client.login(config.token);
