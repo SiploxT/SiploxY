@@ -47,7 +47,7 @@ client.on("message", (message) => {
       message.channel.send(random)
     }
     if(message.content.startsWith(prefix + "say")) {
-    const args = message.content.slice(prefix.length)//.trim().split(/ +/g)
+    const args = message.content.slice(5)
     if(!args) return message.channel.send("Necesitas poner algo para que pueda decirlo.") 
 
     message.channel.send(args)
