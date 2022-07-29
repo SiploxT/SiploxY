@@ -1,8 +1,6 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const config = require("./config.json");
-const discordTTS = require("discord-tts");
-
+const config = require("./config.json");    
 
 let prefix = config.prefix;
 
@@ -48,6 +46,15 @@ client.on("message", (message) => {
       
       message.channel.send(random)
     }
+    if(message.content.startsWith(prefix + "say")) {
+    const texto = args.join(' ') 
+    const args = message.content.slice(prefix.length).trim().split(/ +/g)
+    if(!texto) return message.channel.send("Necesitas poner algo para que pueda decirlo.") 
 
-})
+    message.channel.send(texto)
+    }
+
+    
+
+});
 client.login(config.token);
