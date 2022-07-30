@@ -20,7 +20,7 @@ client.on("message", (message) => {
         description: "·w·"
         }})
     }
-    if(message.content.startsWith(prefix + "Pat")) {
+    if(message.content.startsWith(prefix + "pat")) {
         const embedDatos = new Discord.MessageEmbed() 
         .setTitle("OwO")
         .setColor("PURPLE")
@@ -29,7 +29,7 @@ client.on("message", (message) => {
 
         message.channel.send({ embed: embedDatos });
     }
-    if(message.content.startsWith(prefix + "Sleep")) {
+    if(message.content.startsWith(prefix + "sleep")) {
         const embedDatos = new Discord.MessageEmbed() 
         .setTitle("Zzz")
         .setColor("PURPLE")
@@ -46,6 +46,14 @@ client.on("message", (message) => {
       
       message.channel.send(random)
     }
+    if(message.content.startsWith(prefix + "dado")) {
+        let respuestadado = ["🎲 ¡Te ha salido un **1**!", "🎲 ¡Te ha salido un **2**!", "🎲 ¡Te ha salido un **3**!", "🎲 ¡Te ha salido un **4**!", "🎲 ¡Te ha salido un **5**!", "🎲 ¡Te ha salido un **6**!"]
+        var randomdado = respuestadado[Math.floor(Math.random() * respuestadado.length)]
+      const embed = new Discord.MessageEmbed()/
+      
+      
+      message.channel.send(randomdado)
+    }
     if(message.content.startsWith(prefix + "say")) {
     const args = message.content.slice(5)
     if(!args) return message.channel.send("Necesitas poner algo para que pueda decirlo.") 
@@ -56,8 +64,22 @@ client.on("message", (message) => {
     .then(msg => console.log(`Deleted message from ${msg.author.username}`))
     .catch(console.error);
     }
-
+    if(message.content.startsWith(prefix + "SadCat")) {
+     const fetch = require('node-fetch')
+     const { MessageEmbed } = require("discord.js")
     
+    
+     fetch(`https://api.alexflipnote.dev/sadcat`)
+        .then((res) => res.json())
+        .then((body) => {
+            console.log(body)
+            let embed = new MessageEmbed()
+            .setTitle('Meow')
+            .setImage(body.file)
+            .setColor("PURPLE")
+            message.channel.send(embed)
+        })
+    }
 
 });
 client.login(config.token);
