@@ -11,6 +11,20 @@ client.on("ready", () => {
 client.on("message", (message) => {
     if (message.author.bot) return;
 	const args = message.content.trim().split(/ +/g);
+    if(message.content.startsWith(prefix + 'help')) {
+        
+        const embed = new Discord.MessageEmbed()
+            .setAuthor(message.author.username, message.author.avatarURL())
+            .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
+            .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
+            .addField('SadCat', 'Enviará imagenes aleatorias de gatos tristes')
+            .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado')
+            .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
+            .addField('Pat', 'Acariciarás a la persona que menciones' )
+            .setColor("PURPLE")
+        
+        message.author.send(embed);
+    }    
     if(message.content.startsWith(prefix + 'SiploxY')) {
         message.channel.send(`Yo`);
     }
@@ -56,7 +70,7 @@ client.on("message", (message) => {
     }
     if(message.content.startsWith(prefix + "say")) {
     const args = message.content.slice(5)
-    if(!args) return message.channel.send("Necesitas poner algo para que pueda decirlo.") 
+    if(!args) return message.channel.send("Necesitas poner algo para que pueda decirlo ·w·") 
 
     message.channel.send(args)
 
