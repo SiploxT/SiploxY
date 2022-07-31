@@ -94,13 +94,44 @@ client.on("message", (message) => {
             message.channel.send(embed)
         })
     }
+    if(message.content.startsWith(prefix + "dog")) {
+     const fetch = require('node-fetch')
+     const { MessageEmbed } = require("discord.js")
+    
+    
+     fetch(`https://api.alexflipnote.dev/dogs`)
+        .then((res) => res.json())
+        .then((body) => {
+            console.log(body)
+            let embed = new MessageEmbed()
+            .setTitle('Doggy')
+            .setImage(body.file)
+            .setColor("PURPLE")
+            message.channel.send(embed)
+        })
+    }
+        if(message.content.startsWith(prefix + "cat")) {
+     const fetch = require('node-fetch')
+     const { MessageEmbed } = require("discord.js")
+    
+    
+     fetch(`https://api.alexflipnote.dev/cats`)
+        .then((res) => res.json())
+        .then((body) => {
+            console.log(body)
+            let embed = new MessageEmbed()
+            .setTitle('Meow')
+            .setImage(body.file)
+            .setColor("PURPLE")
+            message.channel.send(embed)
+        })
+    }
     if(message.content.startsWith(prefix + "avatar")) {
         let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
         let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048}) 
 
         message.channel.send(avatar)
     }
-
 
 });
 client.login(config.token);
