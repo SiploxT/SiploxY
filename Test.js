@@ -1,8 +1,7 @@
+const { neko } = require("akaneko");
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const config = require("./config.json");
-const discordTTS = require("discord-tts");
-
+const config = require("./config.json");    
 
 let prefix = config.prefix;
 
@@ -13,6 +12,20 @@ client.on("ready", () => {
 client.on("message", (message) => {
     if (message.author.bot) return;
 	const args = message.content.trim().split(/ +/g);
+    if(message.content.startsWith(prefix + 'help')) {
+        
+        const embed = new Discord.MessageEmbed()
+            .setAuthor(message.author.username, message.author.avatarURL())
+            .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
+            .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
+            .addField('SadCat', 'Enviará imagenes aleatorias de gatos tristes')
+            .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado')
+            .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
+            .addField('Pat', 'Acariciarás a la persona que menciones' )
+            .setColor("PURPLE")
+        
+        message.author.send(embed);
+    }    
     if(message.content.startsWith(prefix + 'SiploxY')) {
         message.channel.send(`Yo`);
     }
@@ -22,7 +35,7 @@ client.on("message", (message) => {
         description: "·w·"
         }})
     }
-    if(message.content.startsWith(prefix + "Pat")) {
+    if(message.content.startsWith(prefix + "pat")) {
         const embedDatos = new Discord.MessageEmbed() 
         .setTitle("OwO")
         .setColor("PURPLE")
@@ -31,7 +44,7 @@ client.on("message", (message) => {
 
         message.channel.send({ embed: embedDatos });
     }
-    if(message.content.startsWith(prefix + "Sleep")) {
+    if(message.content.startsWith(prefix + "sleep")) {
         const embedDatos = new Discord.MessageEmbed() 
         .setTitle("Zzz")
         .setColor("PURPLE")
@@ -40,28 +53,98 @@ client.on("message", (message) => {
 
         message.channel.send({ embed: embedDatos });
     }
-    if(message.content.startsWith(prefix+"decir")) {
-	let decir = args.join(' ')
-	const voiceChannel = message.member.voice.channel;
+    if(message.content.startsWith(prefix + "8ball")) {
+        let respuesta = ["Sis", "Non", "Puede ser", "Es lo mas probable", "Las probabilidades son bajas", "No lo creo", "Definitivamente.", "Definitivamente no."  ]
+        var random = respuesta[Math.floor(Math.random() * respuesta.length)]
+      const embed = new Discord.MessageEmbed()/
+      
+      
+      message.channel.send(random)
+    }
+    if(message.content.startsWith(prefix + "dado")) {
+        let respuestadado = ["🎲 ¡Te ha salido un **1**!", "🎲 ¡Te ha salido un **2**!", "🎲 ¡Te ha salido un **3**!", "🎲 ¡Te ha salido un **4**!", "🎲 ¡Te ha salido un **5**!", "🎲 ¡Te ha salido un **6**!"]
+        var randomdado = respuestadado[Math.floor(Math.random() * respuestadado.length)]
+      const embed = new Discord.MessageEmbed()/
+      
+      
+      message.channel.send(randomdado)
+    }
+    if(message.content.startsWith(prefix + "say")) {
+    const args = message.content.slice(5)
+    if(!args) return message.channel.send("Necesitas poner algo para que pueda decirlo ·w·") 
 
-	if(!decir) return message.channel.send('**<a:No:769884924995829800> | ¿Que quieres que diga?**') 
-    if(!voiceChannel) return message.channel.send('**<a:No:769884924995829800> | Entra a un canal de voz y vuelve a intentarlo.**')
+    message.channel.send(args)
 
-     voiceChannel.join().then(connection => { 
-        const stream = discordTTS.getVoiceStream(decir);
-        const dispatcher = connection.play(stream);
-        dispatcher.on("finish",()=>voiceChannel.leave())
+    message.delete()
+    .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+    .catch(console.error);
+    }
+    if(message.content.startsWith(prefix + "SadCat")) {
+     const fetch = require('node-fetch')
+     const { MessageEmbed } = require("discord.js")
+    
+    
+     fetch(`https://api.alexflipnote.dev/sadcat`)
+        .then((res) => res.json())
+        .then((body) => {
+            console.log(body)
+            let embed = new MessageEmbed()
+            .setTitle('Meow')
+            .setImage(body.file)
+            .setColor("PURPLE")
+            message.channel.send(embed)
         })
     }
-    if(message.content.startsWith(prefix + "8ball")) {//definimos el comando
-        let respuesta = ["Si", "No", "Tal vez", "Obvio", "Yo digo que si", "Yo digo que no", "Probablemente"]//aqui las probables respuestas que va a tener
-        var random = respuesta[Math.floor(Math.random() * respuesta.length)]//aqui decimos que va a elegir una respuesta random de el let respuesta
-      const embed = new Discord.MessageEmbed()//definimos el embed
-      
-      
-      message.channel.send("Yo creo que " + random)
-    }//cerramos
+    if(message.content.startsWith(prefix + "dog")) {
+     const fetch = require('node-fetch')
+     const { MessageEmbed } = require("discord.js")
     
+    
+     fetch(`https://api.alexflipnote.dev/dogs`)
+        .then((res) => res.json())
+        .then((body) => {
+            console.log(body)
+            let embed = new MessageEmbed()
+            .setTitle('Doggy')
+            .setImage(body.file)
+            .setColor("PURPLE")
+            message.channel.send(embed)
+        })
+    }
+        if(message.content.startsWith(prefix + "cat")) {
+     const fetch = require('node-fetch')
+     const { MessageEmbed } = require("discord.js")
+    
+    
+     fetch(`https://api.alexflipnote.dev/cats`)
+        .then((res) => res.json())
+        .then((body) => {
+            console.log(body)
+            let embed = new MessageEmbed()
+            .setTitle('Meow')
+            .setImage(body.file)
+            .setColor("PURPLE")
+            message.channel.send(embed)
+        })
+    }
+    if(message.content.startsWith(prefix + "avatar")) {
+        let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
+        let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048}) 
 
-})
+        message.channel.send(avatar)
+    }
+    if(message.content.startsWith(prefix + "slap")) {
+        let mention = message.mentions.members.first()
+        if(!mention) return message.channel.send("Menciona a alguien para abofetearle")
+           neko.sfw.slap().then(neko => {
+        const embed = new Discord.MessageEmbed()
+        .setColor("RED")
+        .setTitle("`${message.member.displayName} le ha dado un bofeton a ${mention.displayName}`")
+        .setImage(neko.url)
+
+        message.channel.send(embed)
+
+    })
+}    
+});  
 client.login(config.token);
