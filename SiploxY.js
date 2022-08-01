@@ -1,3 +1,4 @@
+const { neko } = require("akaneko");
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");    
@@ -15,16 +16,23 @@ client.on("message", (message) => {
         
         const embed = new Discord.MessageEmbed()
             .setAuthor(message.author.username, message.author.avatarURL())
-            .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
-            .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
-            .addField('SadCat', 'Enviará imagenes aleatorias de gatos tristes')
+            .addField('Ping', 'Comprobará la latencia de la API de Discord')
             .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado')
             .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
+            .addField('SadCat', 'Enviará imagenes aleatorias de gatos tristes')
+            .addField('Cat', 'Enviará imagenes aleatorias de gatos ￣ω￣')
+            .addField('Dog', 'Enviará imagenes aleatorias de perros')
+            .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
+            .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
             .addField('Pat', 'Acariciarás a la persona que menciones' )
             .setColor("PURPLE")
         
         message.author.send(embed);
-    }    
+    }
+    if(message.content.startsWith(prefix + "ping")) {
+        message.channel.send(`La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.** ·w·`);
+
+    }
     if(message.content.startsWith(prefix + 'SiploxY')) {
         message.channel.send(`Yo`);
     }
@@ -110,7 +118,7 @@ client.on("message", (message) => {
             message.channel.send(embed)
         })
     }
-        if(message.content.startsWith(prefix + "cat")) {
+    if(message.content.startsWith(prefix + "cat")) {
      const fetch = require('node-fetch')
      const { MessageEmbed } = require("discord.js")
     
@@ -125,6 +133,7 @@ client.on("message", (message) => {
             .setColor("PURPLE")
             message.channel.send(embed)
         })
+   
     }
     if(message.content.startsWith(prefix + "avatar")) {
         let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
@@ -132,6 +141,14 @@ client.on("message", (message) => {
 
         message.channel.send(avatar)
     }
+    if(message.content.startsWith(prefix + "randomuser")) {
+        const embed = new Discord.MessageEmbed() 
+            .setDescription(message.guild.members.cache.random().displayName) 
+            .setColor("RANDOM")
+        message.channel.send(embed)
+    }
 
-});
+
+    
+});  
 client.login(config.token);
