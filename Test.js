@@ -2,7 +2,6 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");  
 
-
 let prefix = config.prefix;
 
 client.on("ready", () => {
@@ -148,20 +147,21 @@ client.on("message", (message) => {
         message.channel.send(embed)
     }
     if(message.content.startsWith(prefix + "acariciar")) {
-        let respuestapat = ["https://tenor.com/view/rikka-head-pat-pat-on-head-anime-rikka-gif-13911345.gif", "https://tenor.com/view/kanna-kamui-pat-head-pat-gif-12018819.gif", "https://tenor.com/view/neet-anime-cute-kawaii-pat-gif-9332926.gif", "https://tenor.com/view/anime-hug-girl-thats-okay-pat-gif-16038289.gif", "https://tenor.com/view/kaede-azusagawa-kaede-gif-head-headpat-gif-13284057.gif", "https://tenor.com/view/anime-pat-gif-22001988.gif"]
-        var randompat = respuestapat[Math.floor(Math.random() * respuestapat.length)]
+        let user = message.author.username;
+        let ment = message.mentions.users.first();
+        if(!user) return message.channel.send("Menciona a alguien para poder acariciarlo ·w·")
+        var respuestapat = ["https://c.tenor.com/Y7B6npa9mXcAAAAC/rikka-head-pat-pat-on-head.gif", "https://c.tenor.com/E6fMkQRZBdIAAAAC/kanna-kamui-pat.gif", "https://c.tenor.com/8DaE6qzF0DwAAAAC/neet-anime.gif", "https://c.tenor.com/i7nXGbPLqTsAAAAC/anime-hug.gif", "https://c.tenor.com/kM1mVaXE8Y8AAAAC/kaede-azusagawa-kaede.gif", "https://c.tenor.com/TRxNL32jtEIAAAAC/anime-pat.gif"]
+        let randompat = respuestapat[Math.floor(respuestapat.length * Math.random())]
 
         const embedDatos = new Discord.MessageEmbed() 
-        .setTitle(message.author.username + "acarició a" + message.mentions.users.first())
+        .setTitle("Pat")
+        .setDescription(user + ' acarició a <@' + ment + ">")
         .setColor("PURPLE")
-        .setDescription("OwO")
         .setImage(randompat)
 
         message.channel.send({ embed: embedDatos });
-
     }
 
 
-    
 });  
 client.login(config.token);

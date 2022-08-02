@@ -147,7 +147,21 @@ client.on("message", (message) => {
             .setColor("RANDOM")
         message.channel.send(embed)
     }
+    if(message.content.startsWith(prefix + "acariciar")) {
+        let user = message.author.username;
+        let ment = message.mentions.users.first();
+        if(!user) return message.channel.send("Menciona a alguien para poder acariciarlo ·w·")
+        var respuestapat = ["https://c.tenor.com/Y7B6npa9mXcAAAAC/rikka-head-pat-pat-on-head.gif", "https://c.tenor.com/E6fMkQRZBdIAAAAC/kanna-kamui-pat.gif", "https://c.tenor.com/8DaE6qzF0DwAAAAC/neet-anime.gif", "https://c.tenor.com/i7nXGbPLqTsAAAAC/anime-hug.gif", "https://c.tenor.com/kM1mVaXE8Y8AAAAC/kaede-azusagawa-kaede.gif", "https://c.tenor.com/TRxNL32jtEIAAAAC/anime-pat.gif"]
+        let randompat = respuestapat[Math.floor(respuestapat.length * Math.random())]
 
+        const embedDatos = new Discord.MessageEmbed() 
+        .setTitle("Pat")
+        .setDescription(user + ' acarició a <@' + ment + ">")
+        .setColor("PURPLE")
+        .setImage(randompat)
+
+        message.channel.send({ embed: embedDatos });
+    }
 
     
 });  
