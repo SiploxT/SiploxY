@@ -143,7 +143,7 @@ client.on("message", (message) => {
         let ment = message.mentions.users.first();
         if(!user) return message.channel.send("Menciona a alguien para poder acariciarlo ·w·")
         var respuestapat = ["https://c.tenor.com/Y7B6npa9mXcAAAAC/rikka-head-pat-pat-on-head.gif", "https://c.tenor.com/E6fMkQRZBdIAAAAC/kanna-kamui-pat.gif", "https://c.tenor.com/8DaE6qzF0DwAAAAC/neet-anime.gif", "https://c.tenor.com/i7nXGbPLqTsAAAAC/anime-hug.gif", "https://c.tenor.com/kM1mVaXE8Y8AAAAC/kaede-azusagawa-kaede.gif", "https://c.tenor.com/TRxNL32jtEIAAAAC/anime-pat.gif", 
-    "https://c.tenor.com/8o4fWGwBY1EAAAAd/aharensan-aharen.gif"]
+    "https://c.tenor.com/8o4fWGwBY1EAAAAd/aharensan-aharen.gif", "https://c.tenor.com/jEfC8cztigIAAAAC/anime-pat.gif", "https://c.tenor.com/lOawy4d-SHMAAAAd/anime-cuddle-gauge.gif", "https://c.tenor.com/VzJtkXVo06wAAAAC/yuru-yuri-anime.gif", "https://c.tenor.com/Jj-vHGZOgT4AAAAC/anime-anime-girl.gif", "https://c.tenor.com/jBuHEbqxarcAAAAC/k-on-anime.gif"]
         let randompat = respuestapat[Math.floor(respuestapat.length * Math.random())]
 
         const embedDatos = new Discord.MessageEmbed() 
@@ -154,6 +154,7 @@ client.on("message", (message) => {
 
         message.channel.send({ embed: embedDatos });
     }
+
 
     
 });  
