@@ -148,6 +148,19 @@ client.on("message", (message) => {
             .setColor("RANDOM")
         message.channel.send(embed)
     }
+    if(message.content.startsWith(prefix + "acariciar")) {
+        let respuestapat = ["https://tenor.com/view/rikka-head-pat-pat-on-head-anime-rikka-gif-13911345.gif", "https://tenor.com/view/kanna-kamui-pat-head-pat-gif-12018819.gif", "https://tenor.com/view/neet-anime-cute-kawaii-pat-gif-9332926.gif", "https://tenor.com/view/anime-hug-girl-thats-okay-pat-gif-16038289.gif", "https://tenor.com/view/kaede-azusagawa-kaede-gif-head-headpat-gif-13284057.gif", "https://tenor.com/view/anime-pat-gif-22001988.gif"]
+        var randompat = respuestapat[Math.floor(Math.random() * respuestapat.length)]
+
+        const embedDatos = new Discord.MessageEmbed() 
+        .setTitle(message.author.username + "acarició a" + message.mentions.users.first())
+        .setColor("PURPLE")
+        .setDescription("OwO")
+        .setImage(randompat)
+
+        message.channel.send({ embed: embedDatos });
+
+    }
 
 
     
