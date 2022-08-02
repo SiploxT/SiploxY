@@ -1,7 +1,6 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const config = require("./config.json"); 
-const ise = require("image-search-engine")   
+const config = require("./config.json");  
 
 
 let prefix = config.prefix;
