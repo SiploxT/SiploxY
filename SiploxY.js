@@ -154,7 +154,21 @@ client.on("message", (message) => {
 
         message.channel.send({ embed: embedDatos });
     }
+    if(message.content.startsWith(prefix + "hug")) {
+        let user = message.author.username;
+        let ment = message.mentions.users.first();
+        if(!user) return message.channel.send("Menciona a alguien para poder abrazarlo ·w·")
+        var respuestahug = ["https://c.tenor.com/kCZjTqCKiggAAAAC/hug.gif", "https://c.tenor.com/fklZNDaU9NMAAAAC/hideri-hideri-kanzaki.gif"]
+        let randomhug = respuestahug[Math.floor(respuestahug.length * Math.random())]
 
+        const embedDatos = new Discord.MessageEmbed() 
+        .setTitle("")
+        .setDescription('**' + user + '**' + ' abrazó a **<@' + ment + ">**")
+        .setColor("PURPLE")
+        .setImage(randomhug)
+
+        message.channel.send({ embed: embedDatos });
+    }
 
     
 });  
