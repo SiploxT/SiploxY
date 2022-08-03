@@ -10,8 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "akaneko": "^5.2.3",
     "discord-tts": "^1.2.2",
     "discord.js": "^12.5.3",
-    "ffmpeg": "^0.0.4"
+    "ffmpeg": "^0.0.4",
+    "image-search-engine": "^1.2.1",
+    "math-expression-evaluator": "^1.4.0",
+    "nekos.life": "^3.0.0",
+    "weez": "^1.6.2"
   }
 }

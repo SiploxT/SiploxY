@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const config = require("./config.json");  
+const config = require("./config.json"); 
+
 
 let prefix = config.prefix;
 
@@ -24,13 +25,14 @@ client.on("message", (message) => {
             .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
             .addField('Pat', 'Acariciarás a la persona que menciones' )
+            .addField('Hug', 'Abrazás a  la  persona que menciones')
             .setColor("PURPLE")
         
         message.author.send(embed);
     }
     if(message.content.startsWith(prefix + "ping")) {
         message.channel.send(`La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.** ·w·`);
-        
+
     }
     if(message.content.startsWith(prefix + 'SiploxY')) {
         message.channel.send(`Yo`);
@@ -40,15 +42,6 @@ client.on("message", (message) => {
         color: 6816932,
         description: "·w·"
         }})
-    }
-    if(message.content.startsWith(prefix + "pat")) {
-        const embedDatos = new Discord.MessageEmbed() 
-        .setTitle("OwO")
-        .setColor("PURPLE")
-        .setDescription("")
-        .setImage("https://c.tenor.com/9R7fzXGeRe8AAAAC/fantasista-doll-anime.gif")
-
-        message.channel.send({ embed: embedDatos });
     }
     if(message.content.startsWith(prefix + "sleep")) {
         const embedDatos = new Discord.MessageEmbed() 
@@ -146,22 +139,48 @@ client.on("message", (message) => {
             .setColor("RANDOM")
         message.channel.send(embed)
     }
-    if(message.content.startsWith(prefix + "acariciar")) {
+    if(message.content.startsWith(prefix + "pat")) {
         let user = message.author.username;
         let ment = message.mentions.users.first();
         if(!user) return message.channel.send("Menciona a alguien para poder acariciarlo ·w·")
-        var respuestapat = ["https://c.tenor.com/Y7B6npa9mXcAAAAC/rikka-head-pat-pat-on-head.gif", "https://c.tenor.com/E6fMkQRZBdIAAAAC/kanna-kamui-pat.gif", "https://c.tenor.com/8DaE6qzF0DwAAAAC/neet-anime.gif", "https://c.tenor.com/i7nXGbPLqTsAAAAC/anime-hug.gif", "https://c.tenor.com/kM1mVaXE8Y8AAAAC/kaede-azusagawa-kaede.gif", "https://c.tenor.com/TRxNL32jtEIAAAAC/anime-pat.gif"]
+        var respuestapat = ["https://c.tenor.com/Y7B6npa9mXcAAAAC/rikka-head-pat-pat-on-head.gif", "https://c.tenor.com/E6fMkQRZBdIAAAAC/kanna-kamui-pat.gif", "https://c.tenor.com/8DaE6qzF0DwAAAAC/neet-anime.gif", "https://c.tenor.com/i7nXGbPLqTsAAAAC/anime-hug.gif", "https://c.tenor.com/kM1mVaXE8Y8AAAAC/kaede-azusagawa-kaede.gif", "https://c.tenor.com/TRxNL32jtEIAAAAC/anime-pat.gif", 
+    "https://c.tenor.com/8o4fWGwBY1EAAAAd/aharensan-aharen.gif", "https://c.tenor.com/jEfC8cztigIAAAAC/anime-pat.gif", "https://c.tenor.com/lOawy4d-SHMAAAAd/anime-cuddle-gauge.gif", "https://c.tenor.com/VzJtkXVo06wAAAAC/yuru-yuri-anime.gif", "https://c.tenor.com/Jj-vHGZOgT4AAAAC/anime-anime-girl.gif", "https://c.tenor.com/jBuHEbqxarcAAAAC/k-on-anime.gif"]
         let randompat = respuestapat[Math.floor(respuestapat.length * Math.random())]
 
         const embedDatos = new Discord.MessageEmbed() 
-        .setTitle("Pat")
-        .setDescription(user + ' acarició a <@' + ment + ">")
+        .setTitle("")
+        .setDescription('**' + user + '**' + ' acarició a **<@' + ment + ">**")
         .setColor("PURPLE")
         .setImage(randompat)
 
         message.channel.send({ embed: embedDatos });
     }
+    if(message.content.startsWith(prefix + "hug")) {
+        let user = message.author.username;
+        let ment = message.mentions.users.first();
+        if(!user) return message.channel.send("Menciona a alguien para poder abrazarlo ·w·")
+        var respuestahug = ["https://c.tenor.com/kCZjTqCKiggAAAAC/hug.gif", "https://c.tenor.com/fklZNDaU9NMAAAAC/hideri-hideri-kanzaki.gif", "https://c.tenor.com/gqM9rl1GKu8AAAAC/kitsune-upload-hug.gif", "https://c.tenor.com/9e1aE_xBLCsAAAAC/anime-hug.gif", "https://c.tenor.com/8Jk1ueYnyYUAAAAC/hug.gif", "https://c.tenor.com/gKlGEBBkliwAAAAC/anime-yuru-yuri.gif", "https://c.tenor.com/XKJwFX9B_DUAAAAC/hug.gif",
+    "https://c.tenor.com/vpE5_F_oqmsAAAAC/run-hug-hug.gif", "https://c.tenor.com/-0nQoPY5sZ0AAAAC/anime-hug-hug.gif", "https://c.tenor.com/we1trpFB2F0AAAAC/neko-hug.gif", "https://c.tenor.com/4D5jSREXInMAAAAd/anime-couple-hug.gif", "https://c.tenor.com/QTbBCR3j-vYAAAAd/hugs-best-friends.gif", "https://c.tenor.com/yc_shX2Xl_QAAAAd/girl-anime.gif", "https://c.tenor.com/TJuvig1CFBQAAAAM/the-pet-girl-of-sakurasou-sakurasou-no-pet-na-kanojo.gif" ]
+        let randomhug = respuestahug[Math.floor(respuestahug.length * Math.random())]
 
+        const embedDatos = new Discord.MessageEmbed() 
+        .setTitle("")
+        .setDescription('**' + user + '**' + ' abrazó a **<@' + ment + ">**")
+        .setColor("PURPLE")
+        .setImage(randomhug)
 
+        message.channel.send({ embed: embedDatos });
+    }
+    if(message.content.startsWith(prefix + "roles")) {
+        let id = message.guild.id; 
+         const embedRoles = new Discord.RichEmbed() 
+         .setColor("PURPLE")
+         .setDescription(`${client.guilds.get(id).roles.map(r => r.name).join(", ")}`)
+         .setFooter('Lista de roles de '+ message.guild.name);
+    
+        message.channel.send(embedRoles); 
+    }
+
+    
 });  
 client.login(config.token);

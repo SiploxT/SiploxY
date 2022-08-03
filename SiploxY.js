@@ -25,6 +25,7 @@ client.on("message", (message) => {
             .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
             .addField('Pat', 'Acariciarás a la persona que menciones' )
+            .addField('Hug', 'Abrazás a  la  persona que menciones')
             .setColor("PURPLE")
         
         message.author.send(embed);
@@ -170,6 +171,7 @@ client.on("message", (message) => {
 
         message.channel.send({ embed: embedDatos });
     }
+
 
     
 });  
