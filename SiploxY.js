@@ -24,8 +24,9 @@ client.on("message", (message) => {
             .addField('Dog', 'Enviará imagenes aleatorias de perros')
             .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
-            .addField('Pat', 'Acariciarás a la persona que menciones' )
+            .addField('Dance', 'Hará que bailes')
             .addField('Hug', 'Abrazás a  la  persona que menciones')
+            .addField('Pat', 'Acariciarás a la persona que menciones' )
             .setColor("PURPLE")
         
         message.author.send(embed);
@@ -174,7 +175,7 @@ client.on("message", (message) => {
     if(message.content.startsWith(prefix + "dance")) {
         let user = message.author.username;
         var respuestadance = ["https://c.tenor.com/YNHT2hPxGawAAAAd/happy-birthday.gif", "https://c.tenor.com/LP6rGpITvlsAAAAd/chill.gif", "https://c.tenor.com/mKTS5nbF1zcAAAAd/cute-anime-dancing.gif", "https://c.tenor.com/QwNUEvvKxY8AAAAd/happy-loli.gif", "https://c.tenor.com/U8WV2zeMLBEAAAAC/anime-dancing.gif", "https://c.tenor.com/1WtAgS78CB0AAAAd/duck-dance.gif", "https://c.tenor.com/8W8rOwe8XCEAAAAd/dance-anime.gif", "https://c.tenor.com/ysPVGNGfWBcAAAAC/anime-dance-happy.gif",
-    "https://c.tenor.com/GYjYgE-UCEgAAAAd/shinobu-kocho-dance.gif", "https://c.tenor.com/V8gBHFz-5mgAAAAC/kanna-kamui-kanna-dance.gif", "https://c.tenor.com/leneA9CzXlUAAAAC/dandidave-anime.gif", "https://c.tenor.com/_UMScn4rrGcAAAAC/dandidave-wave.gif", "https://c.tenor.com/gQ5iadXLfnQAAAAC/daisuke-dance.gif", "https://c.tenor.com/3Mc4IqoPAxAAAAAd/anime-dance.gif", "https://c.tenor.com/0w22pJMgugkAAAAC/hatsune-miku-dancing.gif" ]
+    "https://c.tenor.com/GYjYgE-UCEgAAAAd/shinobu-kocho-dance.gif", "https://c.tenor.com/V8gBHFz-5mgAAAAC/kanna-kamui-kanna-dance.gif", "https://c.tenor.com/leneA9CzXlUAAAAC/dandidave-anime.gif", "https://c.tenor.com/_UMScn4rrGcAAAAC/dandidave-wave.gif", "https://c.tenor.com/gQ5iadXLfnQAAAAC/daisuke-dance.gif", "https://c.tenor.com/3Mc4IqoPAxAAAAAd/anime-dance.gif", "https://c.tenor.com/0w22pJMgugkAAAAC/hatsune-miku-dancing.gif", "https://c.tenor.com/K7GNv-vxewEAAAAM/hatsune-miku-vocaloid.gif" ]
         let randomdance = respuestadance[Math.floor(respuestadance.length * Math.random())]
 
         const embedDatos = new Discord.MessageEmbed() 
