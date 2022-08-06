@@ -1,21 +1,20 @@
 {
   "name": "siploxy",
   "version": "1.0.0",
-  "description": "",
+  "description": "Definitivamente el mejor bot de Discord, con una gran variedad de comandos distintos y muy utiles para servidores de Discord, además de estar encendido 24/7.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+
   "keywords": [],
-  "author": "",
+  "author": "siploxT",
   "license": "ISC",
+
   "dependencies": {
-    "akaneko": "^5.2.3",
-    "discord-tts": "^1.2.2",
     "discord.js": "^12.5.3",
+    "discord-tts": "^1.2.2",
     "ffmpeg": "^0.0.4",
     "image-search-engine": "^1.2.1",
     "math-expression-evaluator": "^1.4.0",
+    "akaneko": "^5.2.3",
     "nekos.life": "^3.0.0",
     "weez": "^1.6.2"
   }
