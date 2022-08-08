@@ -17,6 +17,7 @@ client.on("message", (message) => {
         const embed = new Discord.MessageEmbed()
             .setAuthor(message.author.username, message.author.avatarURL())
             .addField('Ping', 'Comprobará la latencia de la API de Discord')
+            .addField('Roles', 'Mostrará todos los roles de el servidor en el que estes')
             .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado')
             .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
             .addField('SadCat', 'Enviará imagenes aleatorias de gatos tristes')
@@ -34,6 +35,16 @@ client.on("message", (message) => {
     if(message.content.startsWith(prefix + "ping")) {
         message.channel.send(`La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.** ·w·`);
 
+    }
+    if(message.content.startsWith(prefix + "roles")) {
+        let id = message.guild;
+         const embedRoles = new Discord.MessageEmbed()
+         .setColor("PURPLE")
+         .setDescription(`${id.roles.cache.map(r => r.name).join("- ")}`)
+         .setFooter('Lista de roles de '+ message.guild.name);
+    
+        message.channel.send(embedRoles); 
+    
     }
     if(message.content.startsWith(prefix + 'SiploxY')) {
         message.channel.send(`Yo`);
@@ -188,7 +199,6 @@ client.on("message", (message) => {
 
         message.channel.send({ embed: embedDatos });
     }
-
     
 });  
 client.login(config.token);
