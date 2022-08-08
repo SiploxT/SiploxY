@@ -17,6 +17,7 @@ client.on("message", (message) => {
         const embed = new Discord.MessageEmbed()
             .setAuthor(message.author.username, message.author.avatarURL())
             .addField('Ping', 'Comprobará la latencia de la API de Discord')
+            .addField('Roles', 'Mostrará todos los roles de el servidor en el que estes')
             .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado')
             .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
             .addField('SadCat', 'Enviará imagenes aleatorias de gatos tristes')
@@ -31,10 +32,6 @@ client.on("message", (message) => {
         
         message.author.send(embed);
     }
-    if(message.content.startsWith(prefix + "ping")) {
-        message.channel.send(`La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.** ·w·`);
-
-    }
     if(message.content.startsWith(prefix + 'SiploxY')) {
         message.channel.send(`Yo`);
     }
@@ -44,14 +41,29 @@ client.on("message", (message) => {
         description: "·w·"
         }})
     }
-    if(message.content.startsWith(prefix + "sleep")) {
-        const embedDatos = new Discord.MessageEmbed() 
-        .setTitle("Zzz")
-        .setColor("PURPLE")
-        .setDescription("")
-        .setImage("https://c.tenor.com/rVQy1P3iqJkAAAAC/gura-gawr.gif")
+    if(message.content.startsWith(prefix + "ping")) {
+        message.channel.send(`La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.** ·w·`);
 
-        message.channel.send({ embed: embedDatos });
+    }
+    if(message.content.startsWith(prefix + "roles")) {
+        let id = message.guild;
+         const embedRoles = new Discord.MessageEmbed()
+         .setColor("PURPLE")
+         .setDescription(`${id.roles.cache.map(r => r.name).join(" - ")}`)
+         .setFooter('Lista de roles de '+ message.guild.name);
+    
+        message.channel.send(embedRoles); 
+    
+    }
+    if(message.content.startsWith(prefix + "say")) {
+        const args = message.content.slice(5)
+        if(!args) return message.channel.send("Necesitas poner algo para que pueda decirlo ·w·") 
+    
+        message.channel.send(args)
+    
+        message.delete()
+        .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+        .catch(console.error);
     }
     if(message.content.startsWith(prefix + "8ball")) {
         const args = message.content.slice(7)
@@ -70,16 +82,6 @@ client.on("message", (message) => {
       
       
       message.channel.send(randomdado)
-    }
-    if(message.content.startsWith(prefix + "say")) {
-    const args = message.content.slice(5)
-    if(!args) return message.channel.send("Necesitas poner algo para que pueda decirlo ·w·") 
-
-    message.channel.send(args)
-
-    message.delete()
-    .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-    .catch(console.error);
     }
     if(message.content.startsWith(prefix + "SadCat")) {
      const fetch = require('node-fetch')
@@ -174,6 +176,22 @@ client.on("message", (message) => {
 
         message.channel.send({ embed: embedDatos });
     }
+    if(message.content.startsWith(prefix + "cuddle")) {
+        let user = message.author.username;
+        let ment = message.mentions.users.first();
+        if(!user) return message.channel.send("Menciona a alguien para poder acurrucarte con el ·w·")
+        var respuestacuddle = ["https://c.tenor.com/doc8uMAT5ssAAAAC/anime-love.gif", "https://c.tenor.com/wwd7R-pi7DIAAAAC/anime-cuddle.gif", "https://c.tenor.com/s44ige0diLYAAAAC/sanriokill-anime.gif", "https://c.tenor.com/ItpTQW2UKPYAAAAC/cuddle-hug.gif", "https://c.tenor.com/2VVGNLi-EV4AAAAC/anime-cute.gif", "https://c.tenor.com/gowinK__PvAAAAAC/anime-cuddle.gif", "https://c.tenor.com/8BqG6yTLCLEAAAAC/anime.gif",
+    "https://c.tenor.com/WWgamF4xjZcAAAAC/anime-cuddle.gif", "https://c.tenor.com/y9_xxO9iMwkAAAAC/hug.gif", "https://c.tenor.com/hGUWkkHB_DQAAAAC/cuddle-anime.gif", "https://c.tenor.com/b3Qvt--s_i0AAAAC/hugs.gif", "https://c.tenor.com/NaJIRcVnWloAAAAd/sao-sword-art-online.gif", "https://c.tenor.com/XLWytMsrNy8AAAAC/kaioura-anime-girl.gif", "https://c.tenor.com/Fld0jbqWpDsAAAAC/gochuumon-wa-usagi-desuka-is-the-order-a-rabbit.gif"]
+        let randomcuddle = respuestacuddle[Math.floor(respuestacuddle.length * Math.random())]
+
+        const embedDatos = new Discord.MessageEmbed()
+        .setTitle("")
+        .setDescription('**' + user + '**' + ' se acurrucó con **<@' + ment + ">**")
+        .setColor("PURPLE")
+        .setImage(randomcuddle)
+
+        message.channel.send({ embed: embedDatos });
+    }
     if(message.content.startsWith(prefix + "dance")) {
         let user = message.author.username;
         var respuestadance = ["https://c.tenor.com/YNHT2hPxGawAAAAd/happy-birthday.gif", "https://c.tenor.com/LP6rGpITvlsAAAAd/chill.gif", "https://c.tenor.com/QwNUEvvKxY8AAAAd/happy-loli.gif", "https://c.tenor.com/U8WV2zeMLBEAAAAC/anime-dancing.gif", "https://c.tenor.com/1WtAgS78CB0AAAAd/duck-dance.gif", "https://c.tenor.com/8W8rOwe8XCEAAAAd/dance-anime.gif", "https://c.tenor.com/ysPVGNGfWBcAAAAC/anime-dance-happy.gif",
@@ -188,16 +206,6 @@ client.on("message", (message) => {
 
         message.channel.send({ embed: embedDatos });
     }
-    if(message.content.startsWith(prefix + "roles")) {
-        let id = message.guild.id; 
-        const embedRoles = new Discord.MessageEmbed() 
-         .setColor("PURPLE")
-         .setDescription(`${client.guilds.get(id).roles.map(r => r.name).join(", ")}`)
-         .setFooter('Lista de roles de '+ message.guild.name);
-    
-        message.channel.send(embedRoles); 
-    }
-
     
 });  
 client.login(config.token);
