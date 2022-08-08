@@ -20,17 +20,19 @@ client.on("message", (message) => {
             .addField('Roles', 'Mostrará todos los roles de el servidor en el que estes')
             .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado')
             .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
+            .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
+            .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
+            .addField('Coinflip', 'Lanzará una monera y saldrá cara o cruz', true)
             .addField('SadCat', 'Enviará imagenes aleatorias de gatos tristes')
             .addField('Cat', 'Enviará imagenes aleatorias de gatos ￣ω￣')
             .addField('Dog', 'Enviará imagenes aleatorias de perros')
-            .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
-            .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
             .addField('Dance', 'Hará que bailes')
             .addField('Hug', 'Abrazás a  la  persona que menciones')
             .addField('Pat', 'Acariciarás a la persona que menciones' )
             .setColor("PURPLE")
         
         message.author.send(embed);
+        message.channel.send("Te he mandado un mensaje con todos los comandos a tu md ·w·")
     }
     if(message.content.startsWith(prefix + 'SiploxY')) {
         message.channel.send(`Yo`);
@@ -40,6 +42,12 @@ client.on("message", (message) => {
         color: 6816932,
         description: "·w·"
         }})
+    }
+    if(message.content.startsWith(prefix + "randomuser")) {
+    const embed = new Discord.MessageEmbed() 
+        .setDescription(message.guild.members.cache.random().displayName) 
+        .setColor("RANDOM")
+    message.channel.send(embed)
     }
     if(message.content.startsWith(prefix + "ping")) {
         message.channel.send(`La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.** ·w·`);
@@ -78,10 +86,15 @@ client.on("message", (message) => {
     if(message.content.startsWith(prefix + "dado")) {
         let respuestadado = ["🎲 ¡Te ha salido un **1**!", "🎲 ¡Te ha salido un **2**!", "🎲 ¡Te ha salido un **3**!", "🎲 ¡Te ha salido un **4**!", "🎲 ¡Te ha salido un **5**!", "🎲 ¡Te ha salido un **6**!"]
         var randomdado = respuestadado[Math.floor(Math.random() * respuestadado.length)]
-      const embed = new Discord.MessageEmbed()/
       
       
       message.channel.send(randomdado)
+    }
+    if(message.content.startsWith(prefix + "coinflip")) {
+        let respuestacoin = [":coin: ¡Te ha salido **cara**! :coin: ", ":coin: ¡Te ha salido **cruz**! :coin: "]
+        var randomcoin = respuestacoin[Math.floor(Math.random() * respuestacoin.length)]
+
+      message.channel.send(randomcoin)
     }
     if(message.content.startsWith(prefix + "SadCat")) {
      const fetch = require('node-fetch')
@@ -137,12 +150,6 @@ client.on("message", (message) => {
         let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048}) 
 
         message.channel.send(avatar)
-    }
-    if(message.content.startsWith(prefix + "randomuser")) {
-        const embed = new Discord.MessageEmbed() 
-            .setDescription(message.guild.members.cache.random().displayName) 
-            .setColor("RANDOM")
-        message.channel.send(embed)
     }
     if(message.content.startsWith(prefix + "pat")) {
         let user = message.author.username;
