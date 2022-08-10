@@ -96,7 +96,7 @@ client.on("message", (message) => {
         message.channel.send(args)
     
         message.delete()
-        .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+        .then(msg => console.log(`Deleted message from ${msg.author.username} - ` + args))
         .catch(console.error);
     }
     if(message.content.startsWith(prefix + "8ball")) {
