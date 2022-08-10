@@ -18,6 +18,7 @@ client.on("message", (message) => {
             .setAuthor(message.author.username, message.author.avatarURL())
             .addField('Ping', 'Comprobará la latencia de la API de Discord')
             .addField('Roles', 'Mostrará todos los roles de el servidor en el que estes')
+            .addField('Servericon', 'Mostrará el icono del servidor en el que estes.')
             .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado')
             .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
@@ -78,8 +79,15 @@ client.on("message", (message) => {
     if(message.content.startsWith(prefix + "avatar")) {
      let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
      let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048}) 
+     let ment = message.mentions.users.first();
 
-     message.channel.send(avatar)
+     const embedAvatar = new Discord.MessageEmbed()
+
+     .setDescription("**Avatar de** <@" + user + "> **:** " )
+     .setColor("RANDOM")
+     .setImage(avatar)
+
+     message.channel.send(embedAvatar)
     }
     if(message.content.startsWith(prefix + "say")) {
         const args = message.content.slice(5)

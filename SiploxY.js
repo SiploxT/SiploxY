@@ -79,8 +79,15 @@ client.on("message", (message) => {
     if(message.content.startsWith(prefix + "avatar")) {
      let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
      let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048}) 
+     let ment = message.mentions.users.first();
 
-     message.channel.send(avatar)
+     const embedAvatar = new Discord.MessageEmbed()
+
+     .setDescription("**Avatar de** <@" + user + "> **:** " )
+     .setColor("RANDOM")
+     .setImage(avatar)
+
+     message.channel.send(embedAvatar)
     }
     if(message.content.startsWith(prefix + "say")) {
         const args = message.content.slice(5)
