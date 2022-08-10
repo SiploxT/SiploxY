@@ -18,6 +18,7 @@ client.on("message", (message) => {
             .setAuthor(message.author.username, message.author.avatarURL())
             .addField('Ping', 'Comprobará la latencia de la API de Discord')
             .addField('Roles', 'Mostrará todos los roles de el servidor en el que estes')
+            .addField('Servericon', 'Mostrará el icono del servidor en el que estes.')
             .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado')
             .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
@@ -62,6 +63,24 @@ client.on("message", (message) => {
     
         message.channel.send(embedRoles); 
     
+    }
+    if(message.content.startsWith(prefix + "servericon")) {
+        let icon = message.guild.iconURL({size : 2048, dyamic : true})
+        let id = message.guild;
+
+        const embedIcon = new Discord.MessageEmbed()
+        
+        .setTitle("El icono de " + message.guild.name + " es:")
+        .setColor("RANDOM")
+        .setImage(icon)
+
+        message.channel.send(embedIcon)
+    }
+    if(message.content.startsWith(prefix + "avatar")) {
+     let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
+     let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048}) 
+
+     message.channel.send(avatar)
     }
     if(message.content.startsWith(prefix + "say")) {
         const args = message.content.slice(5)
@@ -144,12 +163,6 @@ client.on("message", (message) => {
             message.channel.send(embed)
         })
    
-    }
-    if(message.content.startsWith(prefix + "avatar")) {
-        let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
-        let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048}) 
-
-        message.channel.send(avatar)
     }
     if(message.content.startsWith(prefix + "pat")) {
         let user = message.author.username;
