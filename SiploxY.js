@@ -28,6 +28,7 @@ client.on("message", (message) => {
             .addField('Cat', 'Enviará imagenes aleatorias de gatos ￣ω￣')
             .addField('Dog', 'Enviará imagenes aleatorias de perros')
             .addField('Dance', 'Hará que bailes')
+            .addField('Cuddle', 'Te acurrucarás con las personas que menciones')
             .addField('Hug', 'Abrazás a  la  persona que menciones')
             .addField('Pat', 'Acariciarás a la persona que menciones' )
             .setColor("PURPLE")
@@ -126,7 +127,7 @@ client.on("message", (message) => {
      const fetch = require('node-fetch')
      const { MessageEmbed } = require("discord.js")
     
-    
+        
      fetch(`https://api.alexflipnote.dev/sadcat`)
         .then((res) => res.json())
         .then((body) => {
