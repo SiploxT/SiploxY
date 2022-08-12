@@ -28,6 +28,7 @@ client.on("message", (message) => {
             .addField('Cat', 'Enviará imagenes aleatorias de gatos ￣ω￣')
             .addField('Dog', 'Enviará imagenes aleatorias de perros')
             .addField('Dance', 'Hará que bailes')
+            .addField('Cuddle', 'Te acurrucarás con las personas que menciones')
             .addField('Hug', 'Abrazás a  la  persona que menciones')
             .addField('Pat', 'Acariciarás a la persona que menciones' )
             .setColor("PURPLE")
@@ -79,7 +80,6 @@ client.on("message", (message) => {
     if(message.content.startsWith(prefix + "avatar")) {
      let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
      let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048}) 
-     let ment = message.mentions.users.first();
 
      const embedAvatar = new Discord.MessageEmbed()
 
@@ -96,7 +96,7 @@ client.on("message", (message) => {
         message.channel.send(args)
     
         message.delete()
-        .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+        .then(msg => console.log(`Deleted message from ${msg.author.username} - ` + args))
         .catch(console.error);
     }
     if(message.content.startsWith(prefix + "8ball")) {
@@ -104,10 +104,9 @@ client.on("message", (message) => {
         if(!args) return message.channel.send("Necesitas preguntarme algo para que pueda responderte ·w·")
         let respuesta = ["Sis", "Non", "Puede ser", "Es lo mas probable", "Las probabilidades son bajas", "No lo creo", "Definitivamente.", "Definitivamente no."  ]
         var random = respuesta[Math.floor(Math.random() * respuesta.length)]
-      const embed = new Discord.MessageEmbed()/
+
       
-      
-      message.channel.send(random)
+        message.channel.send(random)
     }
     if(message.content.startsWith(prefix + "dado")) {
         let respuestadado = ["🎲 ¡Te ha salido un **1**!", "🎲 ¡Te ha salido un **2**!", "🎲 ¡Te ha salido un **3**!", "🎲 ¡Te ha salido un **4**!", "🎲 ¡Te ha salido un **5**!", "🎲 ¡Te ha salido un **6**!"]
@@ -126,7 +125,7 @@ client.on("message", (message) => {
      const fetch = require('node-fetch')
      const { MessageEmbed } = require("discord.js")
     
-    
+        
      fetch(`https://api.alexflipnote.dev/sadcat`)
         .then((res) => res.json())
         .then((body) => {
@@ -187,6 +186,21 @@ client.on("message", (message) => {
 
         message.channel.send({ embed: embedDatos });
     }
+    if(message.content.startsWith(prefix + "kill")) {
+        let user = message.author.username;
+        let ment = message.mentions.users.first();
+        if(!user) return message.channel.send("Menciona a la persona que quieras matar ·w·")
+        var respuestakill = ["https://c.tenor.com/NbBCakbfZnkAAAAC/die-kill.gif", "https://c.tenor.com/Ds187JeCgckAAAAC/animehit-fugirl.gif", "https://c.tenor.com/Ze50E1rW44UAAAAd/akudama-drive.gif", "https://c.tenor.com/t-0fYVPgg1YAAAAC/pink-hair-anime.gif", "https://c.tenor.com/AGTqt-wXyiEAAAAC/nichijou-minigun.gif", "https://c.tenor.com/Mn4W4D899WEAAAAC/ira-gamagoori-attack.gif", "https://c.tenor.com/bznBkYdhexcAAAAC/fire-arm-fire.gif", 
+    "https://c.tenor.com/hkeM4Uie0bcAAAAd/anime-lick-anime-yandere.gif", "https://c.tenor.com/WxLl5mre8pYAAAAd/anime-kill.gif", ""]
+        let randomkill = respuestakill[Math.floor(respuestakill.length * Math.random())]
+
+        const embedDatos = new Discord.MessageEmbed()
+        .setTitle("")
+        .setDescription('**' + user + '**' + ' mató a **<@' + ment + ">**")
+        .setColor("PURPLE")
+        .setImage(randomkill)
+
+    }
     if(message.content.startsWith(prefix + "hug")) {
         let user = message.author.username;
         let ment = message.mentions.users.first();
@@ -208,7 +222,7 @@ client.on("message", (message) => {
         let ment = message.mentions.users.first();
         if(!user) return message.channel.send("Menciona a alguien para poder acurrucarte con el ·w·")
         var respuestacuddle = ["https://c.tenor.com/doc8uMAT5ssAAAAC/anime-love.gif", "https://c.tenor.com/wwd7R-pi7DIAAAAC/anime-cuddle.gif", "https://c.tenor.com/s44ige0diLYAAAAC/sanriokill-anime.gif", "https://c.tenor.com/ItpTQW2UKPYAAAAC/cuddle-hug.gif", "https://c.tenor.com/2VVGNLi-EV4AAAAC/anime-cute.gif", "https://c.tenor.com/gowinK__PvAAAAAC/anime-cuddle.gif", "https://c.tenor.com/8BqG6yTLCLEAAAAC/anime.gif",
-    "https://c.tenor.com/WWgamF4xjZcAAAAC/anime-cuddle.gif", "https://c.tenor.com/y9_xxO9iMwkAAAAC/hug.gif", "https://c.tenor.com/hGUWkkHB_DQAAAAC/cuddle-anime.gif", "https://c.tenor.com/b3Qvt--s_i0AAAAC/hugs.gif", "https://c.tenor.com/NaJIRcVnWloAAAAd/sao-sword-art-online.gif", "https://c.tenor.com/XLWytMsrNy8AAAAC/kaioura-anime-girl.gif", "https://c.tenor.com/Fld0jbqWpDsAAAAC/gochuumon-wa-usagi-desuka-is-the-order-a-rabbit.gif"]
+     "https://c.tenor.com/WWgamF4xjZcAAAAC/anime-cuddle.gif", "https://c.tenor.com/y9_xxO9iMwkAAAAC/hug.gif", "https://c.tenor.com/hGUWkkHB_DQAAAAC/cuddle-anime.gif", "https://c.tenor.com/b3Qvt--s_i0AAAAC/hugs.gif", "https://c.tenor.com/NaJIRcVnWloAAAAd/sao-sword-art-online.gif", "https://c.tenor.com/XLWytMsrNy8AAAAC/kaioura-anime-girl.gif", "https://c.tenor.com/Fld0jbqWpDsAAAAC/gochuumon-wa-usagi-desuka-is-the-order-a-rabbit.gif"]
         let randomcuddle = respuestacuddle[Math.floor(respuestacuddle.length * Math.random())]
 
         const embedDatos = new Discord.MessageEmbed()
