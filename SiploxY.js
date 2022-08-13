@@ -138,6 +138,24 @@ client.on("message", (message) => {
 
       message.channel.send(randomcoin)
     }
+    if(message.content.startsWith(prefix + "neko")) {
+        const fetch = require ('node-fetch')
+        const { MessageEmbed } = require("discord.js")
+
+
+        fetch(`https://neko-love.xyz/api/v1/neko`)
+        .then((res) => res.json())
+        .then((body) => {
+            console.log(body)
+            let embed = new MessageEmbed()
+            .setTitle('Neko')
+            .setImage(body.file)
+            .setColor("PURPLE")
+            message.channel.send(embed)
+        })
+
+
+    }
     if(message.content.startsWith(prefix + "SadCat")) {
      const fetch = require('node-fetch')
      const { MessageEmbed } = require("discord.js")
