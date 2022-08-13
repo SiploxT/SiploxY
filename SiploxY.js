@@ -37,17 +37,21 @@ client.on("message", (message) => {
             .addField('Servericon', 'Mostrará el icono del servidor en el que estes.')
             .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado')
             .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
+            // ^ Utilidad
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
             .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
             .addField('Coinflip', 'Lanzará una monera y saldrá cara o cruz', true)
+            .addField('Neko', "Enviará imagenes aleatorias de nekos ·w·")
             .addField('SadCat', 'Enviará imagenes aleatorias de gatos tristes')
             .addField('Cat', 'Enviará imagenes aleatorias de gatos ￣ω￣')
+            // ^ Entretenimiento
             .addField('Dog', 'Enviará imagenes aleatorias de perros')
             .addField('Dance', 'Hará que bailes')
             .addField('Cuddle', 'Te acurrucarás con las personas que menciones')
             .addField('Hug', 'Abrazás a  la  persona que menciones')
             .addField('Pat', 'Acariciarás a la persona que menciones' )
             .addField('Kill', "Matarás a la persona que menciones")
+            // ^ Interacción
             .setColor("PURPLE")
         
         message.author.send(embed);
@@ -67,7 +71,7 @@ client.on("message", (message) => {
         .setDescription(message.guild.members.cache.random().displayName) 
         .setColor("RANDOM")
     message.channel.send(embed)
-    }
+    }                                                                                                                             // COMANDOS DE UTLIDAD
     if(message.content.startsWith(prefix + "ping")) {
         message.channel.send(`La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.** ·w·`);
 
@@ -115,7 +119,7 @@ client.on("message", (message) => {
         message.delete()
         .then(msg => console.log(`Deleted message from ${msg.author.username} - ` + args))
         .catch(console.error);
-    }
+    }                                                                                                                                  // COMANDOS DE ENTRETENIMIENTO
     if(message.content.startsWith(prefix + "8ball")) {
         const args = message.content.slice(7)
         if(!args) return message.channel.send("Necesitas preguntarme algo para que pueda responderte ·w·")
@@ -148,8 +152,8 @@ client.on("message", (message) => {
         .then((body) => {
             console.log(body)
             let embed = new MessageEmbed()
-            .setTitle('Neko')
-            .setImage(body.file)
+            .setTitle('Toma una neko ·w·')
+            .setImage(body.url)
             .setColor("PURPLE")
             message.channel.send(embed)
         })
@@ -202,9 +206,9 @@ client.on("message", (message) => {
             .setImage(body.file)
             .setColor("PURPLE")
             message.channel.send(embed)
-        })
-   
-    }
+        })                                                                                                                    // COMANDOS DE INTERACCIÓN
+
+    }                                                                                               
     if(message.content.startsWith(prefix + "kill")) {
         let user = message.author.username;
         let ment = message.mentions.users.first();
