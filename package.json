@@ -9,6 +9,7 @@
   "dependencies": {
     "akaneko": "^5.2.3",
     "bombsweeper.js": "^1.0.1",
+    "canvas": "^2.9.3",
     "discord-tts": "^1.2.2",
     "discord.js": "^12.5.3",
     "discord.js-minesweeper": "^1.1.0",
@@ -16,6 +17,6 @@
     "image-search-engine": "^1.2.1",
     "math-expression-evaluator": "^1.4.0",
     "nekos.life": "^3.0.0",
-    "weez": "^1.6.2"
+    "something-random-on-discord": "^3.4.4"
   }
 }
