@@ -17,7 +17,7 @@ client.on("message", (message) => {
                 message.reply('Dime que quieres que me ponga de estado ·w·')
             }else{
                 client.user.setActivity({name:estado, type:2})
-                message.channel.send("He cambiado mi estado a ~**Playing " + estado + ".**~")
+                message.channel.send("He cambiado mi estado a ~**Playing " + estado + ". **~")
             }    
         }
     }
@@ -71,7 +71,7 @@ client.on("message", (message) => {
         .setDescription(message.guild.members.cache.random().displayName) 
         .setColor("RANDOM")
     message.channel.send(embed)
-    }                                                                                                                             // COMANDOS DE UTLIDAD
+    }                                                                                                                                         // COMANDOS DE UTLIDAD
     if(message.content.startsWith(prefix + "ping")) {
         message.channel.send(`La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.** ·w·`);
 
@@ -160,6 +160,21 @@ client.on("message", (message) => {
 
 
     }
+    if(message.content.startsWith(prefix + "capybara")) {
+        const fetch = require ('node-fetch')
+        const { MessageEmbed } = require("discord.js")
+
+        fetch(`https://api.capybara-api.xyz/v1/image/random`)
+        .then((res) => res.json())
+        .then((body) => {
+            console.log(body)
+            let embed = new MessageEmbed()
+            .setTitle('capybara ?!')
+            .setImage(body.storage_url)
+            .setColor("GREEN")
+            message.channel.send(embed)
+        })
+    }
     if(message.content.startsWith(prefix + "SadCat")) {
      const fetch = require('node-fetch')
      const { MessageEmbed } = require("discord.js")
@@ -206,9 +221,8 @@ client.on("message", (message) => {
             .setImage(body.file)
             .setColor("PURPLE")
             message.channel.send(embed)
-        })                                                                                                                    // COMANDOS DE INTERACCIÓN
-
-    }                                                                                               
+        })                                                                                                                                      // COMANDOS DE INTERACCIÓN                                                        // COMANDOS DE INTERACCIÓ
+    }                                                                                            
     if(message.content.startsWith(prefix + "kill")) {
         let user = message.author.username;
         let ment = message.mentions.users.first();
