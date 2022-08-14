@@ -163,6 +163,8 @@ client.on("message", (message) => {
 
     }
     if(message.content.startsWith(prefix + "capybara")) {
+        var capy = ["capybara ?!", "capybara !  !! !", "^__^", "coconut doggy", "o my gosh", "cappy blappy"]
+        var capyrandom = capy[Math.floor(capy.length * Math.random())]
         const fetch = require ('node-fetch')
         const { MessageEmbed } = require("discord.js")
 
@@ -171,7 +173,7 @@ client.on("message", (message) => {
         .then((body) => {
             console.log(body)
             let embed = new MessageEmbed()
-            .setTitle('capybara ?!')
+            .setTitle(capyrandom)
             .setImage(body.storage_url)
             .setColor("GREEN")
             message.channel.send(embed)
