@@ -17,7 +17,7 @@ client.on("message", (message) => {
                 message.reply('Dime que quieres que me ponga de estado ·w·')
             }else{
                 client.user.setActivity({name:estado, type:2})
-                message.channel.send("He cambiado mi estado a ~**Playing " + estado + ". **~")
+                message.channel.send("He cambiado mi estado a ~**Listening to " + estado + ". **~")
             }    
         }
     }
@@ -79,13 +79,15 @@ client.on("message", (message) => {
 
     }
     if(message.content.startsWith(prefix + "roles")) {
+        let icon = message.guild.iconURL({size : 2048, dyamic : true})
         let id = message.guild;
          const embedRoles = new Discord.MessageEmbed()
          .setColor("PURPLE")
-         .setDescription(`<@${id.roles.cache.map(r => r.name).join("> - <@")}`)
+         .setThumbnail(icon)
+         .setDescription(`${id.roles.cache.map(r => r.name).join(" - ")}`)
          .setFooter('Lista de roles de '+ message.guild.name);
     
-        message.channel.send(embedRoles); 
+        message.channel.send(embedRoles);   
     
     }
     if(message.content.startsWith(prefix + "servericon")) {
@@ -120,8 +122,8 @@ client.on("message", (message) => {
     
         message.delete()
         .then(msg => console.log(`Deleted message from ${msg.author.username} - ` + args))
-        .catch(console.error);                                                                                                         // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥
-    }                                                                                                                                  // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ 
+        .catch(console.error);                                                                                                              // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥
+    }                                                                                                                                       // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ 
     if(message.content.startsWith(prefix + "8ball")) {
         const args = message.content.slice(7)
         if(!args) return message.channel.send("Necesitas preguntarme algo para que pueda responderte ·w·")
@@ -135,7 +137,6 @@ client.on("message", (message) => {
         let respuestadado = ["🎲 ¡Te ha salido un **1**!", "🎲 ¡Te ha salido un **2**!", "🎲 ¡Te ha salido un **3**!", "🎲 ¡Te ha salido un **4**!", "🎲 ¡Te ha salido un **5**!", "🎲 ¡Te ha salido un **6**!"]
         var randomdado = respuestadado[Math.floor(Math.random() * respuestadado.length)]
       
-      
       message.channel.send(randomdado)
     }
     if(message.content.startsWith(prefix + "coinflip")) {
@@ -143,8 +144,8 @@ client.on("message", (message) => {
         var randomcoin = respuestacoin[Math.floor(Math.random() * respuestacoin.length)]
 
       message.channel.send(randomcoin)
-    }                                                                                                                                   // COMANDOS DE IMAGENES ♥ ♥ ♥ 
-    if(message.content.startsWith(prefix + "neko")) {                                                                                   // COMANDOS DE IMAGENES ♥ ♥ ♥ 
+    }                                                                                                                                 
+    if(message.content.startsWith(prefix + "neko")) {                                                                                   
         const fetch = require ('node-fetch')
         const { MessageEmbed } = require("discord.js")
 
@@ -195,22 +196,6 @@ client.on("message", (message) => {
             message.channel.send(embed)
         })
     }
-    if(message.content.startsWith(prefix + "dog")) {
-     const fetch = require('node-fetch')
-     const { MessageEmbed } = require("discord.js")
-    
-    
-     fetch(`https://api.alexflipnote.dev/dogs`)
-        .then((res) => res.json())
-        .then((body) => {
-            console.log(body)
-            let embed = new MessageEmbed()
-            .setTitle('Doggy')
-            .setImage(body.file)
-            .setColor("PURPLE")
-            message.channel.send(embed)
-        })
-    }
     if(message.content.startsWith(prefix + "cat")) {
      const fetch = require('node-fetch')
      const { MessageEmbed } = require("discord.js")
@@ -224,10 +209,26 @@ client.on("message", (message) => {
             .setTitle('Meow')
             .setImage(body.file)
             .setColor("PURPLE")
-            message.channel.send(embed)                                                                                                         // COMANDOS DE INTERACCIÓN ♥ ♥ ♥
-        })                                                                                                                                      // COMANDOS DE INTERACCIÓN ♥ ♥ ♥                                                    // COMANDOS DE INTERACCIÓ
-    }                                                                                            
-    if(message.content.startsWith(prefix + "cuddle")) {
+            message.channel.send(embed)                                                                                                         
+        })                                                                                                                                                                                          // COMANDOS DE INTERACCIÓ
+    }   
+    if(message.content.startsWith(prefix + "dog")) {
+        const fetch = require('node-fetch')
+        const { MessageEmbed } = require("discord.js")
+       
+       
+        fetch(`https://api.alexflipnote.dev/dogs`)
+           .then((res) => res.json())
+           .then((body) => {
+               console.log(body)
+               let embed = new MessageEmbed()
+               .setTitle('Doggy')
+               .setImage(body.file)
+               .setColor("PURPLE")
+               message.channel.send(embed)
+           })
+       }                                                                                                                                        // COMANDOS DE INTERACCIÓN ♥ ♥ ♥                                                  
+    if(message.content.startsWith(prefix + "cuddle")) {                                                                                         // COMANDOS DE INTERACCIÓN ♥ ♥ ♥
         let user = message.author.username;
         let ment = message.mentions.users.first();
         if(!user) return message.channel.send("Menciona a alguien para poder acurrucarte con el ·w·")
