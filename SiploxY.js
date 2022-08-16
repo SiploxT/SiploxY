@@ -3,6 +3,9 @@ const client = new Discord.Client();
 const config = require("./config.json"); 
 
 
+const snipes = new Discord.Collection()   // Variable para comando "snipe"
+
+
 let prefix = config.prefix;
 
 client.on("ready", () => {
@@ -25,7 +28,11 @@ client.on("message", (message) => {
 
 });
 
-client.on("message", (message) => {
+client.on('messageDelete', message => {
+   snipes.set(message.channel.id, message)
+})
+
+client.on("message", async (message) => {
     if (message.author.bot) return;
 	const args = message.content.trim().split(/ +/g);
     if(message.content.startsWith(prefix + 'help')) {
@@ -43,16 +50,16 @@ client.on("message", (message) => {
             .addField('Coinflip', 'Lanzará una monera y saldrá cara o cruz', true)
             .addField('Randomuser', 'Dirá el nombre de un usuario aleatorio del server', true)
             // ^ Entretenimiento
-            .addField('Neko', 'Enviará imagenes aleatorias de nekos ·w·')
-            .addField('Capybara', 'Enviará imagenes aleatorias de Capybaras')
-            .addField('SadCat', 'Enviará imagenes aleatorias de gatos tristes')
-            .addField('Cat', 'Enviará imagenes aleatorias de gatos ￣ω￣')
+            .addField('Neko', 'Enviará imagenes aleatorias de nekos ·w·', true)
+            .addField('Capybara', 'Enviará imagenes aleatorias de Capybaras', true)
+            .addField('SadCat', 'Enviará imagenes aleatorias de gatos tristes', true)
+            .addField('Cat', 'Enviará imagenes aleatorias de gatos ￣ω￣', true)
             .addField('Dog', 'Enviará imagenes aleatorias de perros')
             // ^ Imagenes
             .addField('Kiss', 'Besarás a la persona que menciones **o.o**')
             .addField('Cuddle', 'Te acurrucarás con las personas que menciones')
             .addField('Hug', 'Abrazás a  la  persona que menciones')
-            .addField('Pat', 'Acariciarás a la persona que menciones' )
+            .addField('Pat', 'Acariciarás a la persona que menciones')
             .addField('Dance', 'Hará que bailes')
             .addField('Kill', 'Matarás a la persona que menciones')
             // ^ Interacción
@@ -109,9 +116,20 @@ client.on("message", (message) => {
     
         message.delete()
         .then(msg => console.log(`Deleted message from ${msg.author.username} - ` + args))
-        .catch(console.error);                                                                                                              // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥
-    }                                                                                                                                       // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ 
-    if(message.content.startsWith(prefix + "8ball")) {
+        .catch(console.error);                                                                                                              
+    }                                                                                                                                   
+    if(message.content.startsWith(prefix + "snipe")) {    
+        let snipe = snipes.get(message.channel.id)
+        if(!snipe) return message.channel.send('No hay ningún mensaje borrado al que hacerle snipe unu')           
+        
+        const embedSnipe = new Discord.MessageEmbed()
+        .setAuthor(`Mensaje borrado por ${snipe.author.tag}`, snipe.author.displayAvatarURL())
+        .setColor("PURPLE")
+        .setDescription(snipe.content)
+        message.channel.send(embedSnipe)
+
+    }                                                                                                                                   // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //                                                          
+    if(message.content.startsWith(prefix + "8ball")) {                                                                                  // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //             
         const args = message.content.slice(7)
         if(!args) return message.channel.send("Necesitas preguntarme algo para que pueda responderte ·w·")
         let respuesta = ["Sis", "Non", "Puede ser", "Es lo mas probable", "Las probabilidades son bajas", "No lo creo", "Definitivamente.", "Definitivamente no."  ]
