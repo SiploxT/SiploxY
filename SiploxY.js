@@ -32,49 +32,36 @@ client.on("message", (message) => {
         
         const embed = new Discord.MessageEmbed()
             .setAuthor(message.author.username, message.author.avatarURL())
-            .addField('Ping', 'Comprobará la latencia de la API de Discord')
-            .addField('Roles', 'Mostrará todos los roles de el servidor en el que estes')
-            .addField('Servericon', 'Mostrará el icono del servidor en el que estes.')
-            .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado')
+            .addField('Ping', 'Comprobará la latencia de la API de Discord', true)
+            .addField('Roles', 'Mostrará todos los roles de el servidor en el que estes', true)
+            .addField('Servericon', 'Mostrará el icono del servidor en el que estes.', true)
+            .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado', true)
             .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
             // ^ Utilidad
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
             .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
             .addField('Coinflip', 'Lanzará una monera y saldrá cara o cruz', true)
+            .addField('Randomuser', 'Dirá el nombre de un usuario aleatorio del server', true)
             // ^ Entretenimiento
-            .addField('Neko', "Enviará imagenes aleatorias de nekos ·w·")
-            .addField('Capybara', "Enviará imagenes aleatorias de Capybaras")
+            .addField('Neko', 'Enviará imagenes aleatorias de nekos ·w·')
+            .addField('Capybara', 'Enviará imagenes aleatorias de Capybaras')
             .addField('SadCat', 'Enviará imagenes aleatorias de gatos tristes')
             .addField('Cat', 'Enviará imagenes aleatorias de gatos ￣ω￣')
             .addField('Dog', 'Enviará imagenes aleatorias de perros')
             // ^ Imagenes
+            .addField('Kiss', 'Besarás a la persona que menciones **o.o**')
             .addField('Cuddle', 'Te acurrucarás con las personas que menciones')
             .addField('Hug', 'Abrazás a  la  persona que menciones')
             .addField('Pat', 'Acariciarás a la persona que menciones' )
             .addField('Dance', 'Hará que bailes')
-            .addField('Kill', "Matarás a la persona que menciones")
+            .addField('Kill', 'Matarás a la persona que menciones')
             // ^ Interacción
             .setColor("PURPLE")
         
         message.author.send(embed);
-        message.channel.send("Te he mandado un mensaje con todos los comandos a tu md ·w·")
-    }
-    if(message.content.startsWith(prefix + 'SiploxY')) {
-        message.channel.send(`Yo`);
-    }
-    if(message.content.startsWith(prefix + 'Nya')) { 
-        message.channel.send({embed: {
-        color: 6816932,
-        description: "·w·"
-        }})
-    }
-    if(message.content.startsWith(prefix + "randomuser")) {
-    const embed = new Discord.MessageEmbed() 
-        .setDescription(message.guild.members.cache.random().displayName) 
-        .setColor("RANDOM")
-    message.channel.send(embed)
-    }                                                                                                                                         // COMANDOS DE UTLIDAD ♥ ♥ ♥
-    if(message.content.startsWith(prefix + "ping")) {                                                                                         // COMANDOS DE UTLIDAD ♥ ♥ ♥
+        message.channel.send("Te he mandado un mensaje con todos los comandos a tu md ·w·")                                                            // COMANDOS DE UTLIDAD ♥ ♥ ♥ //
+    }                                                                                                                                                  // COMANDOS DE UTLIDAD ♥ ♥ ♥ //                                                                                                                                         
+    if(message.content.startsWith(prefix + "ping")) {                                                                                         
         message.channel.send(`La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.** ·w·`);
 
     }
@@ -144,9 +131,15 @@ client.on("message", (message) => {
         var randomcoin = respuestacoin[Math.floor(Math.random() * respuestacoin.length)]
 
       message.channel.send(randomcoin)
+    }
+    if(message.content.startsWith(prefix + "randomuser")) {
+        const embed = new Discord.MessageEmbed() 
+        .setDescription(message.guild.members.cache.random().displayName) 
+        .setColor("RANDOM")
+        message.channel.send(embed)
     }                                                                                                                                 
-    if(message.content.startsWith(prefix + "neko")) {                                                                                   
-        const fetch = require ('node-fetch')
+    if(message.content.startsWith(prefix + "neko")) {                                                                                              // COMANDOS DE IMAGENES ♥ ♥ ♥ // 
+        const fetch = require ('node-fetch')                                                                                                       // COMANDOS DE IMAGENES ♥ ♥ ♥ //                                                            
         const { MessageEmbed } = require("discord.js")
 
 
@@ -226,14 +219,14 @@ client.on("message", (message) => {
             .setImage(body.file)
             .setColor("PURPLE")
             message.channel.send(embed)
-        })                                                                                                                                       // COMANDOS DE INTERACCIÓN ♥ ♥ ♥
-    }                                                                                                                                            // COMANDOS DE INTERACCIÓN ♥ ♥ ♥
+        })                                                                                                                                       // COMANDOS DE INTERACCIÓN ♥ ♥ ♥ //
+    }                                                                                                                                            // COMANDOS DE INTERACCIÓN ♥ ♥ ♥ //
     if(message.content.startsWith(prefix + "kiss")) {
         let user = message.author.username;
         let ment = message.mentions.users.first();
         if(!ment) return message.channel.send("Menciona a alguien para poder besarlo ·w·")
         var respuestabeso = ["https://c.tenor.com/fiafXWajQFoAAAAC/kiss-anime.gif", "https://c.tenor.com/riftr5iWqZQAAAAC/xdd.gif", "https://c.tenor.com/OjcDtiEDUvMAAAAC/friendly-kiss.gif", "https://c.tenor.com/Fyq9izHlreQAAAAC/my-little-monster-haru-yoshida.gif", "https://c.tenor.com/jN35LrknUpkAAAAC/test.gif", "https://c.tenor.com/9jB6M6aoW0AAAAAC/val-ally-kiss.gif", "https://c.tenor.com/wQyttVAvkF0AAAAd/forehead-kiss-anime.gif", "https://c.tenor.com/NO6j5K8YuRAAAAAC/leni.gif", "https://c.tenor.com/yoMKK29AMQsAAAAC/kiss-toradora.gif", 
-     "https://c.tenor.com/dn_KuOESmUYAAAAC/engage-kiss-anime-kiss.gif", "https://c.tenor.com/vhuon7swiOYAAAAC/rakudai-kishi-kiss.gif", "https://c.tenor.com/YeitcPAdSCYAAAAd/kyo-x-tohru-kiss.gif", "https://c.tenor.com/bPfDhkAPVjYAAAAC/yuu-koito-touko-nanami.gif", "https://c.tenor.com/GAr1rMm39pcAAAAC/anime-hug.gif", "https://c.tenor.com/7T1cuiOtJvQAAAAC/anime-kiss.gif", "https://c.tenor.com/vfbQUwcPWL0AAAAM/kiss-tonikaku-kawaii.gif", "https://c.tenor.com/3OT_d3f-ahUAAAAM/kiss.gif", "https://c.tenor.com/vtOmnXkckscAAAAM/kiss.gif", "https://c.tenor.com/nRdyrvS3qa4AAAAC/anime-kiss.gif"]
+     "https://c.tenor.com/dn_KuOESmUYAAAAC/engage-kiss-anime-kiss.gif", "https://c.tenor.com/vhuon7swiOYAAAAC/rakudai-kishi-kiss.gif", "https://c.tenor.com/YeitcPAdSCYAAAAd/kyo-x-tohru-kiss.gif", "https://c.tenor.com/g9HjxRZM2C8AAAAd/anime-love.gif", "https://c.tenor.com/nRdyrvS3qa4AAAAC/anime-kiss.gif"]
         var randombeso = respuestabeso[Math.floor(respuestabeso.length * Math.random())]
 
         const embedDatos = new Discord.MessageEmbed()
