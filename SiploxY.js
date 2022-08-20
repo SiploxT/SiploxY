@@ -46,6 +46,7 @@ client.on("message", async (message) => {
             .addField('Servericon', 'Mostrará el icono del servidor en el que estes.', true)
             .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado', true)
             .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
+            .addField('Snipe', 'Enseñará el contenido del ultimo mensaje que ha sido borrado en un guild')
             // ^ Utilidad
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
             .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
