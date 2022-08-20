@@ -3,6 +3,9 @@ const client = new Discord.Client();
 const config = require("./config.json"); 
 
 
+const snipes = new Discord.Collection()   // Variable para comando "snipe"
+
+
 let prefix = config.prefix;
 
 client.on("ready", () => {
@@ -25,7 +28,12 @@ client.on("message", (message) => {
 
 });
 
-client.on("message", (message) => {
+client.on('messageDelete', message => {
+   snipes.set(message.channel.id, message)
+   
+})
+
+client.on("message", async (message) => {
     if (message.author.bot) return;
 	const args = message.content.trim().split(/ +/g);
     if(message.content.startsWith(prefix + 'help')) {
@@ -34,9 +42,11 @@ client.on("message", (message) => {
             .setAuthor(message.author.username, message.author.avatarURL())
             .addField('Ping', 'Comprobará la latencia de la API de Discord', true)
             .addField('Roles', 'Mostrará todos los roles de el servidor en el que estes', true)
+            .addField('Rolinfo', 'Mostrará toda la información de el rol que menciones.', true)
             .addField('Servericon', 'Mostrará el icono del servidor en el que estes.', true)
             .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado', true)
             .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
+            .addField('Snipe', 'Enseñará el contenido del ultimo mensaje que ha sido borrado en un guild')
             // ^ Utilidad
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
             .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
@@ -47,7 +57,7 @@ client.on("message", (message) => {
             .addField('Capybara', 'Enviará imagenes aleatorias de Capybaras', true)
             .addField('SadCat', 'Enviará imagenes aleatorias de gatos tristes', true)
             .addField('Cat', 'Enviará imagenes aleatorias de gatos ￣ω￣', true)
-            .addField('Dog', 'Enviará imagenes aleatorias de perros')
+            .addField('Dog', 'Enviará imagenes aleatorias de perros', true)
             // ^ Imagenes
             .addField('Kiss', 'Besarás a la persona que menciones **o.o**')
             .addField('Cuddle', 'Te acurrucarás con las personas que menciones')
@@ -76,6 +86,43 @@ client.on("message", (message) => {
     
         message.channel.send(embedRoles);   
     
+    }
+    if(message.content.startsWith(prefix + "rolinfo")) {
+        const rol = message.mentions.roles.first() || message.guild.roles.cache.get(args[0]);
+
+        if(!rol) return message.channel.send("Tienes que mencionar un rol para que pueda enseñarte su información ·w·")
+
+        let mencionable = {
+            'true': 'Si',
+            'false': 'No'
+        }
+        let separado = {
+            'true': 'Si',
+            'false': 'No'
+        }
+        let sistema = {
+            'true': 'Si',
+            'false': 'No'
+        }
+
+        const permisos = rol.permissions.toArray().join('\`, \`');
+
+        const rolEmbed = new Discord.MessageEmbed()
+        .setDescription("**Información del rol ·w·**")
+        .addField("Nombre:", ` ${rol.name}`)
+        .addField("ID:", ` ${rol.id}`)
+        .addField("Usuarios con el rol:", ` ${rol.members.size}`)
+        .addField("Posición:", ` ${rol.rawPosition}`)
+        .addField("HexColor:", ` ${rol.hexColor}`)
+        .addField("Mencionable:", `${mencionable[rol.mentionable]}` )
+        .addField("Separado:", ` ${separado[rol.hoist]}`)
+        .addField("Gestionado por el sistema:", ` ${sistema[rol.managed]}`)
+        .addField("Permisos:", ` \`${permisos}\``)
+        .setColor(rol.hexColor)
+
+        message.channel.send(rolEmbed)
+
+
     }
     if(message.content.startsWith(prefix + "servericon")) {
         let icon = message.guild.iconURL({size : 2048, dyamic : true})
@@ -109,9 +156,20 @@ client.on("message", (message) => {
     
         message.delete()
         .then(msg => console.log(`Deleted message from ${msg.author.username} - ` + args))
-        .catch(console.error);                                                                                                              // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥
-    }                                                                                                                                       // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ 
-    if(message.content.startsWith(prefix + "8ball")) {
+        .catch(console.error);                                                                                                              
+    }                                                                                                                                   
+    if(message.content.startsWith(prefix + "snipe")) {    
+        let snipe = snipes.get(message.channel.id)
+        if(!snipe) return message.channel.send('No hay ningún mensaje borrado al que hacerle snipe unu')           
+        
+        const embedSnipe = new Discord.MessageEmbed()
+        .setAuthor(`Mensaje borrado por ${snipe.author.tag}`, snipe.author.displayAvatarURL())
+        .setColor("PURPLE")
+        .setDescription(snipe.content)
+        message.channel.send(embedSnipe)
+
+    }                                                                                                                                   // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //                                                          
+    if(message.content.startsWith(prefix + "8ball")) {                                                                                  // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //             
         const args = message.content.slice(7)
         if(!args) return message.channel.send("Necesitas preguntarme algo para que pueda responderte ·w·")
         let respuesta = ["Sis", "Non", "Puede ser", "Es lo mas probable", "Las probabilidades son bajas", "No lo creo", "Definitivamente.", "Definitivamente no."  ]
@@ -317,6 +375,7 @@ client.on("message", (message) => {
         message.channel.send({ embed: embedDatos });
 
     }
+
     
 });  
 client.login(config.token);
