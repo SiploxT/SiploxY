@@ -30,6 +30,7 @@ client.on("message", (message) => {
 
 client.on('messageDelete', message => {
    snipes.set(message.channel.id, message)
+   
 })
 
 client.on("message", async (message) => {
@@ -41,6 +42,7 @@ client.on("message", async (message) => {
             .setAuthor(message.author.username, message.author.avatarURL())
             .addField('Ping', 'Comprobará la latencia de la API de Discord', true)
             .addField('Roles', 'Mostrará todos los roles de el servidor en el que estes', true)
+            .addField('Rolinfo', 'Mostrará toda la información de el rol que menciones.', true)
             .addField('Servericon', 'Mostrará el icono del servidor en el que estes.', true)
             .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado', true)
             .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
@@ -54,7 +56,7 @@ client.on("message", async (message) => {
             .addField('Capybara', 'Enviará imagenes aleatorias de Capybaras', true)
             .addField('SadCat', 'Enviará imagenes aleatorias de gatos tristes', true)
             .addField('Cat', 'Enviará imagenes aleatorias de gatos ￣ω￣', true)
-            .addField('Dog', 'Enviará imagenes aleatorias de perros')
+            .addField('Dog', 'Enviará imagenes aleatorias de perros', true)
             // ^ Imagenes
             .addField('Kiss', 'Besarás a la persona que menciones **o.o**')
             .addField('Cuddle', 'Te acurrucarás con las personas que menciones')
@@ -83,6 +85,43 @@ client.on("message", async (message) => {
     
         message.channel.send(embedRoles);   
     
+    }
+    if(message.content.startsWith(prefix + "rolinfo")) {
+        const rol = message.mentions.roles.first() || message.guild.roles.cache.get(args[0]);
+
+        if(!rol) return message.channel.send("Tienes que mencionar un rol para que pueda enseñarte su información ·w·")
+
+        let mencionable = {
+            'true': 'Si',
+            'false': 'No'
+        }
+        let separado = {
+            'true': 'Si',
+            'false': 'No'
+        }
+        let sistema = {
+            'true': 'Si',
+            'false': 'No'
+        }
+
+        const permisos = rol.permissions.toArray().join('\`, \`');
+
+        const rolEmbed = new Discord.MessageEmbed()
+        .setDescription("**Información del rol ·w·**")
+        .addField("Nombre:", ` ${rol.name}`)
+        .addField("ID:", ` ${rol.id}`)
+        .addField("Usuarios con el rol:", ` ${rol.members.size}`)
+        .addField("Posición:", ` ${rol.rawPosition}`)
+        .addField("HexColor:", ` ${rol.hexColor}`)
+        .addField("Mencionable:", `${mencionable[rol.mentionable]}` )
+        .addField("Separado:", ` ${separado[rol.hoist]}`)
+        .addField("Gestionado por el sistema:", ` ${sistema[rol.managed]}`)
+        .addField("Permisos:", ` \`${permisos}\``)
+        .setColor(rol.hexColor)
+
+        message.channel.send(rolEmbed)
+
+
     }
     if(message.content.startsWith(prefix + "servericon")) {
         let icon = message.guild.iconURL({size : 2048, dyamic : true})
@@ -335,6 +374,7 @@ client.on("message", async (message) => {
         message.channel.send({ embed: embedDatos });
 
     }
+
     
 });  
 client.login(config.token);
