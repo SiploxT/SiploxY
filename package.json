@@ -7,13 +7,14 @@
   "author": "siploxT",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.5.3",
     "akaneko": "^5.2.3",
-    "nekos.life": "^3.0.0",
-    "something-random-on-discord": "^3.4.4",
     "canvas": "^2.9.3",
+    "discord.js": "^12.5.3",
     "ffmpeg": "^0.0.4",
     "figlet": "^1.5.2",
-    "image-search-engine": "^1.2.1"
+    "image-search-engine": "^1.2.1",
+    "nekos.life": "^3.0.0",
+    "node-osu": "^2.2.1",
+    "something-random-on-discord": "^3.4.4"
   }
 }
