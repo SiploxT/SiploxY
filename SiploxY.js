@@ -28,12 +28,14 @@ client.on("message", (message) => {
 
 });
 
-client.on('messageDelete', message => {
+client.on('messageDelete', message => {     // Para el comando snipe tmb
    snipes.set(message.channel.id, message)
    
 })
 
 client.on("message", async (message) => {
+    let week = 0
+    let days = 0
     if (message.author.bot) return;
 	const args = message.content.trim().split(/ +/g);
     if(message.content.startsWith(prefix + 'help')) {
@@ -46,7 +48,7 @@ client.on("message", async (message) => {
             .addField('Servericon', 'Mostrará el icono del servidor en el que estes.', true)
             .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado', true)
             .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
-            .addField('Snipe', 'Enseñará el contenido del ultimo mensaje que ha sido borrado en un guild')
+            .addField('Snipe', 'Enseñará el contenido del ultimo mensaje que ha sido borrado en un guild', true)
             // ^ Utilidad
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
             .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
@@ -59,18 +61,61 @@ client.on("message", async (message) => {
             .addField('Cat', 'Enviará imagenes aleatorias de gatos ￣ω￣', true)
             .addField('Dog', 'Enviará imagenes aleatorias de perros', true)
             // ^ Imagenes
-            .addField('Kiss', 'Besarás a la persona que menciones **o.o**')
-            .addField('Cuddle', 'Te acurrucarás con las personas que menciones')
-            .addField('Hug', 'Abrazás a  la  persona que menciones')
-            .addField('Pat', 'Acariciarás a la persona que menciones')
-            .addField('Dance', 'Hará que bailes')
-            .addField('Kill', 'Matarás a la persona que menciones')
+            .addField('Kiss', 'Besarás a la persona que menciones **o.o**', true)
+            .addField('Cuddle', 'Te acurrucarás con las personas que menciones', true)
+            .addField('Hug', 'Abrazás a  la  persona que menciones', true)
+            .addField('Pat', 'Acariciarás a la persona que menciones', true)
+            .addField('Dance', 'Hará que bailes', true)
+            .addField('Kill', 'Matarás a la persona que menciones', true)
             // ^ Interacción
             .setColor("PURPLE")
+            .setFooter("~~ .botinfo para ver mas información del bot ~~")
         
         message.author.send(embed);
         message.channel.send("Te he mandado un mensaje con todos los comandos a tu md ·w·")                                                            // COMANDOS DE UTLIDAD ♥ ♥ ♥ //
-    }                                                                                                                                                  // COMANDOS DE UTLIDAD ♥ ♥ ♥ //                                                                                                                                         
+    }                                                                                                                                                  // COMANDOS DE UTLIDAD ♥ ♥ ♥ //
+    if(message.content.startsWith(prefix + "botinfo")) {
+        let uptime = ``;
+        let totalS = (client.uptime / 1000);
+        let HRS = Math.floor(totalS / 3600);
+        totalS %= 3600;
+        let MINS = Math.floor(totalS / 60);
+        let SEC = Math.floor(totalS % 60); 
+
+        if(HRS > 23){
+            days = days + 1;
+            hours = 0;
+        }
+
+        if(days == 7){
+            days = 0;
+            week = + 1; 
+        }
+
+        if(week > 0){
+            uptime += `${week} week`;
+        }
+
+        if(MINS > 60){
+            MINS = 0;
+        }
+
+        uptime += `${days} Dias, ${HRS} Horas, ${MINS} Minutos ${SEC} Segundos`;
+
+
+        const embedInfo = new Discord.MessageEmbed()
+        .setAuthor("SiploxY", client.user.avatarURL())
+        .setThumbnail(client.user.avatarURL())
+        .addField("Developer: ", `siploxT#2805`)
+        .addField("Servers: ", ` ${client.guilds.cache.size}`)
+        .addField("Usuarios: ", ` ${client.users.cache.size}`)
+        .addField("Uptime: ", ` ${uptime}` )
+        .addField("Ram: ", ` ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`)
+        .addField("Libreria: ", "Discord.js v12.5.3")
+        .setColor("PURPLE")
+
+        message.channel.send(embedInfo)
+    }                                                                                                                                                                                                                                                                                           
     if(message.content.startsWith(prefix + "ping")) {                                                                                         
         message.channel.send(`La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.** ·w·`);
 
@@ -168,8 +213,11 @@ client.on("message", async (message) => {
         .setDescription(snipe.content)
         message.channel.send(embedSnipe)
 
-    }                                                                                                                                   // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //                                                          
-    if(message.content.startsWith(prefix + "8ball")) {                                                                                  // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //             
+    }
+    if(message.content.startsWith(prefix + "users")) {                                                                                     
+        message.channel.send("Este server tiene **" + message.guild.memberCount + "** usuarios ·w·")
+    }                                                                                                                                      // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //                                                                                                                                                                                           
+    if(message.content.startsWith(prefix + "8ball")) {                                                                                     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //                                                         
         const args = message.content.slice(7)
         if(!args) return message.channel.send("Necesitas preguntarme algo para que pueda responderte ·w·")
         let respuesta = ["Sis", "Non", "Puede ser", "Es lo mas probable", "Las probabilidades son bajas", "No lo creo", "Definitivamente.", "Definitivamente no."  ]
