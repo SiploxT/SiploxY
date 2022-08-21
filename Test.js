@@ -216,8 +216,42 @@ client.on("message", async (message) => {
     }
     if(message.content.startsWith(prefix + "users")) {                                                                                     
         message.channel.send("Este server tiene **" + message.guild.memberCount + "** usuarios ·w·")
-    }                                                                                                                                      // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //                                                                                                                                                                                           
-    if(message.content.startsWith(prefix + "8ball")) {                                                                                     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //                                                         
+    }                                                                                                                                        // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
+    if(message.content.startsWith(prefix + "osu")) {                                                                                         // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
+        const osu = require('node-osu')
+        const osuApi = new osu.Api("fe4f6615bf7fde21c94d1a6dbdaad8b2766d0c5d" , {
+            notFoundAsError: true,
+            completeScores: false,
+            parseNumeric: false
+        });
+        
+        let usuario = args.join(" ");
+        if(!usuario) return message.channel.send("TIenes que decirme el nombre de un usuario para que pueda enseñartelo ·w·")
+
+        osuApi.getUser({ u: usuario}).then(user => {
+        const UserOsu = new Discord.MessageEmbed()
+        .setTitle(`Estadisticas de ${usuario}`)
+        .setURL(`https://osu.ppy.sh/users/${usuario}`)
+        .setThumbnail(`http://s.ppy.sh/a/${user.id}`)
+        .addField("Nick:", user.name, true)
+        .addField("ID:", user.id, true)
+        .addField("Pais:", user.country, true)
+        .addField("Nivel:", user.level, true)
+        .addField("Partidas jugadas:", user.counts.plays, true)
+        .addField("Precisión:", user.accuracyFormatted, true)
+        .addField("PP", user.pp.raw, true)
+        .addField("Rango nacional:",  `#${user.pp.countryRank}`, true)
+        .addField("Rango global:", `#${user.pp.rank}`, true)
+        .addField("Puntuación total:", user.scores.total, true)
+        .addField("Puntuación ranked", user.scores.ranked, true)
+        .addField("Segundos jugados:", user.secondsPlayed, true)
+        .setColor("PINK")
+
+        message.channel.send(UserOsu)
+
+        })
+    }                                                                                                                                                                                                                                                                                                                                 
+    if(message.content.startsWith(prefix + "8ball")) {                                                                                                                                              
         const args = message.content.slice(7)
         if(!args) return message.channel.send("Necesitas preguntarme algo para que pueda responderte ·w·")
         let respuesta = ["Sis", "Non", "Puede ser", "Es lo mas probable", "Las probabilidades son bajas", "No lo creo", "Definitivamente.", "Definitivamente no."  ]
