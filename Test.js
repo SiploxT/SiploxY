@@ -115,6 +115,48 @@ client.on("message", async (message) => {
         .setColor("PURPLE")
 
         message.channel.send(embedInfo)
+    }  
+    if(message.content.startsWith(prefix + "calc")) {
+        let signos = ["*","/","+","-","x","~"];
+
+        if(!args[1]) return message.channel.send("Necesitas decirme que calcular para que lo haga unu")
+
+        if(isNaN(args[1])) return message.channel.send("Solo puedes poner numeros ·w·")
+
+        if(!signos.some(x => x.toLowerCase(message.content))) return message.channel.send("Tienes que poner los signos de el calculo que quieres hacer ·w·")
+
+        if(!args[2]) return message.channel.send("Te falta poner otro valor para calcular ·w·")
+
+        if(isNaN(args[2])) return message.channel.send("Solo puedes poner numeros ·w·")
+
+        let signo = args[1];
+
+        if(signo === 'x'){
+            signo = '*'
+        }
+
+        if(signo === '~'){
+            signo = '/'
+        }
+
+        try {
+        const resultado = eval(args[1]+signo+args[2]);
+
+        const calculadora = new Discord.MessageEmbed()
+
+        .setTitle("~Calculadora~")
+        .setColor("PURPLE")
+        .addField("Entrada", '```js\n'+args[1]+' '+signo+' '+args[2]+'```')
+        .addField("Salida", '```js\n'+await resultado+'```')
+
+        return message.channel.send(calculadora);
+
+        } catch (e) {
+            const err = new MessageEmbed()
+            .setDescription('Ehh... Creo que ha habido un error en el calculo :c\n\n`'+e.message+'`')
+            .setColor("PURPLE")
+            return message.channel.send(err);
+        }
     }                                                                                                                                                                                                                                                                                           
     if(message.content.startsWith(prefix + "ping")) {                                                                                         
         message.channel.send(`La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.** ·w·`);
