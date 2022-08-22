@@ -215,9 +215,10 @@ client.on("message", async (message) => {
 
     }
     if(message.content.startsWith(prefix + "users")) {                                                                                     
-        message.channel.send("Este server tiene **" + message.guild.memberCount + "** usuarios ·w·")
-    }                                                                                                                                      // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //                                                                                                                                                                                           
-    if(message.content.startsWith(prefix + "8ball")) {                                                                                     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //                                                         
+        message.channel.send("Este server tiene **" + message.guild.memberCount + "** usuarios ·w·")                                         // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
+    }                                                                                                                                        // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
+
+    if(message.content.startsWith(prefix + "8ball")) {                                                                                                                                              
         const args = message.content.slice(7)
         if(!args) return message.channel.send("Necesitas preguntarme algo para que pueda responderte ·w·")
         let respuesta = ["Sis", "Non", "Puede ser", "Es lo mas probable", "Las probabilidades son bajas", "No lo creo", "Definitivamente.", "Definitivamente no."  ]
@@ -405,6 +406,22 @@ client.on("message", async (message) => {
 
         message.channel.send({ embed: embedDatos });
     }
+    if(message.content.startsWith(prefix + "punch")) {
+        let user = message.author.username;
+        let ment = message.mentions.users.first();
+        if(!ment) return message.channel.send("Menciona a la persona que quieras pegar ·w·")
+        var respuestapunch = ["https://c.tenor.com/SwMgGqBirvcAAAAC/saki-saki-kanojo-mo-kanojo.gif", "https://c.tenor.com/BoYBoopIkBcAAAAC/anime-smash.gif", "https://c.tenor.com/UH8Jnl1W3CYAAAAC/anime-punch-anime.gif", "https://c.tenor.com/EdV_frZ4e_QAAAAC/anime-naruto.gif", "https://c.tenor.com/o8RbiF5-9dYAAAAM/killua-hxh.gif", "https://c.tenor.com/ObgxhbfdVCAAAAAd/luffy-anime.gif", "https://c.tenor.com/5AsLKQTjbJ4AAAAC/kasumi-love-live.gif", "https://c.tenor.com/YTVzMpGOKLwAAAAd/spy-x-family-anya-forger.gif", 
+        "https://c.tenor.com/2VSFzXr7oTgAAAAC/kofune-ushio.gif", "https://c.tenor.com/6a42QlkVsCEAAAAM/anime-punch.gif", "https://c.tenor.com/5PyqOsngA00AAAAM/boku-no-hero-academia-my-hero-academia.gif", "https://c.tenor.com/xWqmJMePsqEAAAAM/weaboo-otaku.gif", "https://c.tenor.com/laW-dCBdPUgAAAAM/dragon-ball-super-goku.gif", "https://c.tenor.com/aEX1wE-WrEMAAAAC/anime-right-in-the-stomach.gif", "https://c.tenor.com/DKMb2QPU7aYAAAAC/rin243109-blue-exorcist.gif", "https://c.tenor.com/6Pzqw0wz28QAAAAC/shiki-granbell-shiki.gif", "https://c.tenor.com/1T5bgBYtMgUAAAAC/head-hit-anime.gif"]
+        let randompunch = respuestapunch[Math.floor(respuestapunch.length * Math.random())]
+
+        const embedDatos = new Discord.MessageEmbed()
+        .setTitle("")
+        .setDescription('**' + user + '**' + ' le ha pegado a **<@' + ment + '>**')
+        .setColor("PURPLE")
+        .setImage(randompunch)
+
+        message.channel.send({embed: embedDatos});
+    }
     if(message.content.startsWith(prefix + "kill")) {
         let user = message.author.username;
         let ment = message.mentions.users.first();
@@ -416,7 +433,7 @@ client.on("message", async (message) => {
 
         const embedDatos = new Discord.MessageEmbed()
         .setTitle("")
-        .setDescription('**' + user + '**' + ' ha matado a **<@' + ment + ">**")
+        .setDescription('**' + user + '**' + ' ha matado a **<@' + ment + '>**')
         .setColor("PURPLE")
         .setImage(randomkill)
 
