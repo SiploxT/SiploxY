@@ -15,6 +15,7 @@
     "image-search-engine": "^1.2.1",
     "nekos.life": "^3.0.0",
     "node-osu": "^2.2.1",
+    "pm2": "^5.2.0",
     "something-random-on-discord": "^3.4.4"
   }
 }
