@@ -40,8 +40,10 @@ client.on("message", async (message) => {
 	const args = message.content.trim().split(/ +/g);
     if(message.content.startsWith(prefix + 'help')) {
         
-        const embed = new Discord.MessageEmbed()
+        const embedUtilidad = new Discord.MessageEmbed()
+            .setTitle("Utilidad")
             .setAuthor(message.author.username, message.author.avatarURL())
+            .setColor("PURPLE")
             .addField('Ping', 'Comprobará la latencia de la API de Discord', true)
             .addField('Roles', 'Mostrará todos los roles de el servidor en el que estes', true)
             .addField('Rolinfo', 'Mostrará toda la información de el rol que menciones.', true)
@@ -49,31 +51,43 @@ client.on("message", async (message) => {
             .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado', true)
             .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
             .addField('Snipe', 'Enseñará el contenido del ultimo mensaje que ha sido borrado en un guild', true)
-            // ^ Utilidad
+        
+        const embedEntretenimiento = new Discord.MessageEmbed()
+            .setTitle("Entretenimiento")
+            .setColor("PURPLE")
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
             .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
             .addField('Coinflip', 'Lanzará una monera y saldrá cara o cruz', true)
             .addField('Randomuser', 'Dirá el nombre de un usuario aleatorio del server', true)
-            // ^ Entretenimiento
+
+        const embedImagenes = new Discord.MessageEmbed()
+            .setTitle("Imagenes")
+            .setColor("PURPLE")
             .addField('Neko', 'Enviará imagenes aleatorias de nekos ·w·', true)
             .addField('Capybara', 'Enviará imagenes aleatorias de Capybaras', true)
             .addField('SadCat', 'Enviará imagenes aleatorias de gatos tristes', true)
             .addField('Cat', 'Enviará imagenes aleatorias de gatos ￣ω￣', true)
             .addField('Dog', 'Enviará imagenes aleatorias de perros', true)
-            // ^ Imagenes
+
+        const embedInteracción = new Discord.MessageEmbed()
+            .setTitle("Interacción")
+            .setColor("PURPLE")
             .addField('Kiss', 'Besarás a la persona que menciones **o.o**', true)
             .addField('Cuddle', 'Te acurrucarás con las personas que menciones', true)
             .addField('Hug', 'Abrazás a  la  persona que menciones', true)
             .addField('Pat', 'Acariciarás a la persona que menciones', true)
             .addField('Dance', 'Hará que bailes', true)
             .addField('Kill', 'Matarás a la persona que menciones', true)
-            // ^ Interacción
-            .setColor("PURPLE")
             .setFooter("~~ .botinfo para ver mas información del bot ~~")
-        
-        message.author.send(embed);
-        message.channel.send("Te he mandado un mensaje con todos los comandos a tu md ·w·")                                                            // COMANDOS DE UTLIDAD ♥ ♥ ♥ //
-    }                                                                                                                                                  // COMANDOS DE UTLIDAD ♥ ♥ ♥ //
+
+        message.author.send(embedUtilidad)
+        message.author.send(embedEntretenimiento)
+        message.author.send(embedImagenes)
+        message.author.send(embedInteracción);
+
+        message.channel.send("Te he mandado un mensaje con todos los comandos a tu md ·w·")
+                                                                   
+    }                                                                                                                                                  
     if(message.content.startsWith(prefix + "botinfo")) {
         let uptime = ``;
         let totalS = (client.uptime / 1000);
@@ -115,7 +129,7 @@ client.on("message", async (message) => {
         .setColor("PURPLE")
 
         message.channel.send(embedInfo)
-    }                                                                                                                                                                                                                                                                                           
+    }                                                                                                                                                                                                                                                                                         
     if(message.content.startsWith(prefix + "ping")) {                                                                                         
         message.channel.send(`La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.** ·w·`);
 
@@ -217,7 +231,7 @@ client.on("message", async (message) => {
     if(message.content.startsWith(prefix + "users")) {                                                                                     
         message.channel.send("Este server tiene **" + message.guild.memberCount + "** usuarios ·w·")                                         // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
     }                                                                                                                                        // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
-
+ 
     if(message.content.startsWith(prefix + "8ball")) {                                                                                                                                              
         const args = message.content.slice(7)
         if(!args) return message.channel.send("Necesitas preguntarme algo para que pueda responderte ·w·")
