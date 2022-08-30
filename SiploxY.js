@@ -77,6 +77,7 @@ client.on("message", async (message) => {
             .addField('Hug', 'Abrazás a  la  persona que menciones', true)
             .addField('Pat', 'Acariciarás a la persona que menciones', true)
             .addField('Dance', 'Hará que bailes', true)
+            .addField('Slap', 'Le darás una bofetada a la persona que menciones', true)
             .addField('Kill', 'Matarás a la persona que menciones', true)
             .setFooter("~~ .botinfo para ver mas información del bot ~~")
 
@@ -87,8 +88,8 @@ client.on("message", async (message) => {
 
         message.channel.send("Te he mandado un mensaje con todos los comandos a tu md ·w·")
                                                                    
-    }                                                                                                                                                  
-    if(message.content.startsWith(prefix + "botinfo")) {
+    }                                                                                                                                          // COMANDOS DE UTILIDAD ♥ ♥ ♥ //                                                                
+    if(message.content.startsWith(prefix + "botinfo")) {                                                                                       // COMANDOS DE UTILIDAD ♥ ♥ ♥ //
         let uptime = ``;
         let totalS = (client.uptime / 1000);
         let HRS = Math.floor(totalS / 3600);
@@ -419,6 +420,23 @@ client.on("message", async (message) => {
         .setImage(randomdance)
 
         message.channel.send({ embed: embedDatos });
+    }
+    if(message.content.startsWith(prefix + "slap")) {
+        let user = message.author.username;
+        let ment = message.mentions.users.first();
+        if(!ment) return message.channel.send("Menciona a la persona que quieras abofetear ·w·")
+        var respuestaslap = ["https://c.tenor.com/XiYuU9h44-AAAAAC/anime-slap-mad.gif", "https://c.tenor.com/LUJRVpYgy-8AAAAC/kiniro-kiniro-mosaic.gif", "https://c.tenor.com/Ws6Dm1ZW_vMAAAAC/girl-slap.gif", "https://c.tenor.com/PeJyQRCSHHkAAAAC/saki-saki-mukai-naoya.gif", "https://c.tenor.com/rVXByOZKidMAAAAd/anime-slap.gif", "https://c.tenor.com/eU5H6GbVjrcAAAAM/slap-jjk.gif", "https://c.tenor.com/L0fsdBYmh_wAAAAC/kokoro-connect-slap-anime.gif",
+        "https://c.tenor.com/pgq_YsVX7sEAAAAC/meliodas-seven-deadly-sins.gif", "https://c.tenor.com/UDo0WPttiRsAAAAM/bunny-girl-slap.gif", "https://c.tenor.com/E3OW-MYYum0AAAAC/no-angry.gif", "https://c.tenor.com/iDdGxlZZfGoAAAAC/powerful-head-slap.gif", "https://c.tenor.com/Sp7yE5UzqFMAAAAC/spank-slap.gif", "https://c.tenor.com/FrEq8y-Qf78AAAAC/anime-slapping.gif", "https://c.tenor.com/CvBTA0GyrogAAAAC/anime-slap.gif", "https://c.tenor.com/2-r7BEc-cb8AAAAC/slap-smack.gif",
+        "https://c.tenor.com/hscOq_sMFdAAAAAM/kakashi-zabuza.gif", "https://c.tenor.com/1tk5BKEdCzcAAAAM/fumoffu-full-metal-panic.gif", "https://c.tenor.com/yl9kMAB2pHYAAAAC/slap.gif", "https://c.tenor.com/743sV2IWMEAAAAAC/chuunibyou-demo-koi-ga-shitai-anime.gif", "https://c.tenor.com/OuYAPinRFYgAAAAC/anime-slap.gif", "https://c.tenor.com/469w9za-5a0AAAAC/anime.gif", "https://c.tenor.com/Lc7C5mLIVIQAAAAC/anime-slap.gif", "https://c.tenor.com/vzQLL0MsF0cAAAAC/darkelfcarla-windmill.gif"]
+        var randomslap = respuestaslap[Math.floor(respuestaslap.length * Math.random())]
+
+        const embedDatos = new Discord.MessageEmbed()
+        .setTitle("")
+        .setDescription('**' + user + '**' + ' le ha dado una bofetada a **<@' + ment + '>**')
+        .setColor("PURPLE")
+        .setImage(randomslap)
+
+        message.channel.send({embed : embedDatos});
     }
     if(message.content.startsWith(prefix + "punch")) {
         let user = message.author.username;
