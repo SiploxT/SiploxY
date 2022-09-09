@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
-const client = new Discord.Client();
+const client = new Discord.Client(); 
 const config = require("./config.json"); 
+
 
 
 const snipes = new Discord.Collection()   // Variable para comando "snipe"
@@ -123,7 +124,7 @@ client.on("message", async (message) => {
         .setThumbnail(client.user.avatarURL())
         .addField("Developer: ", `siploxT#2805`)
         .addField("Servers: ", ` ${client.guilds.cache.size}`)
-        .addField("Usuarios: ", ` ${client.users.cache.size}`)
+        .addField("Usuarios: ", ` ${client.users.cache.size}`)  
         .addField("Uptime: ", ` ${uptime}` )
         .addField("Ram: ", ` ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`)
         .addField("Libreria: ", "Discord.js v12.5.3")
@@ -232,7 +233,9 @@ client.on("message", async (message) => {
     if(message.content.startsWith(prefix + "users")) {                                                                                     
         message.channel.send("Este server tiene **" + message.guild.memberCount + "** usuarios ·w·")                                         // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
     }                                                                                                                                        // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
- 
+    if(message.content.startsWith(prefix + "youtube")) {
+
+    }
     if(message.content.startsWith(prefix + "8ball")) {                                                                                                                                              
         const args = message.content.slice(7)
         if(!args) return message.channel.send("Necesitas preguntarme algo para que pueda responderte ·w·")
@@ -253,6 +256,24 @@ client.on("message", async (message) => {
         var randomcoin = respuestacoin[Math.floor(Math.random() * respuestacoin.length)]
 
       message.channel.send(randomcoin)
+    }
+    if(message.content.startsWith(prefix + "randomword")) {
+        const fetch = require('node-fetch')
+        const { MessageEmbed } = require("discord.js")
+       
+       
+     fetch(`https://palabras-aleatorias-public-api.herokuapp.com/random`)
+        .then((res) => res.json())
+        .then((body) => {
+            console.log(body)
+            let embed = new MessageEmbed()
+            .setTitle(`Palabra: ${body.body.Word}`)
+            .setURL(body.body.urls.wikipedia)
+            .setImage(body.body.urls.image)
+            .setFooter("Palabra generada aleatoriamente")
+            .setColor("PURPLE")
+            message.channel.send(embed)
+        }) 
     }
     if(message.content.startsWith(prefix + "randomuser")) {
         const embed = new Discord.MessageEmbed() 
