@@ -59,6 +59,8 @@ client.on("message", async (message) => {
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
             .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
             .addField('Coinflip', 'Lanzará una monera y saldrá cara o cruz', true)
+            .addField('Randomphrase', 'Dirá una frase generada aleatoriamente', true)
+            .addField('Randomword', 'Dirá una palabra generada aleatoriamente', true)
             .addField('Randomuser', 'Dirá el nombre de un usuario aleatorio del server', true)
 
         const embedImagenes = new Discord.MessageEmbed()
@@ -257,12 +259,29 @@ client.on("message", async (message) => {
 
       message.channel.send(randomcoin)
     }
+    if(message.content.startsWith(prefix + "randomphrase")) {
+        const fetch = require('node-fetch')
+        const { MessageEmbed } = require("discord.js")
+       
+       
+        fetch(`https://palabras-aleatorias-public-api.herokuapp.com/phrases/random`)
+        .then((res) => res.json())
+        .then((body) => {
+            console.log(body)
+            let embed = new MessageEmbed()
+            .setAuthor(message.author.username, message.author.avatarURL())
+            .setTitle(`__Frase:__ ${body.body.randomPhrase}`)
+            .setFooter("Frase generada aleatoriamente")
+            .setColor("PURPLE")
+            message.channel.send(embed)
+        })
+    }
     if(message.content.startsWith(prefix + "randomword")) {
         const fetch = require('node-fetch')
         const { MessageEmbed } = require("discord.js")
        
        
-     fetch(`https://palabras-aleatorias-public-api.herokuapp.com/random`)
+        fetch(`https://palabras-aleatorias-public-api.herokuapp.com/random`)
         .then((res) => res.json())
         .then((body) => {
             console.log(body)
