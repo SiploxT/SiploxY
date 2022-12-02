@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
-const client = new Discord.Client();
+const client = new Discord.Client(); 
 const config = require("./config.json"); 
+
 
 
 const snipes = new Discord.Collection()   // Variable para comando "snipe"
@@ -58,6 +59,8 @@ client.on("message", async (message) => {
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
             .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
             .addField('Coinflip', 'Lanzará una monera y saldrá cara o cruz', true)
+            .addField('Randomphrase', 'Dirá una frase generada aleatoriamente', true)
+            .addField('Randomword', 'Dirá una palabra generada aleatoriamente', true)
             .addField('Randomuser', 'Dirá el nombre de un usuario aleatorio del server', true)
 
         const embedImagenes = new Discord.MessageEmbed()
@@ -123,7 +126,7 @@ client.on("message", async (message) => {
         .setThumbnail(client.user.avatarURL())
         .addField("Developer: ", `siploxT#2805`)
         .addField("Servers: ", ` ${client.guilds.cache.size}`)
-        .addField("Usuarios: ", ` ${client.users.cache.size}`)
+        .addField("Usuarios: ", ` ${client.users.cache.size}`)  
         .addField("Uptime: ", ` ${uptime}` )
         .addField("Ram: ", ` ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`)
         .addField("Libreria: ", "Discord.js v12.5.3")
@@ -232,7 +235,6 @@ client.on("message", async (message) => {
     if(message.content.startsWith(prefix + "users")) {                                                                                     
         message.channel.send("Este server tiene **" + message.guild.memberCount + "** usuarios ·w·")                                         // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
     }                                                                                                                                        // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
- 
     if(message.content.startsWith(prefix + "8ball")) {                                                                                                                                              
         const args = message.content.slice(7)
         if(!args) return message.channel.send("Necesitas preguntarme algo para que pueda responderte ·w·")
@@ -253,6 +255,41 @@ client.on("message", async (message) => {
         var randomcoin = respuestacoin[Math.floor(Math.random() * respuestacoin.length)]
 
       message.channel.send(randomcoin)
+    }
+    if(message.content.startsWith(prefix + "randomphrase")) {
+        const fetch = require('node-fetch')
+        const { MessageEmbed } = require("discord.js")
+       
+       
+        fetch(`https://palabras-aleatorias-public-api.herokuapp.com/phrases/random`)
+        .then((res) => res.json())
+        .then((body) => {
+            console.log(body)
+            let embed = new MessageEmbed()
+            .setAuthor(message.author.username, message.author.avatarURL())
+            .setTitle(`__Frase:__ ${body.body.randomPhrase}`)
+            .setFooter("Frase generada aleatoriamente")
+            .setColor("PURPLE")
+            message.channel.send(embed)
+        })
+    }
+    if(message.content.startsWith(prefix + "randomword")) {
+        const fetch = require('node-fetch')
+        const { MessageEmbed } = require("discord.js")
+       
+       
+        fetch(`https://palabras-aleatorias-public-api.herokuapp.com/random`)
+        .then((res) => res.json())
+        .then((body) => {
+            console.log(body)
+            let embed = new MessageEmbed()
+            .setTitle(`Palabra: ${body.body.Word}`)
+            .setURL(body.body.urls.wikipedia)
+            .setImage(body.body.urls.image)
+            .setFooter("Palabra generada aleatoriamente")
+            .setColor("PURPLE")
+            message.channel.send(embed)
+        }) 
     }
     if(message.content.startsWith(prefix + "randomuser")) {
         const embed = new Discord.MessageEmbed() 
