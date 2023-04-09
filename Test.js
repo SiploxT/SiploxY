@@ -59,8 +59,6 @@ client.on("message", async (message) => {
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
             .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
             .addField('Coinflip', 'Lanzará una monera y saldrá cara o cruz', true)
-            .addField('Randomphrase', 'Dirá una frase generada aleatoriamente', true)
-            .addField('Randomword', 'Dirá una palabra generada aleatoriamente', true)
             .addField('Randomuser', 'Dirá el nombre de un usuario aleatorio del server', true)
 
         const embedImagenes = new Discord.MessageEmbed()
@@ -275,29 +273,7 @@ client.on("message", async (message) => {
             .setColor("PURPLE")
             message.channel.send(embed)
         })
-    }
-    if(message.content.startsWith(prefix + "randomword")) {
-        const fetch = require('node-fetch')
-        const { MessageEmbed } = require("discord.js")
-       
-       
-        fetch(`https://clientes.api.greenborn.com.ar/public-random-word?c=9&l=8`)
-        .then((res) => res.json())
-        .then((body) => {
-            console.log(body)
-            let embed = new MessageEmbed()
-            .setTitle(`Palabra: ${body}`)
-            .setFooter("Palabra generada aleatoriamente")
-            .setColor("PURPLE")
-            message.channel.send(embed)
-        }) 
-    }
-    if(message.content.startsWith(prefix + "randomuser")) {
-        const embed = new Discord.MessageEmbed() 
-        .setDescription(message.guild.members.cache.random().displayName) 
-        .setColor("RANDOM")
-        message.channel.send(embed)
-    }                                                                                                                                 
+    }                                                                                                                     
     if(message.content.startsWith(prefix + "neko")) {                                                                                              // COMANDOS DE IMAGENES ♥ ♥ ♥ // 
         const fetch = require ('node-fetch')                                                                                                       // COMANDOS DE IMAGENES ♥ ♥ ♥ //                                                            
         const { MessageEmbed } = require("discord.js")
