@@ -1,6 +1,14 @@
 # SiploxY
-
+<div align="center">
+  
 ![Nyaa](https://user-images.githubusercontent.com/102182731/183133332-2d9db17d-b833-4c3c-9ef8-70c1f23ed9dd.png)
+<br />
+	<br />
+	<p>
+        <a href="https://www.npmjs.com/package/discord.js"><img src="https://img.shields.io/npm/v/discord.js.svg?maxAge=3600" alt="npm version" /></a>
+        <a href="https://www.npmjs.com/package/discord.js"><img src="https://img.shields.io/npm/dt/discord.js.svg?maxAge=3600" alt="npm downloads" /></a>
+  </p>
+</div>
 
 - _Prefix: s!_
 - _Versión: discord.js@14.8.0_
