@@ -127,7 +127,7 @@ client.on("message", async (message) => {
         .addField("Usuarios: ", ` ${client.users.cache.size}`)  
         .addField("Uptime: ", ` ${uptime}` )
         .addField("Ram: ", ` ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`)
-        .addField("Libreria: ", "Discord.js v12.5.3")
+        .addField("Libreria: ", "discord.js@14.8.0")
         .setColor("PURPLE")
 
         message.channel.send(embedInfo)
@@ -224,7 +224,7 @@ client.on("message", async (message) => {
         if(!snipe) return message.channel.send('No hay ningún mensaje borrado al que hacerle snipe unu')           
         
         const embedSnipe = new Discord.MessageEmbed()
-        .setAuthor(`Mensaje borrado por ${snipe.author.tag}`, snipe.author.displayAvatarURL())
+        .setAuthor(`Mensaje borrado por ${snipe.author.username}`, snipe.author.displayAvatarURL())
         .setColor("PURPLE")
         .setDescription(snipe.content)
         message.channel.send(embedSnipe)
@@ -233,9 +233,6 @@ client.on("message", async (message) => {
     if(message.content.startsWith(prefix + "users")) {                                                                                     
         message.channel.send("Este server tiene **" + message.guild.memberCount + "** usuarios ·w·")                                         // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
     }                                                                                                                                        // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
-    if(message.content.startsWith(prefix + "youtube")) {
-
-    }
     if(message.content.startsWith(prefix + "8ball")) {                                                                                                                                              
         const args = message.content.slice(7)
         if(!args) return message.channel.send("Necesitas preguntarme algo para que pueda responderte ·w·")
@@ -257,23 +254,17 @@ client.on("message", async (message) => {
 
       message.channel.send(randomcoin)
     }
-    if(message.content.startsWith(prefix + "randomphrase")) {
-        const fetch = require('node-fetch')
-        const { MessageEmbed } = require("discord.js")
-       
-       
-        fetch(`https://palabras-aleatorias-public-api.herokuapp.com/phrases/random`)
-        .then((res) => res.json())
-        .then((body) => {
-            console.log(body)
-            let embed = new MessageEmbed()
-            .setAuthor(message.author.username, message.author.avatarURL())
-            .setTitle(`__Frase:__ ${body.body.randomPhrase}`)
-            .setFooter("Frase generada aleatoriamente")
-            .setColor("PURPLE")
-            message.channel.send(embed)
-        })
-    }                                                                                                                     
+    if (message.content.startsWith(prefix + "randomuser")) {
+        const randomMember = message.guild.members.cache.random();
+      
+        const embedRandomUser = new Discord.MessageEmbed()
+          .setTitle("__**" + randomMember.user.username + "**__")
+          .setThumbnail(randomMember.user.avatarURL())
+          .setDescription("Status: " + "*" + randomMember.presence.status + "*")
+          .setColor("RANDOM");
+      
+        message.channel.send(embedRandomUser);
+    }                                                                                 
     if(message.content.startsWith(prefix + "neko")) {                                                                                              // COMANDOS DE IMAGENES ♥ ♥ ♥ // 
         const fetch = require ('node-fetch')                                                                                                       // COMANDOS DE IMAGENES ♥ ♥ ♥ //                                                            
         const { MessageEmbed } = require("discord.js")
@@ -309,7 +300,7 @@ client.on("message", async (message) => {
             message.channel.send(embed)
         })
     }
-    if(message.content.startsWith(prefix + "SadCat")) {
+    if(message.content.startsWith(prefix + "sadcat")) {
      const fetch = require('node-fetch')
      const { MessageEmbed } = require("discord.js")
     
