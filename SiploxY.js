@@ -2,32 +2,26 @@ const Discord = require("discord.js");
 const client = new Discord.Client(); 
 const config = require("./config.json"); 
 
-
-
-const snipes = new Discord.Collection()   // Variable para comando "snipe"
-
-
 let prefix = config.prefix;
 
 client.on("ready", () => {
     console.log(`Toy listo ·w·`);
 });
 
-client.on("message", (message) => {
-    if(message.content.startsWith(prefix + "setestado")) {
-        if(message.author.id==='666280222324162560'){
-            var estado = message.content.split(' ').slice(1).join(' ');
-            if(!estado){
-                message.reply('Dime que quieres que me ponga de estado ·w·')
-            }else{
-                client.user.setActivity({name:estado, type:2})
-                message.channel.send("He cambiado mi estado a ~**Listening to " + estado + ". **~")
-            }    
-        }
-    }
+client.once('ready', () => {
+    client.user.setActivity('Prefix: s! || wawa ·w·', { type: 'PLAYING' });
+  });
 
+const snipes = new Discord.Collection()   // Variable para comando "snipe"
 
-});
+client.on("messageDelete", async (deletedMessage) => {
+    const { guild } = deletedMessage;
+    const deletionLog = (await guild.fetchAuditLogs({ type: "MESSAGE_DELETE" })).entries.first();
+    if (!deletionLog) return;
+  
+    const { executor } = deletionLog;
+    console.log(`~${executor.username}~ ha borrado un mensaje en ~${guild.name}~ que decía: "${deletedMessage.content}" ·w·`);
+  });
 
 client.on('messageDelete', message => {     // Para el comando snipe tmb
    snipes.set(message.channel.id, message)
@@ -73,10 +67,10 @@ client.on("message", async (message) => {
         const embedInteracción = new Discord.MessageEmbed()
             .setTitle("Interacción")
             .setColor("PURPLE")
-            .addField('Kiss', 'Besarás a la persona que menciones **o.o**', true)
+            .addField('Pat', 'Acariciarás a la persona que menciones', true)
             .addField('Cuddle', 'Te acurrucarás con las personas que menciones', true)
             .addField('Hug', 'Abrazás a  la  persona que menciones', true)
-            .addField('Pat', 'Acariciarás a la persona que menciones', true)
+            .addField('Kiss', 'Besarás a la persona que menciones **o.o**', true)
             .addField('Dance', 'Hará que bailes', true)
             .addField('Slap', 'Le darás una bofetada a la persona que menciones', true)
             .addField('Kill', 'Matarás a la persona que menciones', true)
@@ -227,6 +221,7 @@ client.on("message", async (message) => {
         .setAuthor(`Mensaje borrado por ${snipe.author.username}`, snipe.author.displayAvatarURL())
         .setColor("PURPLE")
         .setDescription(snipe.content)
+        .setTimestamp(snipe.createdAt);
         message.channel.send(embedSnipe)
 
     }
