@@ -83,8 +83,10 @@ client.on("message", async (message) => {
 
         message.channel.send("Te he mandado un mensaje con todos los comandos a tu md ·w·")
                                                                    
-    }                                                                                                                                          // COMANDOS DE UTILIDAD ♥ ♥ ♥ //                                                                
-    if(message.content.startsWith(prefix + "botinfo")) {                                                                                       // COMANDOS DE UTILIDAD ♥ ♥ ♥ //
+    }
+    // COMANDOS DE UTILIDAD ♥ ♥ ♥ // 
+    // COMANDOS DE UTILIDAD ♥ ♥ ♥ //
+    if(message.content.startsWith(prefix + "botinfo")) {
         let uptime = ``;
         let totalS = (client.uptime / 1000);
         let HRS = Math.floor(totalS / 3600);
@@ -226,8 +228,10 @@ client.on("message", async (message) => {
 
     }
     if(message.content.startsWith(prefix + "users")) {                                                                                     
-        message.channel.send("Este server tiene **" + message.guild.memberCount + "** usuarios ·w·")                                         // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
-    }                                                                                                                                        // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
+        message.channel.send("Este server tiene **" + message.guild.memberCount + "** usuarios ·w·")
+    }
+    // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ // 
+    // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
     if(message.content.startsWith(prefix + "8ball")) {                                                                                                                                              
         const args = message.content.slice(7)
         if(!args) return message.channel.send("Necesitas preguntarme algo para que pueda responderte ·w·")
@@ -259,9 +263,11 @@ client.on("message", async (message) => {
           .setColor("RANDOM");
       
         message.channel.send(embedRandomUser);
-    }                                                                                 
-    if(message.content.startsWith(prefix + "neko")) {                                                                                              // COMANDOS DE IMAGENES ♥ ♥ ♥ // 
-        const fetch = require ('node-fetch')                                                                                                       // COMANDOS DE IMAGENES ♥ ♥ ♥ //                                                            
+    }
+    // COMANDOS DE IMAGENES ♥ ♥ ♥ //
+    // COMANDOS DE IMAGENES ♥ ♥ ♥ //                                                           
+    if(message.content.startsWith(prefix + "neko")) {
+        const fetch = require ('node-fetch')                                                            
         const { MessageEmbed } = require("discord.js")
 
 
@@ -341,8 +347,10 @@ client.on("message", async (message) => {
             .setImage(body.file)
             .setColor("PURPLE")
             message.channel.send(embed)
-        })                                                                                                                                       // COMANDOS DE INTERACCIÓN ♥ ♥ ♥ //
-    }                                                                                                                                            // COMANDOS DE INTERACCIÓN ♥ ♥ ♥ //
+        })
+    }
+    // COMANDOS DE INTERACCIÓN ♥ ♥ ♥ //
+    // COMANDOS DE INTERACCIÓN ♥ ♥ ♥ //
     if(message.content.startsWith(prefix + "kiss")) {
         let user = message.author.username;
         let ment = message.mentions.users.first();
