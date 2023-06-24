@@ -480,7 +480,9 @@ client.on("message", async (message) => {
         message.channel.send({ embed: embedDatos });
 
     }
-
+    if(message.content.startsWith(prefix +`wawa`)) {
+        message.channel.send("wiwi")
+    }
     
 });  
 client.login(config.token);
