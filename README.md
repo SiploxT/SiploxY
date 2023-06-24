@@ -6,6 +6,8 @@
   <br />
   <p>
     <a href="https://discord.com/api/oauth2/authorize?client_id=955869268359127050&permissions=8&scope=bot"><img alt="Invitame!" src="https://img.shields.io/badge/Invitame!-8A2BE2?style=for-the-badge&logo=discord&logoColor=white" /></a>
+      <br />
+      <br />
     <a href="https://www.npmjs.com/package/discord.js"><img src="https://img.shields.io/npm/v/discord.js.svg?maxAge=3600" alt="npm version" /></a>
     <a href="https://www.npmjs.com/package/discord.js"><img src="https://img.shields.io/npm/dt/discord.js.svg?maxAge=3600" alt="npm downloads" /></a>
   </p>
