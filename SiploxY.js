@@ -8,11 +8,16 @@ client.on("ready", () => {
     console.log(`Toy listo ·w·`);
 });
 
-client.once('ready', () => {
+client.once('ready', () => { // setActivity ACTIVIDAD DE ESTADO
     client.user.setActivity('Prefix: s! || wawa ·w·', { type: 'PLAYING' });
   });
 
-const snipes = new Discord.Collection()   // Variable para comando "snipe"
+const snipes = new Discord.Collection()   // VAR SNIPE
+
+client.on('messageDelete', message => {     // VAR SNIPE 2
+    snipes.set(message.channel.id, message)
+    
+ })
 
 client.on("messageDelete", async (deletedMessage) => {
     const { guild } = deletedMessage;
@@ -22,11 +27,6 @@ client.on("messageDelete", async (deletedMessage) => {
     const { executor } = deletionLog;
     console.log(`~${executor.username}~ ha borrado un mensaje en ~${guild.name}~ que decía: "${deletedMessage.content}" ·w·`);
   });
-
-client.on('messageDelete', message => {     // Para el comando snipe tmb
-   snipes.set(message.channel.id, message)
-   
-})
 
 client.on("message", async (message) => {
     let week = 0
@@ -53,6 +53,7 @@ client.on("message", async (message) => {
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
             .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
             .addField('Coinflip', 'Lanzará una monera y saldrá cara o cruz', true)
+            .addField('RandomCap (BETA)', 'Enviará una captura aleatoria tomada por un usuario cualquiera.', true)
             .addField('Randomuser', 'Dirá el nombre de un usuario aleatorio del server', true)
 
         const embedImagenes = new Discord.MessageEmbed()
@@ -211,9 +212,7 @@ client.on("message", async (message) => {
     
         message.channel.send(args)
     
-        message.delete()
-        .then(msg => console.log(`Deleted message from ${msg.author.username} - ` + args))
-        .catch(console.error);                                                                                                              
+        message.delete()                                                                                                            
     }                                                                                                                                   
     if(message.content.startsWith(prefix + "snipe")) {    
         let snipe = snipes.get(message.channel.id)
