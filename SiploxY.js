@@ -74,6 +74,7 @@ client.on("message", async (message) => {
             .addField('Kiss', 'Besarás a la persona que menciones **o.o**', true)
             .addField('Dance', 'Hará que bailes', true)
             .addField('Slap', 'Le darás una bofetada a la persona que menciones', true)
+            .addField('Punch', 'Le darás un golpe a las persona que menciones', true)
             .addField('Kill', 'Matarás a la persona que menciones', true)
             .setFooter("~~ .botinfo para ver mas información del bot ~~")
 
@@ -252,6 +253,32 @@ client.on("message", async (message) => {
 
       message.channel.send(randomcoin)
     }
+    if (message.content.startsWith(prefix + "randomcap")) {
+        function generateRandomCharacters(length) {
+          let result = '';
+          const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+          const numbers = '0123456789';
+      
+          for (let i = 0; i < 2; i++) {
+            const randomIndex = Math.floor(Math.random() * alphabet.length);
+            result += alphabet.charAt(randomIndex);
+          }
+      
+          for (let i = 0; i < 4; i++) {
+            const randomIndex = Math.floor(Math.random() * numbers.length);
+            result += numbers.charAt(randomIndex);
+          }
+      
+          return result;
+        }
+      
+        const prnt = 'https://prnt.sc/';
+        const randomCharacters = generateRandomCharacters(6);
+        const link = prnt + randomCharacters;
+      
+        message.channel.send(link);
+      }
+      
     if (message.content.startsWith(prefix + "randomuser")) {
         const randomMember = message.guild.members.cache.random();
       
@@ -350,22 +377,22 @@ client.on("message", async (message) => {
     }
     // COMANDOS DE INTERACCIÓN ♥ ♥ ♥ //
     // COMANDOS DE INTERACCIÓN ♥ ♥ ♥ //
-    if(message.content.startsWith(prefix + "kiss")) {
+    if(message.content.startsWith(prefix + "pat")) {
         let user = message.author.username;
         let ment = message.mentions.users.first();
-        if(!ment) return message.channel.send("Menciona a alguien para poder besarlo ·w·")
-        var respuestabeso = ["https://c.tenor.com/fiafXWajQFoAAAAC/kiss-anime.gif", "https://c.tenor.com/riftr5iWqZQAAAAC/xdd.gif", "https://c.tenor.com/OjcDtiEDUvMAAAAC/friendly-kiss.gif", "https://c.tenor.com/Fyq9izHlreQAAAAC/my-little-monster-haru-yoshida.gif", "https://c.tenor.com/jN35LrknUpkAAAAC/test.gif", "https://c.tenor.com/9jB6M6aoW0AAAAAC/val-ally-kiss.gif", "https://c.tenor.com/wQyttVAvkF0AAAAd/forehead-kiss-anime.gif", "https://c.tenor.com/NO6j5K8YuRAAAAAC/leni.gif", "https://c.tenor.com/yoMKK29AMQsAAAAC/kiss-toradora.gif", 
-        "https://c.tenor.com/dn_KuOESmUYAAAAC/engage-kiss-anime-kiss.gif", "https://c.tenor.com/vhuon7swiOYAAAAC/rakudai-kishi-kiss.gif", "https://c.tenor.com/YeitcPAdSCYAAAAd/kyo-x-tohru-kiss.gif", "https://c.tenor.com/g9HjxRZM2C8AAAAd/anime-love.gif", "https://c.tenor.com/nRdyrvS3qa4AAAAC/anime-kiss.gif"]
-        var randombeso = respuestabeso[Math.floor(respuestabeso.length * Math.random())]
+        if(!ment) return message.channel.send("Menciona a alguien para poder acariciarlo ·w·")
+        var respuestapat = ["https://c.tenor.com/Y7B6npa9mXcAAAAC/rikka-head-pat-pat-on-head.gif", "https://c.tenor.com/E6fMkQRZBdIAAAAC/kanna-kamui-pat.gif", "https://c.tenor.com/8DaE6qzF0DwAAAAC/neet-anime.gif", "https://c.tenor.com/i7nXGbPLqTsAAAAC/anime-hug.gif", "https://c.tenor.com/kM1mVaXE8Y8AAAAC/kaede-azusagawa-kaede.gif", "https://c.tenor.com/TRxNL32jtEIAAAAC/anime-pat.gif", 
+        "https://c.tenor.com/8o4fWGwBY1EAAAAd/aharensan-aharen.gif", "https://c.tenor.com/jEfC8cztigIAAAAC/anime-pat.gif", "https://c.tenor.com/lOawy4d-SHMAAAAd/anime-cuddle-gauge.gif", "https://c.tenor.com/VzJtkXVo06wAAAAC/yuru-yuri-anime.gif", "https://c.tenor.com/Jj-vHGZOgT4AAAAC/anime-anime-girl.gif", "https://c.tenor.com/jBuHEbqxarcAAAAC/k-on-anime.gif"]
+        let randompat = respuestapat[Math.floor(respuestapat.length * Math.random())]
 
-        const embedDatos = new Discord.MessageEmbed()
+        const embedDatos = new Discord.MessageEmbed() 
         .setTitle("")
-        .setDescription('**' + user + '**' + ' ha besado a **<@' + ment + '>** o.o')
+        .setDescription('**' + user + '**' + ' acarició a **<@' + ment + ">**")
         .setColor("PURPLE")
-        .setImage(randombeso)
+        .setImage(randompat)
 
-        message.channel.send({ embed: embedDatos});
-    }                                                                                                                                                                                           
+        message.channel.send({ embed: embedDatos });
+    }
     if(message.content.startsWith(prefix + "cuddle")) {                                                                                         
         let user = message.author.username;
         let ment = message.mentions.users.first();
@@ -398,22 +425,22 @@ client.on("message", async (message) => {
 
         message.channel.send({ embed: embedDatos });
     }
-    if(message.content.startsWith(prefix + "pat")) {
+    if(message.content.startsWith(prefix + "kiss")) {
         let user = message.author.username;
         let ment = message.mentions.users.first();
-        if(!ment) return message.channel.send("Menciona a alguien para poder acariciarlo ·w·")
-        var respuestapat = ["https://c.tenor.com/Y7B6npa9mXcAAAAC/rikka-head-pat-pat-on-head.gif", "https://c.tenor.com/E6fMkQRZBdIAAAAC/kanna-kamui-pat.gif", "https://c.tenor.com/8DaE6qzF0DwAAAAC/neet-anime.gif", "https://c.tenor.com/i7nXGbPLqTsAAAAC/anime-hug.gif", "https://c.tenor.com/kM1mVaXE8Y8AAAAC/kaede-azusagawa-kaede.gif", "https://c.tenor.com/TRxNL32jtEIAAAAC/anime-pat.gif", 
-        "https://c.tenor.com/8o4fWGwBY1EAAAAd/aharensan-aharen.gif", "https://c.tenor.com/jEfC8cztigIAAAAC/anime-pat.gif", "https://c.tenor.com/lOawy4d-SHMAAAAd/anime-cuddle-gauge.gif", "https://c.tenor.com/VzJtkXVo06wAAAAC/yuru-yuri-anime.gif", "https://c.tenor.com/Jj-vHGZOgT4AAAAC/anime-anime-girl.gif", "https://c.tenor.com/jBuHEbqxarcAAAAC/k-on-anime.gif"]
-        let randompat = respuestapat[Math.floor(respuestapat.length * Math.random())]
+        if(!ment) return message.channel.send("Menciona a alguien para poder besarlo ·w·")
+        var respuestabeso = ["https://c.tenor.com/fiafXWajQFoAAAAC/kiss-anime.gif", "https://c.tenor.com/riftr5iWqZQAAAAC/xdd.gif", "https://c.tenor.com/OjcDtiEDUvMAAAAC/friendly-kiss.gif", "https://c.tenor.com/Fyq9izHlreQAAAAC/my-little-monster-haru-yoshida.gif", "https://c.tenor.com/jN35LrknUpkAAAAC/test.gif", "https://c.tenor.com/9jB6M6aoW0AAAAAC/val-ally-kiss.gif", "https://c.tenor.com/wQyttVAvkF0AAAAd/forehead-kiss-anime.gif", "https://c.tenor.com/NO6j5K8YuRAAAAAC/leni.gif", "https://c.tenor.com/yoMKK29AMQsAAAAC/kiss-toradora.gif", 
+        "https://c.tenor.com/dn_KuOESmUYAAAAC/engage-kiss-anime-kiss.gif", "https://c.tenor.com/vhuon7swiOYAAAAC/rakudai-kishi-kiss.gif", "https://c.tenor.com/YeitcPAdSCYAAAAd/kyo-x-tohru-kiss.gif", "https://c.tenor.com/g9HjxRZM2C8AAAAd/anime-love.gif", "https://c.tenor.com/nRdyrvS3qa4AAAAC/anime-kiss.gif"]
+        var randombeso = respuestabeso[Math.floor(respuestabeso.length * Math.random())]
 
-        const embedDatos = new Discord.MessageEmbed() 
+        const embedDatos = new Discord.MessageEmbed()
         .setTitle("")
-        .setDescription('**' + user + '**' + ' acarició a **<@' + ment + ">**")
+        .setDescription('**' + user + '**' + ' ha besado a **<@' + ment + '>** o.o')
         .setColor("PURPLE")
-        .setImage(randompat)
+        .setImage(randombeso)
 
-        message.channel.send({ embed: embedDatos });
-    }
+        message.channel.send({ embed: embedDatos});
+    }                                                                                                                                                                                           
     if(message.content.startsWith(prefix + "dance")) {
         let user = message.author.username;
         var respuestadance = ["https://c.tenor.com/YNHT2hPxGawAAAAd/happy-birthday.gif", "https://c.tenor.com/LP6rGpITvlsAAAAd/chill.gif", "https://c.tenor.com/QwNUEvvKxY8AAAAd/happy-loli.gif", "https://c.tenor.com/U8WV2zeMLBEAAAAC/anime-dancing.gif", "https://c.tenor.com/1WtAgS78CB0AAAAd/duck-dance.gif", "https://c.tenor.com/8W8rOwe8XCEAAAAd/dance-anime.gif", "https://c.tenor.com/ysPVGNGfWBcAAAAC/anime-dance-happy.gif",
