@@ -40,6 +40,7 @@ client.on("message", async (message) => {
             .setAuthor(message.author.username, message.author.avatarURL())
             .setColor("PURPLE")
             .addField('Ping', 'Comprobará la latencia de la API de Discord', true)
+            .addField('Serverinfo (BETA)', 'Mostrará toda la información posible del servidor.')
             .addField('Roles', 'Mostrará todos los roles de el servidor en el que estes', true)
             .addField('Rolinfo', 'Mostrará toda la información de el rol que menciones.', true)
             .addField('Servericon', 'Mostrará el icono del servidor en el que estes.', true)
@@ -133,6 +134,58 @@ client.on("message", async (message) => {
     if(message.content.startsWith(prefix + "ping")) {                                                                                         
         message.channel.send(`La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.** ·w·`);
 
+    }
+    if(message.content.startsWith(prefix + "serverinfo")) {
+        const server = message.guild // Info del server
+        // ↓↓↓ Cantidad de Usuarios
+        const totalBots = server.members.cache.filter(member => member.user.bot).size;
+        const totalMembers = server.memberCount
+        const totalUsers = totalMembers - totalBots
+        // ↓↓↓ Estado de los Usuarios
+        const onlineMembers = server.members.cache.filter(member => member.presence.status === 'online').size;
+        const idleMembers = server.members.cache.filter(member => member.presence.status === 'idle').size;
+        const dndMembers = server.members.cache.filter(member => member.presence.status === 'dnd').size;
+        const offlineMembers = server.members.cache.filter(member => member.presence.status === 'offline').size;
+        // ↓↓↓ Cantidad de Canales
+        const totalChannels = server.channels.cache.size;
+        const textChannels = server.channels.cache.filter(channel => channel.type === 'text').size;
+        const voiceChannels = server.channels.cache.filter(channel => channel.type === 'voice').size;
+        const threadChannels = server.channels.cache.filter(channel => channel.type === 'thread').size;
+        // ↓↓↓ Nivel de Verificación
+        const verificationLevel = server.verificationLevel;
+        // ↓↓↓ Icono del Servidor
+        let icon = message.guild.iconURL({size : 2048, dyamic : true})
+        // ↓↓↓ Nivel de Verificación
+        function getVerificationLevelText(level) {
+            switch (level) {
+              case 'NONE':
+                return 'Ninguno';
+              case 'LOW':
+                return 'Bajo';
+              case 'MEDIUM':
+                return 'Medio';
+              case 'HIGH':
+                return 'Alto';
+              case 'VERY_HIGH':
+                return 'Muy alto';
+              default:
+                return 'Desconocido';
+            }
+        }
+
+        const embedServer = new Discord.MessageEmbed()
+        .setTitle("Información del server ·w·")
+        .setDescription(`**Nombre:** ${server.name}\n**ID:** ${server.id}`)
+        .setThumbnail(icon)
+        .addField('__Usuarios__', `- Total: ${totalMembers}\n- Usuarios: ${totalUsers}\n- Bots: ${totalBots}`)
+        .addField('__Estados de los Usuarios__', `- En línea: ${onlineMembers}\n- Ausente: ${idleMembers}\n- No molestar: ${dndMembers}\n- Desconectado: ${offlineMembers}`)
+        .addField('__Canales__', `- Total: ${totalChannels}\n- Texto: ${textChannels}\n- Voz: ${voiceChannels}\n- Hilos: ${threadChannels}`)
+        .addField('__Nivel de Verificación__', `- ${getVerificationLevelText(verificationLevel)}`)
+        .setFooter(`Región: ${server.region}`)
+        .setColor('PURPLE');
+
+        message.channel.send(embedServer)
+    
     }
     if(message.content.startsWith(prefix + "roles")) {
         let icon = message.guild.iconURL({size : 2048, dyamic : true})
@@ -258,7 +311,7 @@ client.on("message", async (message) => {
           let result = '';
           const alphabet = 'abcdefghijklmnopqrstuvwxyz';
           const numbers = '0123456789';
-      
+
           for (let i = 0; i < 2; i++) {
             const randomIndex = Math.floor(Math.random() * alphabet.length);
             result += alphabet.charAt(randomIndex);
