@@ -20,3 +20,8 @@
 - _El bot cuenta con 27 comandos, 8 de utilidad, 5 de entretenimiento, 5 de imagenes y 8 comandos de interacción. (Mas s!botinfo)_
   
 Definitivamente el mejor bot de Discord, con una gran variedad de comandos distintos y muy utiles para servidores de Discord, además de estar encendido 24/7.
+
+---
+
+## Licencia
+Este proyecto utiliza la licencia de "[GNU Affero General Public License v3.0](https://github.com/SiploxT/SiploxY/blob/main/LICENSE)"
