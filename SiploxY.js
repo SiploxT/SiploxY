@@ -248,7 +248,7 @@ client.on("message", async (message) => {
 
         message.channel.send(embedIcon)
     }
-    if(message.content.startsWith(prefix + "avatar")) {
+    if(message.content.startsWith(prefix + "avatar") || message.content.startsWith(prefix + "a")) {
      let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
      let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048}) 
 
@@ -306,12 +306,12 @@ client.on("message", async (message) => {
 
       message.channel.send(randomcoin)
     }
-    if (message.content.startsWith(prefix + "randomcap")) {
+    if (message.content.startsWith(prefix + "randomcap") || message.content.startsWith(prefix + "rc")) {
         function generateRandomCharacters(length) {
           let result = '';
           const alphabet = 'abcdefghijklmnopqrstuvwxyz';
           const numbers = '0123456789';
-
+      
           for (let i = 0; i < 2; i++) {
             const randomIndex = Math.floor(Math.random() * alphabet.length);
             result += alphabet.charAt(randomIndex);
@@ -331,8 +331,8 @@ client.on("message", async (message) => {
       
         message.channel.send(link);
       }
-      
-    if (message.content.startsWith(prefix + "randomuser")) {
+       
+    if (message.content.startsWith(prefix + "randomuser") || message.content.startsWith(prefix + "ru")) {
         const randomMember = message.guild.members.cache.random();
       
         const embedRandomUser = new Discord.MessageEmbed()
