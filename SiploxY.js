@@ -140,19 +140,22 @@ client.on("message", async (message) => {
         message.channel.send(embedInfo)
     }
     if(message.content.startsWith(prefix + "img")) {
-        const query = message.content.slice(5); // Obtener la consulta después del comando '!img'
+        const query = message.content.slice(5); 
         const image_url = await getImage(query);
     
         if (image_url) {
-          message.channel.send(image_url);
+          const imgEmbed = new Discord.MessageEmbed()
+          .setTitle(`Imagen de **~${query} ~**`)
+          .setImage(image_url)
+          .setColor("RANDOM")
+
+          message.channel.send(imgEmbed)
         } else {
-          message.channel.send(`No se encontraron imágenes acerca de${query}.`);
+          message.channel.send(`No se encontraron imágenes acerca de${query}.  ${msgEmote}`);
         }
     }
     
     async function getImage(query) {
-      // Lógica para obtener una imagen relacionada con la consulta utilizando la API de Unsplash
-      // Asegúrate de usar tu propia clave de API válida de Unsplash
     
       const api_key = 'gWJx3_2TW-1f6muA0xUzx6vnuN-YzXK0yVufLZN4_58';
       const url = `https://api.unsplash.com/photos/random?query=${query}&client_id=${api_key}`;
