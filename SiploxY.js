@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");
+const fetch = require('node-fetch');
 
 let prefix = config.prefix;
 
@@ -27,7 +28,7 @@ client.on("messageDelete", async (deletedMessage) => {
   
     const { executor } = deletionLog;
     console.log(`~${executor.username}~ ha borrado un mensaje en ~${guild.name}~ que decía: "${deletedMessage.content}" ·w·`);
-    
+
 });
 
 client.on("message", async (message) => {
@@ -41,14 +42,15 @@ client.on("message", async (message) => {
             .setTitle("Utilidad")
             .setAuthor(message.author.username, message.author.avatarURL())
             .setColor("PURPLE")
-            .addField('Ping', 'Comprobará la latencia de la API de Discord', true)
-            .addField('Serverinfo (BETA)', 'Mostrará toda la información posible del servidor.')
-            .addField('Roles', 'Mostrará todos los roles de el servidor en el que estes', true)
-            .addField('Rolinfo', 'Mostrará toda la información de el rol que menciones.', true)
-            .addField('Servericon', 'Mostrará el icono del servidor en el que estes.', true)
+            .addField('Img (BETA)', 'Enviará una imagen de la busqueda que hagas.', true)
             .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado', true)
             .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
+            .addField('Serverinfo (BETA)', 'Mostrará toda la información posible del servidor.')
+            .addField('Servericon', 'Mostrará el icono del servidor en el que estes.', true)
+            .addField('Rolinfo', 'Mostrará toda la información de el rol que menciones.', true)
+            .addField('Roles', 'Mostrará todos los roles de el servidor en el que estes', true)
             .addField('Snipe', 'Enseñará el contenido del ultimo mensaje que ha sido borrado en un guild', true)
+            .addField('Ping', 'Comprobará la latencia de la API de Discord', true)
         
         const embedEntretenimiento = new Discord.MessageEmbed()
             .setTitle("Entretenimiento")
@@ -137,9 +139,57 @@ client.on("message", async (message) => {
 
         message.channel.send(embedInfo)
     }
-    if(message.content.startsWith(prefix + "ping")) {
-        message.channel.send(`La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.**. ${msgEmote}`);
-
+    if(message.content.startsWith(prefix + "img")) {
+        const query = message.content.slice(5); // Obtener la consulta después del comando '!img'
+        const image_url = await getImage(query);
+    
+        if (image_url) {
+          message.channel.send(image_url);
+        } else {
+          message.channel.send(`No se encontraron imágenes acerca de${query}.`);
+        }
+    }
+    
+    async function getImage(query) {
+      // Lógica para obtener una imagen relacionada con la consulta utilizando la API de Unsplash
+      // Asegúrate de usar tu propia clave de API válida de Unsplash
+    
+      const api_key = 'gWJx3_2TW-1f6muA0xUzx6vnuN-YzXK0yVufLZN4_58';
+      const url = `https://api.unsplash.com/photos/random?query=${query}&client_id=${api_key}`;
+    
+      try {
+        const response = await fetch(url);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.urls && data.urls.regular) {
+            return data.urls.regular;
+          }
+        }
+      } catch (error) {
+        console.error('Error al obtener la imagen:', error);
+      }
+    
+      return null;
+    }
+    if(message.content.startsWith(prefix + "avatar") || message.content.startsWith(prefix + "a")) {
+        let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
+        let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048})
+   
+        const embedAvatar = new Discord.MessageEmbed()
+   
+        .setDescription("**Avatar de** <@" + user + "> **:** " )
+        .setColor("RANDOM")
+        .setImage(avatar)
+   
+        message.channel.send(embedAvatar)
+    }
+    if(message.content.startsWith(prefix + "say")) {
+        const args = message.content.slice(5)
+        if(!args) return message.channel.send(`Necesitas poner algo para que pueda decirlo. ${msgEmote}`)
+    
+        message.channel.send(args)
+    
+        message.delete()
     }
     if(message.content.startsWith(prefix + "serverinfo")) {
         const server = message.guild // Info del server
@@ -193,17 +243,17 @@ client.on("message", async (message) => {
         message.channel.send(embedServer)
     
     }
-    if(message.content.startsWith(prefix + "roles")) {
+    if(message.content.startsWith(prefix + "servericon")) {
         let icon = message.guild.iconURL({size : 2048, dyamic : true})
         let id = message.guild;
-         const embedRoles = new Discord.MessageEmbed()
-         .setColor("PURPLE")
-         .setThumbnail(icon)
-         .setDescription(`${id.roles.cache.map(r => r.name).join(" - ")}`)
-         .setFooter('Lista de roles de '+ message.guild.name);
-    
-        message.channel.send(embedRoles);
-    
+
+        const embedIcon = new Discord.MessageEmbed()
+        
+        .setTitle("El icono de " + message.guild.name + " es:")
+        .setColor("RANDOM")
+        .setImage(icon)
+
+        message.channel.send(embedIcon)
     }
     if(message.content.startsWith(prefix + "rolinfo")) {
         const rol = message.mentions.roles.first() || message.guild.roles.cache.get(args[0]);
@@ -242,37 +292,17 @@ client.on("message", async (message) => {
 
 
     }
-    if(message.content.startsWith(prefix + "servericon")) {
+    if(message.content.startsWith(prefix + "roles")) {
         let icon = message.guild.iconURL({size : 2048, dyamic : true})
         let id = message.guild;
-
-        const embedIcon = new Discord.MessageEmbed()
-        
-        .setTitle("El icono de " + message.guild.name + " es:")
-        .setColor("RANDOM")
-        .setImage(icon)
-
-        message.channel.send(embedIcon)
-    }
-    if(message.content.startsWith(prefix + "avatar") || message.content.startsWith(prefix + "a")) {
-     let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
-     let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048})
-
-     const embedAvatar = new Discord.MessageEmbed()
-
-     .setDescription("**Avatar de** <@" + user + "> **:** " )
-     .setColor("RANDOM")
-     .setImage(avatar)
-
-     message.channel.send(embedAvatar)
-    }
-    if(message.content.startsWith(prefix + "say")) {
-        const args = message.content.slice(5)
-        if(!args) return message.channel.send(`Necesitas poner algo para que pueda decirlo. ${msgEmote}`)
+         const embedRoles = new Discord.MessageEmbed()
+         .setColor("PURPLE")
+         .setThumbnail(icon)
+         .setDescription(`${id.roles.cache.map(r => r.name).join(" - ")}`)
+         .setFooter('Lista de roles de '+ message.guild.name);
     
-        message.channel.send(args)
+        message.channel.send(embedRoles);
     
-        message.delete()
     }
     if(message.content.startsWith(prefix + "snipe")) {
         let snipe = snipes.get(message.channel.id)
@@ -284,6 +314,10 @@ client.on("message", async (message) => {
         .setDescription(snipe.content)
         .setTimestamp(snipe.createdAt);
         message.channel.send(embedSnipe)
+
+    }
+    if(message.content.startsWith(prefix + "ping")) {
+        message.channel.send(`La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.**. ${msgEmote}`);
 
     }
     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
@@ -310,6 +344,7 @@ client.on("message", async (message) => {
       message.channel.send(randomcoin)
     }
     if (message.content.startsWith(prefix + "randomcap") || message.content.startsWith(prefix + "rc")) {
+        
         function generateRandomCharacters(length) {
           let result = '';
           const alphabet = 'abcdefghijklmnopqrstuvwxyz';
@@ -331,6 +366,11 @@ client.on("message", async (message) => {
         const prnt = 'https://prnt.sc/';
         const randomCharacters = generateRandomCharacters(6);
         const link = prnt + randomCharacters;
+
+        const rcEmbed = new Discord.MessageEmbed()
+        .setTitle(`Captura aleatoria ${msgEmote}`)
+        .setImage()
+        .setFooter(link)
       
         message.channel.send(link);
 
