@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");
 const fetch = require('node-fetch');
+const cheerio = require('cheerio');
 
 let prefix = config.prefix;
 
@@ -45,7 +46,7 @@ client.on("message", async (message) => {
             .addField('Img (BETA)', 'Enviará una imagen de la busqueda que hagas.', true)
             .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado', true)
             .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
-            .addField('Serverinfo (BETA)', 'Mostrará toda la información posible del servidor.')
+            .addField('Serverinfo', 'Mostrará toda la información posible del servidor.')
             .addField('Servericon', 'Mostrará el icono del servidor en el que estes.', true)
             .addField('Rolinfo', 'Mostrará toda la información de el rol que menciones.', true)
             .addField('Roles', 'Mostrará todos los roles de el servidor en el que estes', true)
@@ -140,39 +141,40 @@ client.on("message", async (message) => {
         message.channel.send(embedInfo)
     }
     if(message.content.startsWith(prefix + "img")) {
-        const query = message.content.slice(5); 
-        const image_url = await getImage(query);
-    
+        const query = message.content.slice(5);
+        const image_url = await getRandomImage(query);
+      
         if (image_url) {
           const imgEmbed = new Discord.MessageEmbed()
-          .setTitle(`Imagen de **~${query} ~**`)
-          .setImage(image_url)
-          .setColor("RANDOM")
-
-          message.channel.send(imgEmbed)
+            .setTitle(`Imagen de **${query}**`)
+            .setImage(image_url)
+            .setColor("RANDOM");
+      
+          message.channel.send(imgEmbed);
         } else {
-          message.channel.send(`No se encontraron imágenes acerca de${query}.  ${msgEmote}`);
+          message.channel.send(`No se encontraron imágenes acerca de ${query}.`);
         }
-    }
-    
-    async function getImage(query) {
-    
-      const api_key = 'gWJx3_2TW-1f6muA0xUzx6vnuN-YzXK0yVufLZN4_58';
-      const url = `https://api.unsplash.com/photos/random?query=${query}&client_id=${api_key}`;
-    
-      try {
-        const response = await fetch(url);
-        if (response.ok) {
-          const data = await response.json();
-          if (data.urls && data.urls.regular) {
-            return data.urls.regular;
-          }
-        }
-      } catch (error) {
-        console.error('Error al obtener la imagen:', error);
       }
-    
-      return null;
+      
+      async function getRandomImage(query) {
+        const searchQuery = encodeURIComponent(query);
+        const url = `https://www.google.com/search?q=${searchQuery}&tbm=isch`;
+      
+        try {
+          const response = await fetch(url);
+          if (response.ok) {
+            const html = await response.text();
+            const $ = cheerio.load(html);
+            const images = $('img[src^="http"]').map((index, element) => $(element).attr('src')).get();
+            if (images.length > 0) {
+              const randomIndex = Math.floor(Math.random() * images.length);
+              return images[randomIndex];
+            }
+          }
+        } catch (error) {
+          console.error('Error al obtener la imagen:', error);
+        }
+        return null;
     }
     if(message.content.startsWith(prefix + "avatar") || message.content.startsWith(prefix + "a")) {
         let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
