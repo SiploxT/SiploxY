@@ -392,7 +392,6 @@ client.on("message", async (message) => {
     // COMANDOS DE IMAGENES ♥ ♥ ♥ //
     // COMANDOS DE IMAGENES ♥ ♥ ♥ //
     if(message.content.startsWith(prefix + "neko")) {
-        const fetch = require ('node-fetch')
         const { MessageEmbed } = require("discord.js")
 
 
@@ -412,7 +411,6 @@ client.on("message", async (message) => {
     if(message.content.startsWith(prefix + "capybara")) {
         var capy = ["capybara ?!", "capybara !  !! !", "^__^", "coconut doggy", "o my gosh", "cappy blappy"]
         var capyrandom = capy[Math.floor(capy.length * Math.random())]
-        const fetch = require ('node-fetch')
         const { MessageEmbed } = require("discord.js")
 
         fetch(`https://api.animality.xyz/img/capybara`)
@@ -427,7 +425,6 @@ client.on("message", async (message) => {
         })
     }
     if(message.content.startsWith(prefix + "sadcat")) {
-     const fetch = require('node-fetch')
      const { MessageEmbed } = require("discord.js")
 
 
@@ -443,7 +440,6 @@ client.on("message", async (message) => {
         })
     }
     if(message.content.startsWith(prefix + "cat")) {
-     const fetch = require('node-fetch')
      const { MessageEmbed } = require("discord.js")
 
 
@@ -459,7 +455,6 @@ client.on("message", async (message) => {
         })
     }
     if(message.content.startsWith(prefix + "dog")) {
-        const fetch = require('node-fetch')
         const { MessageEmbed } = require("discord.js")
 
 
