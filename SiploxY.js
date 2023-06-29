@@ -140,25 +140,24 @@ client.on("message", async (message) => {
 
         message.channel.send(embedInfo)
     }
-    if(message.content.startsWith(prefix + "img")) {
+    if (message.content.startsWith(prefix + 'img')) {
         const query = message.content.slice(5);
         const image_url = await getRandomImage(query);
-      
+    
         if (image_url) {
           const imgEmbed = new Discord.MessageEmbed()
-            .setTitle(`Imagen de **${query}**`)
+            .setTitle(`Imagen de${query}`)
             .setImage(image_url)
             .setColor("RANDOM");
-      
+    
           message.channel.send(imgEmbed);
         } else {
-          message.channel.send(`No se encontraron imágenes acerca de ${query}.`);
+          message.channel.send(`No se encontraron imágenes acerca de${query}.`);
         }
-      }
-      
-      async function getRandomImage(query) {
+    }
+    async function getRandomImage(query) {
         const searchQuery = encodeURIComponent(query);
-        const url = `https://www.google.com/search?q=${searchQuery}&tbm=isch`;
+        const url = `https://www.google.com/search?q=${searchQuery}&tbm=isch&tbs=isz:l`;
       
         try {
           const response = await fetch(url);
@@ -176,6 +175,7 @@ client.on("message", async (message) => {
         }
         return null;
     }
+    
     if(message.content.startsWith(prefix + "avatar") || message.content.startsWith(prefix + "a")) {
         let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
         let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048})
