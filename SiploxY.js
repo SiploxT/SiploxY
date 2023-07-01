@@ -3,6 +3,7 @@ const client = new Discord.Client();
 const config = require("./config.json");
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
+const ms = require('ms');
 
 let prefix = config.prefix;
 
@@ -141,6 +142,16 @@ client.on("message", async (message) => {
         .setColor("PURPLE")
 
         message.channel.send(embedInfo)
+    }
+    if (message.content.startsWith(prefix + "reminder")) {
+        const argsReminder = message.content.slice(prefix.length).trim().split(/ +/);
+        const time = argsReminder[1];
+        const textReminder = argsReminder.slice(2).join(' ');
+    
+        setTimeout(() => {
+            message.channel.send(`${message.author}: Recuerda hacer lo siguiente - ${textReminder}.`);
+            message.channel.send(`Me has pedido recordarte esto hace: ${time}`)
+        }, ms(time));
     }
     if(message.content.startsWith(prefix + "avatar") || message.content.startsWith(prefix + "a")) {
         let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
