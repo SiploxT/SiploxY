@@ -45,7 +45,8 @@ client.on("message", async (message) => {
             .setAuthor(message.author.username, message.author.avatarURL())
             .setColor("PURPLE")
             .addField('Reminder (BETA)', 'Te recordará cualquier cosa que le pidas en el tiempo que le pidas.')
-            .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado', true)
+            .addField('Userinfo', 'Enviará toda la información posible del usuario mencionado.', true)
+            .addField('Avatar', 'Enviará el avatar de el usuario mencionado', true)
             .addField('Serverinfo', 'Mostrará toda la información posible del servidor.')
             .addField('Servericon', 'Mostrará el icono del servidor en el que estes.', true)
             .addField('Rolinfo', 'Mostrará toda la información de el rol que menciones.', true)
@@ -147,11 +148,33 @@ client.on("message", async (message) => {
         const argsReminder = message.content.slice(prefix.length).trim().split(/ +/);
         const time = argsReminder[1];
         const textReminder = argsReminder.slice(2).join(' ');
+
+        message.channel.send(`Entendido, te lo recordaré dentro de **${time}**.`)
     
         setTimeout(() => {
             message.channel.send(`${message.author}: Recuerda hacer lo siguiente - ${textReminder}.`);
             message.channel.send(`Me has pedido recordarte esto hace: ${time}`)
         }, ms(time));
+    }
+    if (message.content.startsWith(prefix + "userinfo")) {
+        const user = message.mentions.users.first() || message.author;
+        const member = message.guild.member(user);
+    
+        const userRoles = member.roles.cache
+            .filter(role => role.id !== message.guild.id)
+            .map(role => role.name).join(`, `);
+    
+        const joinDate = member.joinedAt.toDateString();
+    
+        const userinfoEmbed = new Discord.MessageEmbed()
+            .setThumbnail(user.displayAvatarURL())
+            .setTitle(`Información de ~${user.username} ~ - ${msgEmote}`)
+            .addField(`Id de usuario`, `- ${user.id}`)
+            .addField(`Fecha de unión al servidor`, `- ${joinDate}`)
+            .addField(`Roles`, `- ${userRoles}`)
+            .setColor("PURPLE")
+    
+        message.channel.send(userinfoEmbed);
     }
     if(message.content.startsWith(prefix + "avatar") || message.content.startsWith(prefix + "a")) {
         let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
@@ -271,8 +294,9 @@ client.on("message", async (message) => {
         let id = message.guild;
          const embedRoles = new Discord.MessageEmbed()
          .setColor("PURPLE")
+         .setTitle(`Roles de ~${id.name} ~`)
          .setThumbnail(icon)
-         .setDescription(`${id.roles.cache.map(r => r.name).join(" - ")}`)
+         .setDescription(`${id.roles.cache.map(r => r.name).join(", ")}`)
          .setFooter('Lista de roles de '+ message.guild.name);
     
         message.channel.send(embedRoles);
