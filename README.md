@@ -17,7 +17,7 @@
 - _Prefix: s!_
 - _Versión: discord.js@14.8.0_
 - _Hay un comando help para poder ver todos los comandos que tiene el bot ahora mismo. (s!help)_ 
-- _El bot cuenta con 28 comandos, 9 de utilidad, 5 de entretenimiento, 5 de imagenes y 8 comandos de interacción. (Mas s!botinfo)_
+- _El bot cuenta con 29 comandos, 9 de utilidad, 6 de entretenimiento, 5 de imagenes y 8 comandos de interacción. (Mas s!botinfo)_
   
 Definitivamente el mejor bot de Discord, con una gran variedad de comandos distintos y muy utiles para servidores de Discord, además de estar encendido 24/7.
 
