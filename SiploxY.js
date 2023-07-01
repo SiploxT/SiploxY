@@ -43,32 +43,34 @@ client.on("message", async (message) => {
             .setTitle("Utilidad")
             .setAuthor(message.author.username, message.author.avatarURL())
             .setColor("PURPLE")
-            .addField('Img (BETA)', 'Enviará una imagen de la busqueda que hagas.', true)
+            .addField('Reminder (BETA)', 'Te recordará cualquier cosa que le pidas en el tiempo que le pidas.')
             .addField('Avatar', 'Enviará el avatar de la persona a la que hayas mencionado', true)
-            .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
             .addField('Serverinfo', 'Mostrará toda la información posible del servidor.')
             .addField('Servericon', 'Mostrará el icono del servidor en el que estes.', true)
             .addField('Rolinfo', 'Mostrará toda la información de el rol que menciones.', true)
             .addField('Roles', 'Mostrará todos los roles de el servidor en el que estes', true)
-            .addField('Snipe', 'Enseñará el contenido del ultimo mensaje que ha sido borrado en un guild', true)
+            .addField('Snipe', 'Enviará el contenido del ultimo mensaje que ha sido borrado en un guild', true)
             .addField('Ping', 'Comprobará la latencia de la API de Discord', true)
+            .addField('Img (BETA)', 'Enviará una imagen de la busqueda que hagas.', true)
+            
         
         const embedEntretenimiento = new Discord.MessageEmbed()
             .setTitle("Entretenimiento")
             .setColor("PURPLE")
+            .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
             .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
             .addField('Coinflip', 'Lanzará una monera y saldrá cara o cruz', true)
-            .addField('RandomCap (BETA)', 'Enviará una captura aleatoria tomada por un usuario cualquiera.', true)
             .addField('Randomuser', 'Dirá el nombre de un usuario aleatorio del server', true)
+            .addField('RandomCap (BETA)', 'Enviará una captura aleatoria tomada por un usuario cualquiera.', true)
 
         const embedImagenes = new Discord.MessageEmbed()
             .setTitle("Imagenes")
             .setColor("PURPLE")
-            .addField('Neko', 'Enviará imagenes aleatorias de nekos ·w·', true)
             .addField('Capybara', 'Enviará imagenes aleatorias de Capybaras', true)
-            .addField('SadCat', 'Enviará imagenes aleatorias de gatos tristes', true)
+            .addField('Neko', 'Enviará imagenes aleatorias de nekos ·w·', true)
             .addField('Cat', 'Enviará imagenes aleatorias de gatos ￣ω￣', true)
+            .addField('SadCat', 'Enviará imagenes aleatorias de gatos tristes', true)
             .addField('Dog', 'Enviará imagenes aleatorias de perros', true)
 
         const embedInteracción = new Discord.MessageEmbed()
@@ -140,42 +142,6 @@ client.on("message", async (message) => {
 
         message.channel.send(embedInfo)
     }
-    if (message.content.startsWith(prefix + 'img')) {
-        const query = message.content.slice(5);
-        const image_url = await getRandomImage(query);
-    
-        if (image_url) {
-          const imgEmbed = new Discord.MessageEmbed()
-            .setTitle(`Imagen de${query}`)
-            .setImage(image_url)
-            .setColor("RANDOM");
-    
-          message.channel.send(imgEmbed);
-        } else {
-          message.channel.send(`No se encontraron imágenes acerca de${query}.`);
-        }
-    }
-    async function getRandomImage(query) {
-        const searchQuery = encodeURIComponent(query);
-        const url = `https://www.google.com/search?q=${searchQuery}&tbm=isch&tbs=isz:l`;
-      
-        try {
-          const response = await fetch(url);
-          if (response.ok) {
-            const html = await response.text();
-            const $ = cheerio.load(html);
-            const images = $('img[src^="http"]').map((index, element) => $(element).attr('src')).get();
-            if (images.length > 0) {
-              const randomIndex = Math.floor(Math.random() * images.length);
-              return images[randomIndex];
-            }
-          }
-        } catch (error) {
-          console.error('Error al obtener la imagen:', error);
-        }
-        return null;
-    }
-    
     if(message.content.startsWith(prefix + "avatar") || message.content.startsWith(prefix + "a")) {
         let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
         let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048})
@@ -187,15 +153,7 @@ client.on("message", async (message) => {
         .setImage(avatar)
    
         message.channel.send(embedAvatar)
-    }
-    if(message.content.startsWith(prefix + "say")) {
-        const args = message.content.slice(5)
-        if(!args) return message.channel.send(`Necesitas poner algo para que pueda decirlo. ${msgEmote}`)
-    
-        message.channel.send(args)
-    
-        message.delete()
-    }
+}
     if(message.content.startsWith(prefix + "serverinfo")) {
         const server = message.guild // Info del server
         // ↓↓↓ Cantidad de Usuarios
@@ -325,8 +283,52 @@ client.on("message", async (message) => {
         message.channel.send(`La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.**. ${msgEmote}`);
 
     }
+    if (message.content.startsWith(prefix + 'img')) {
+        const query = message.content.slice(5);
+        const image_url = await getRandomImage(query);
+    
+        if (image_url) {
+          const imgEmbed = new Discord.MessageEmbed()
+            .setTitle(`Imagen de${query}`)
+            .setImage(image_url)
+            .setColor("RANDOM");
+    
+          message.channel.send(imgEmbed);
+        } else {
+          message.channel.send(`No se encontraron imágenes acerca de${query}.`);
+        }
+}
+async function getRandomImage(query) {
+    const searchQuery = encodeURIComponent(query);
+    const url = `https://www.google.com/search?q=${searchQuery}&tbm=isch&tbs=isz:l`;
+  
+    try {
+      const response = await fetch(url);
+      if (response.ok) {
+        const html = await response.text();
+        const $ = cheerio.load(html);
+        const images = $('img[src^="http"]').map((index, element) => $(element).attr('src')).get();
+        if (images.length > 0) {
+          const randomIndex = Math.floor(Math.random() * images.length);
+          return images[randomIndex];
+        }
+      }
+    } catch (error) {
+      console.error('Error al obtener la imagen:', error);
+    }
+    return null;
+}
     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
+
+    if(message.content.startsWith(prefix + "say")) {
+     const args = message.content.slice(5)
+     if(!args) return message.channel.send(`Necesitas poner algo para que pueda decirlo. ${msgEmote}`)
+
+     message.channel.send(args)
+
+     message.delete()
+    }
     if(message.content.startsWith(prefix + "8ball")) {
         const args = message.content.slice(7)
         if(!args) return message.channel.send(`Necesitas preguntarme algo para que pueda responderte ${msgEmote}`)
@@ -347,6 +349,17 @@ client.on("message", async (message) => {
         var randomcoin = respuestacoin[Math.floor(Math.random() * respuestacoin.length)]
 
       message.channel.send(randomcoin)
+    }
+    if (message.content.startsWith(prefix + "randomuser") || message.content.startsWith(prefix + "ru")) {
+        const randomMember = message.guild.members.cache.random();
+
+        const embedRandomUser = new Discord.MessageEmbed()
+          .setTitle("__**" + randomMember.user.username + "**__")
+          .setThumbnail(randomMember.user.avatarURL())
+          .setDescription("Status: " + "*" + randomMember.presence.status + "*")
+          .setColor("RANDOM");
+
+        message.channel.send(embedRandomUser);
     }
     if (message.content.startsWith(prefix + "randomcap") || message.content.startsWith(prefix + "rc")) {
         
@@ -380,19 +393,24 @@ client.on("message", async (message) => {
         message.channel.send(link);
 
     }
-    if (message.content.startsWith(prefix + "randomuser") || message.content.startsWith(prefix + "ru")) {
-        const randomMember = message.guild.members.cache.random();
+    // COMANDOS DE IMAGENES ♥ ♥ ♥ //
+    // COMANDOS DE IMAGENES ♥ ♥ ♥ //
+    if(message.content.startsWith(prefix + "capybara")) {
+        var capy = ["capybara ?!", "capybara !  !! !", "^__^", "coconut doggy", "o my gosh", "cappy blappy"]
+        var capyrandom = capy[Math.floor(capy.length * Math.random())]
+        const { MessageEmbed } = require("discord.js")
 
-        const embedRandomUser = new Discord.MessageEmbed()
-          .setTitle("__**" + randomMember.user.username + "**__")
-          .setThumbnail(randomMember.user.avatarURL())
-          .setDescription("Status: " + "*" + randomMember.presence.status + "*")
-          .setColor("RANDOM");
-
-        message.channel.send(embedRandomUser);
+        fetch(`https://api.animality.xyz/img/capybara`)
+        .then((res) => res.json())
+        .then((body) => {
+            console.log(body)
+            let embed = new MessageEmbed()
+            .setTitle(capyrandom)
+            .setImage(body.link)
+            .setColor("GREEN")
+            message.channel.send(embed)
+        })
     }
-    // COMANDOS DE IMAGENES ♥ ♥ ♥ //
-    // COMANDOS DE IMAGENES ♥ ♥ ♥ //
     if(message.content.startsWith(prefix + "neko")) {
         const { MessageEmbed } = require("discord.js")
 
@@ -410,42 +428,26 @@ client.on("message", async (message) => {
 
 
     }
-    if(message.content.startsWith(prefix + "capybara")) {
-        var capy = ["capybara ?!", "capybara !  !! !", "^__^", "coconut doggy", "o my gosh", "cappy blappy"]
-        var capyrandom = capy[Math.floor(capy.length * Math.random())]
+    if(message.content.startsWith(prefix + "cat")) {
         const { MessageEmbed } = require("discord.js")
-
-        fetch(`https://api.animality.xyz/img/capybara`)
-        .then((res) => res.json())
-        .then((body) => {
-            console.log(body)
-            let embed = new MessageEmbed()
-            .setTitle(capyrandom)
-            .setImage(body.link)
-            .setColor("GREEN")
-            message.channel.send(embed)
-        })
-    }
+   
+   
+        fetch(`https://api.alexflipnote.dev/cats`)
+           .then((res) => res.json())
+           .then((body) => {
+               console.log(body)
+               let embed = new MessageEmbed()
+               .setTitle('Meow')
+               .setImage(body.file)
+               .setColor("PURPLE")
+               message.channel.send(embed)
+           })
+       }
     if(message.content.startsWith(prefix + "sadcat")) {
      const { MessageEmbed } = require("discord.js")
 
 
      fetch(`https://api.alexflipnote.dev/sadcat`)
-        .then((res) => res.json())
-        .then((body) => {
-            console.log(body)
-            let embed = new MessageEmbed()
-            .setTitle('Meow')
-            .setImage(body.file)
-            .setColor("PURPLE")
-            message.channel.send(embed)
-        })
-    }
-    if(message.content.startsWith(prefix + "cat")) {
-     const { MessageEmbed } = require("discord.js")
-
-
-     fetch(`https://api.alexflipnote.dev/cats`)
         .then((res) => res.json())
         .then((body) => {
             console.log(body)
