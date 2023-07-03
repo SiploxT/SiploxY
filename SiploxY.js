@@ -4,6 +4,7 @@ const config = require("./config.json");
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 const ms = require('ms');
+const axios = require('axios');
 
 let prefix = config.prefix;
 
@@ -86,7 +87,11 @@ client.on("message", async (message) => {
             .addField('Slap', 'Le darás una bofetada a la persona que menciones', true)
             .addField('Punch', 'Le darás un golpe a las persona que menciones', true)
             .addField('Kill', 'Matarás a la persona que menciones', true)
-            .setFooter("~~ .botinfo para ver mas información del bot ~~")
+
+        const embedEmoción = new Discord.MessageEmbed()
+        .setTitle("Emociones")
+        .addField("Cry", 'Te echarás a llorar unu', true)
+        .setFooter("~~ s!botinfo para ver mas información del bot ~~")    
 
         message.author.send(embedUtilidad)
         message.author.send(embedEntretenimiento)
@@ -355,7 +360,6 @@ async function getRandomImage(query) {
 }
     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
-
     if(message.content.startsWith(prefix + "say")) {
      const args = message.content.slice(5)
      if(!args) return message.channel.send(`Necesitas poner algo para que pueda decirlo. ${msgEmote}`)
@@ -630,17 +634,31 @@ async function getRandomImage(query) {
        "https://c.tenor.com/yWEfaRb2Ly8AAAAd/jojo-meme.gif", "https://c.tenor.com/dq5TwO6YPpAAAAAd/giorno-giovanna-muda-muda-muda.gif"]
         let randomkill = respuestakill[Math.floor(respuestakill.length * Math.random())]
 
-        const embedDatos = new Discord.MessageEmbed()
+        const embedkill = new Discord.MessageEmbed()
         .setTitle("")
         .setDescription('**' + user + '**' + ' ha matado a **<@' + ment + '>**')
         .setColor("PURPLE")
         .setImage(randomkill)
 
-        message.channel.send({ embed: embedDatos });
-
+        message.channel.send(embedkill)
     }
-    if(message.content.startsWith(prefix +`wawa`)) {
-        message.channel.send("wiwi")
+    // COMANDOS DE EMOCIONES ♥ ♥ ♥ //
+    // COMANDOS DE EMOCIONES ♥ ♥ ♥ //
+    if(message.content.startsWith(prefix + "cry")) {
+        let user = message.author.username;
+        var respuestacry = ["https://media.tenor.com/VcdTcSy-sJMAAAAC/sad-cry.gif", "https://media.tenor.com/eh1Zchfmz4sAAAAC/anime-tears.gif", "https://media.tenor.com/8WAGBT7LgA0AAAAC/anime-cry-hinagiku.gif", "https://media.tenor.com/v_FOnNyYuGcAAAAC/cry-k-on.gif", "https://media.tenor.com/JiWSJK_p0IYAAAAM/bocchi-bocchitherock.gif", "https://media.tenor.com/t5Cj3hpyYfAAAAAC/anime-cry.gif", 
+    "https://media.tenor.com/tK-bs8K6ZQIAAAAd/remi-horimiya.gif", "https://media.tenor.com/kMrB8yNbzrQAAAAC/jahy-sama-jahy.gif", "https://media.tenor.com/h2RyGfmdvXEAAAAC/mushoku-tensei-eris.gif", "https://media.tenor.com/r2DGstl2IWEAAAAC/raiden-shogun-ei.gif", "https://media.tenor.com/6qJBThILOTcAAAAC/shikimoris-not-just-cute-shikimori.gif", "https://media.tenor.com/_eEcwl8Mn50AAAAC/akebi-chan-no-sailor-anime-cry.gif", 
+    "https://media.tenor.com/qrEyPG0mDVYAAAAC/aharen-san-anime-cry.gif", "https://media.tenor.com/OhuSWqAsQH4AAAAC/anime-girl-sad-sad.gif", "https://media.tenor.com/0SxceifWNeEAAAAC/shachiku-san-anime-cry.gif", "https://media.tenor.com/IHVd7sXB66YAAAAC/anime-cry-hinagiku.gif", "https://media.tenor.com/N2qSCBkdracAAAAC/neko-anime.gif", "https://media.tenor.com/0qj0aqZ0nucAAAAC/anya-spy-x-family-anime-anya-crying.gif", "https://media.tenor.com/CiYd21Aj0wsAAAAC/alluka-cry.gif", "https://media.tenor.com/pj3qEJIblVoAAAAC/cry-anime.gif", "https://media.tenor.com/RzoUQx2aFbMAAAAM/show-by-rock-cyan-hijirikawa.gif", 
+    "https://media.tenor.com/Q0HUwg81A_0AAAAd/anime-cry.gif", "https://media.tenor.com/q0nNfTktQ7wAAAAC/crying-anime.gif", "https://media.tenor.com/zOiOQIcAHk8AAAAC/ilulu-ilulu-crying.gif", "https://media.tenor.com/UFDx5_Hq_EUAAAAC/keion-cry.gif", "https://media.tenor.com/glWRAhtVU5AAAAAC/cry.gif", "https://media.tenor.com/96Hp6CanFZ0AAAAd/anime-cry.gif", "https://media.tenor.com/_586RpXd1fUAAAAC/anime-crying.gif", "https://media.tenor.com/BX9nojvy0gYAAAAC/crying-drenched.gif", "https://media.tenor.com/K5-GfLeXrcIAAAAd/jahy-sama-jahy.gif", "https://media.tenor.com/bAWKEYF4IAUAAAAC/anime-sailor-moon.gif", 
+    "https://media.tenor.com/5BjwVWDXPCYAAAAC/luffy-cry.gif", "https://media.tenor.com/Lhv3hUPh5DUAAAAC/chika-anime.gif", "https://media.tenor.com/zDOUtOWpLmcAAAAC/neko-anime.gif", "https://media.tenor.com/6VuHq13q8FkAAAAC/sobbu-sobbing.gif", "https://media.tenor.com/6VuHq13q8FkAAAAC/sobbu-sobbing.gif", "https://media.tenor.com/eykEa3uLHiYAAAAC/cry-sad.gif", "https://media.tenor.com/bKbenMKAFfMAAAAC/anime-cry.gif", "https://media.tenor.com/9hMsz2XSoDYAAAAC/anime-anime-girl.gif", "https://media.tenor.com/rfhztq1on6gAAAAC/anime-lucky-star.gif"]
+        let randomcry = respuestacry[Math.floor(respuestacry.length * Math.random())]
+
+        const embedcry = new Discord.MessageEmbed()
+        .setDescription(`** ${user} ** se ha echado a llorar ::>_<::`)
+        .setColor("PURPLE")
+        .setImage(randomcry)
+
+        message.channel.send(embedcry)
     }
 });
 client.login(config.token);
