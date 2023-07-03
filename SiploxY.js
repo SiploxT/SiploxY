@@ -522,13 +522,13 @@ async function getRandomImage(query) {
         "https://c.tenor.com/8o4fWGwBY1EAAAAd/aharensan-aharen.gif", "https://c.tenor.com/jEfC8cztigIAAAAC/anime-pat.gif", "https://c.tenor.com/lOawy4d-SHMAAAAd/anime-cuddle-gauge.gif", "https://c.tenor.com/VzJtkXVo06wAAAAC/yuru-yuri-anime.gif", "https://c.tenor.com/Jj-vHGZOgT4AAAAC/anime-anime-girl.gif", "https://c.tenor.com/jBuHEbqxarcAAAAC/k-on-anime.gif"]
         let randompat = respuestapat[Math.floor(respuestapat.length * Math.random())]
 
-        const embedDatos = new Discord.MessageEmbed() 
+        const embedpat = new Discord.MessageEmbed() 
         .setTitle("")
         .setDescription('**' + user + '**' + ' acarició a **<@' + ment + ">**")
         .setColor("PURPLE")
         .setImage(randompat)
 
-        message.channel.send({ embed: embedDatos });
+        message.channel.send(embedpat);
     }
     if(message.content.startsWith(prefix + "cuddle")) {                                                                                         
         let user = message.author.username;
@@ -538,13 +538,13 @@ async function getRandomImage(query) {
         "https://c.tenor.com/WWgamF4xjZcAAAAC/anime-cuddle.gif", "https://c.tenor.com/y9_xxO9iMwkAAAAC/hug.gif", "https://c.tenor.com/hGUWkkHB_DQAAAAC/cuddle-anime.gif", "https://c.tenor.com/b3Qvt--s_i0AAAAC/hugs.gif", "https://c.tenor.com/NaJIRcVnWloAAAAd/sao-sword-art-online.gif", "https://c.tenor.com/XLWytMsrNy8AAAAC/kaioura-anime-girl.gif", "https://c.tenor.com/Fld0jbqWpDsAAAAC/gochuumon-wa-usagi-desuka-is-the-order-a-rabbit.gif"]
         let randomcuddle = respuestacuddle[Math.floor(respuestacuddle.length * Math.random())]
 
-        const embedDatos = new Discord.MessageEmbed()
+        const embedcuddle = new Discord.MessageEmbed()
         .setTitle("")
         .setDescription('**' + user + '**' + ' se acurrucó con **<@' + ment + ">**")
         .setColor("PURPLE")
         .setImage(randomcuddle)
 
-        message.channel.send({ embed: embedDatos });
+        message.channel.send(embedcuddle);
     }
     if(message.content.startsWith(prefix + "hug")) {
         let user = message.author.username;
@@ -554,13 +554,13 @@ async function getRandomImage(query) {
         "https://c.tenor.com/vpE5_F_oqmsAAAAC/run-hug-hug.gif", "https://c.tenor.com/-0nQoPY5sZ0AAAAC/anime-hug-hug.gif", "https://c.tenor.com/we1trpFB2F0AAAAC/neko-hug.gif", "https://c.tenor.com/4D5jSREXInMAAAAd/anime-couple-hug.gif", "https://c.tenor.com/QTbBCR3j-vYAAAAd/hugs-best-friends.gif", "https://c.tenor.com/yc_shX2Xl_QAAAAd/girl-anime.gif", "https://c.tenor.com/TJuvig1CFBQAAAAM/the-pet-girl-of-sakurasou-sakurasou-no-pet-na-kanojo.gif" ]
         let randomhug = respuestahug[Math.floor(respuestahug.length * Math.random())]
 
-        const embedDatos = new Discord.MessageEmbed()
+        const embedhug = new Discord.MessageEmbed()
         .setTitle("")
         .setDescription('**' + user + '**' + ' abrazó a **<@' + ment + ">**")
         .setColor("PURPLE")
         .setImage(randomhug)
 
-        message.channel.send({ embed: embedDatos });
+        message.channel.send(embedhug);
     }
     if(message.content.startsWith(prefix + "kiss")) {
         let user = message.author.username;
@@ -570,13 +570,13 @@ async function getRandomImage(query) {
         "https://c.tenor.com/dn_KuOESmUYAAAAC/engage-kiss-anime-kiss.gif", "https://c.tenor.com/vhuon7swiOYAAAAC/rakudai-kishi-kiss.gif", "https://c.tenor.com/YeitcPAdSCYAAAAd/kyo-x-tohru-kiss.gif", "https://c.tenor.com/g9HjxRZM2C8AAAAd/anime-love.gif", "https://c.tenor.com/nRdyrvS3qa4AAAAC/anime-kiss.gif"]
         var randombeso = respuestabeso[Math.floor(respuestabeso.length * Math.random())]
 
-        const embedDatos = new Discord.MessageEmbed()
+        const embedkiss = new Discord.MessageEmbed()
         .setTitle("")
         .setDescription('**' + user + '**' + ' ha besado a **<@' + ment + '>** o.o')
         .setColor("PURPLE")
         .setImage(randombeso)
 
-        message.channel.send({ embed: embedDatos});
+        message.channel.send(embedkiss);
     }
     if(message.content.startsWith(prefix + "dance")) {
         let user = message.author.username;
@@ -584,13 +584,13 @@ async function getRandomImage(query) {
         "https://c.tenor.com/GYjYgE-UCEgAAAAd/shinobu-kocho-dance.gif", "https://c.tenor.com/V8gBHFz-5mgAAAAC/kanna-kamui-kanna-dance.gif", "https://c.tenor.com/leneA9CzXlUAAAAC/dandidave-anime.gif", "https://c.tenor.com/_UMScn4rrGcAAAAC/dandidave-wave.gif", "https://c.tenor.com/gQ5iadXLfnQAAAAC/daisuke-dance.gif", "https://c.tenor.com/3Mc4IqoPAxAAAAAd/anime-dance.gif", "https://c.tenor.com/0w22pJMgugkAAAAC/hatsune-miku-dancing.gif", "https://c.tenor.com/K7GNv-vxewEAAAAM/hatsune-miku-vocaloid.gif" ]
         let randomdance = respuestadance[Math.floor(respuestadance.length * Math.random())]
 
-        const embedDatos = new Discord.MessageEmbed() 
+        const embeddance = new Discord.MessageEmbed() 
         .setTitle("")
         .setDescription('**' + user + '** está bailando')
         .setColor("PURPLE")
         .setImage(randomdance)
 
-        message.channel.send({ embed: embedDatos });
+        message.channel.send(embeddance);
     }
     if(message.content.startsWith(prefix + "slap")) {
         let user = message.author.username;
@@ -601,13 +601,13 @@ async function getRandomImage(query) {
         "https://c.tenor.com/hscOq_sMFdAAAAAM/kakashi-zabuza.gif", "https://c.tenor.com/1tk5BKEdCzcAAAAM/fumoffu-full-metal-panic.gif", "https://c.tenor.com/yl9kMAB2pHYAAAAC/slap.gif", "https://c.tenor.com/743sV2IWMEAAAAAC/chuunibyou-demo-koi-ga-shitai-anime.gif", "https://c.tenor.com/OuYAPinRFYgAAAAC/anime-slap.gif", "https://c.tenor.com/469w9za-5a0AAAAC/anime.gif", "https://c.tenor.com/Lc7C5mLIVIQAAAAC/anime-slap.gif", "https://c.tenor.com/vzQLL0MsF0cAAAAC/darkelfcarla-windmill.gif"]
         var randomslap = respuestaslap[Math.floor(respuestaslap.length * Math.random())]
 
-        const embedDatos = new Discord.MessageEmbed()
+        const embedslap = new Discord.MessageEmbed()
         .setTitle("")
         .setDescription('**' + user + '**' + ' le ha dado una bofetada a **<@' + ment + '>**')
         .setColor("PURPLE")
         .setImage(randomslap)
 
-        message.channel.send({embed : embedDatos});
+        message.channel.send(embedslap);
     }
     if(message.content.startsWith(prefix + "punch")) {
         let user = message.author.username;
@@ -617,13 +617,13 @@ async function getRandomImage(query) {
         "https://c.tenor.com/2VSFzXr7oTgAAAAC/kofune-ushio.gif", "https://c.tenor.com/6a42QlkVsCEAAAAM/anime-punch.gif", "https://c.tenor.com/5PyqOsngA00AAAAM/boku-no-hero-academia-my-hero-academia.gif", "https://c.tenor.com/xWqmJMePsqEAAAAM/weaboo-otaku.gif", "https://c.tenor.com/laW-dCBdPUgAAAAM/dragon-ball-super-goku.gif", "https://c.tenor.com/aEX1wE-WrEMAAAAC/anime-right-in-the-stomach.gif", "https://c.tenor.com/DKMb2QPU7aYAAAAC/rin243109-blue-exorcist.gif", "https://c.tenor.com/6Pzqw0wz28QAAAAC/shiki-granbell-shiki.gif", "https://c.tenor.com/1T5bgBYtMgUAAAAC/head-hit-anime.gif"]
         let randompunch = respuestapunch[Math.floor(respuestapunch.length * Math.random())]
 
-        const embedDatos = new Discord.MessageEmbed()
+        const embedpunch = new Discord.MessageEmbed()
         .setTitle("")
         .setDescription('**' + user + '**' + ' le ha pegado a **<@' + ment + '>**')
         .setColor("PURPLE")
         .setImage(randompunch)
 
-        message.channel.send({embed: embedDatos});
+        message.channel.send(embedpunch);
     }
     if(message.content.startsWith(prefix + "kill")) {
         let user = message.author.username;
