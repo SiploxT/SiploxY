@@ -94,6 +94,7 @@ client.on("message", async (message) => {
         .addField('Happy', 'Mostrarás lo feliz que estas ^-^', true)
         .addField('Suprise', 'Expresarás como de sorprendido estás ◉_◉')
         .addField('Neutral', '..Úsalo cuando no tengas nada que decir.')
+        .addField('Sleepy', 'Mostrarás el sueño que tienes', true)
         .addField('Angry', 'Te enfadarás.')
         .addField('Confused', 'Mostrarás tu confusión (。_。)')
         .addField('Fear', 'Expresa lo asustado que es-estas... o((⊙﹏⊙))o.')
@@ -706,6 +707,20 @@ async function getRandomImage(query) {
 
         message.channel.send(embedneutral)
     }
+    if(message.content.startsWith(prefix + "sleepy")) {
+        let user = message.author.username;
+        var respuestasleepy = ["https://media.tenor.com/MmjEo1QitoAAAAAC/little-anime.gif", "https://media.tenor.com/V5Y3vaFq7DcAAAAC/kanna-kawai.gif", "https://media.tenor.com/3Ti1nP8Mj6kAAAAM/yawn-nadeshiko.gif", "https://media.tenor.com/EMH0zrVV6LcAAAAM/sleepy-anime.gif", "https://media.tenor.com/wlI49Z28sawAAAAC/anime-sleepy.gif", "https://media.tenor.com/re9a71mA5xwAAAAC/nogamenolife-shiro.gif", "https://media.tenor.com/1UjVG4tHsPQAAAAC/lucky-star-yawn.gif", "https://media.tenor.com/hKli6TsxXYMAAAAC/tsukasa-anime.gif", "https://media.tenor.com/HouEItJq5tUAAAAM/sleepy.gif", "https://media.tenor.com/Izq6jHHDk20AAAAC/idolypride-anime.gif",
+        "https://media.tenor.com/L-XEzWbwm7IAAAAC/sleepy-sleepy-head.gif", "https://media.tenor.com/XcHZuEE48ngAAAAC/sleepy-yui.gif", "https://media.tenor.com/LVk1PDpuBmgAAAAC/anime-%E5%B0%8F%E6%9E%97%E3%81%95%E3%82%93%E3%81%A1%E3%81%AE%E3%83%A1%E3%82%A4%E3%83%89%E3%83%A9%E3%82%B4%E3%83%B3.gif", "https://media.tenor.com/i50gylGKwksAAAAC/cat-kitten.gif", "https://media.tenor.com/w5GG4ONbOh0AAAAC/sleepy-tired.gif", "https://media.tenor.com/1n6B6fRfZbUAAAAd/anime-sleepy.gif", "https://media.tenor.com/2w2IMfn9HDIAAAAd/sleep-sleepy.gif", "https://media.tenor.com/9WyP2MJlWiYAAAAC/kanna-sleepy.gif", "https://media.tenor.com/EFCJtCvJ39EAAAAM/himouto-umaru-chan-sylphynford-tachibana.gif",
+        "https://media.tenor.com/UygbJyHNMGUAAAAd/kiniro-mosaic-anime.gif", "https://media.tenor.com/BWx0XihzC9kAAAAd/anime-tired.gif", "https://media.tenor.com/ygF2TTmLCFwAAAAd/kanna-sleep-kanna.gif", "https://media.tenor.com/IsTHG9u7a40AAAAC/anime-brush-teeth.gif"]
+        let randomsleepy = respuestasleepy[Math.floor(respuestasleepy.length * Math.random())]
+
+        const embedsleepy = new Discord.MessageEmbed()
+        .setDescription(`** ${user} ** esta muriendose de sueño... ≡(▔﹏▔)≡`)
+        .setColor("PURPLE")
+        .setImage(randomsleepy)
+
+        message.channel.send(embedsleepy)
+    }
     if(message.content.startsWith(prefix + "angry")) {
         let user = message.author.username;
         var respuestaangry = ["https://media.tenor.com/A8YunXqxo80AAAAd/anime-angry.gif", "https://media.tenor.com/MvKZZ7JCkUMAAAAC/anime-angry.gif", "https://media.tenor.com/MvKZZ7JCkUMAAAAC/anime-angry.gif", "https://media.tenor.com/lBlcEFqoDnEAAAAC/annoyed-anime.gif", "https://media.tenor.com/G_YeALOH-iAAAAAC/mao-amatsuka-mad.gif", "https://media.tenor.com/VvTZho_Jgg0AAAAd/chihiro-komiya-shounen-maid.gif", "https://media.tenor.com/cYRAeQqpaUMAAAAC/anime-angry-slow-loop.gif", "https://media.tenor.com/V27d_O9uXncAAAAC/anime-angry.gif", "https://media.tenor.com/rzDkOlEDun0AAAAC/hayase-nagatoro-nagatoro-angry.gif", 
@@ -739,7 +754,7 @@ async function getRandomImage(query) {
         var respuestafear = ["https://media.tenor.com/RhyxCbENd6YAAAAC/umaru-chan-scared.gif", "https://media.tenor.com/pqT3ybJvFb4AAAAC/anime-fear.gif", "https://media.tenor.com/zaA5Pjj5uLEAAAAC/what-anime.gif", "https://media.tenor.com/W9hZx3Ag_EgAAAAC/anime-attack-on-titan.gif", "https://media.tenor.com/vY6n4P7oPL0AAAAC/anime-foodwars.gif", "https://media.tenor.com/Edm5vql1ln0AAAAd/anime-blink.gif", "https://media.tenor.com/Rh_FNuFbtQ4AAAAC/anime-princess-connect.gif", "https://media.tenor.com/K5CwEGXxbgYAAAAC/anime-scared.gif", "https://media.tenor.com/NAEfowG383oAAAAd/anime-anime-girl.gif", "https://media.tenor.com/JYeGC5oocP4AAAAC/cirno-touhou.gif",
         "https://media.tenor.com/gqEdTY5x0XoAAAAC/anime-pillow.gif", "https://media.tenor.com/JU3c0dnp1K8AAAAC/rebecca-bluegarden-and-happy-scared-happy.gif", "https://media.tenor.com/Q5fmN7qO6ZsAAAAd/renge-non-non-biyori.gif", "https://media.tenor.com/D9cWsb6p9asAAAAC/ranma-spooky.gif", "https://media.tenor.com/gquQa4lg2iEAAAAM/aoi-futaba-princess-connect.gif", "https://media.tenor.com/Xdngk-IiM88AAAAM/anime-ahhh.gif", "https://media.tenor.com/J-R0G7j7lxkAAAAd/yuru-camp-scared-anime.gif", "https://media.tenor.com/r1G0K33FM8IAAAAC/anime-scared.gif", "https://media.tenor.com/SNVdhLJRN9gAAAAC/wtf-scared.gif", "https://media.tenor.com/VZbjn5lvulMAAAAC/princess-connect-re-dive-anime.gif",
         "https://media.tenor.com/oOqwIwTvo94AAAAC/anime-sweating.gif", "https://media.tenor.com/C7OSv-EFghQAAAAC/sword-art-online-kirito.gif", "https://media.tenor.com/nAUe7K-G1l8AAAAd/azur-lane-anime.gif", "https://media.tenor.com/ElkBi5B7OxEAAAAd/hinako-note-scared.gif", "https://media.tenor.com/_127R-JDddAAAAAC/taihou-azur-lane.gif", "https://media.tenor.com/32kUeHdJbksAAAAd/anime-shaking.gif", "https://media.tenor.com/IY4QwmVxj9AAAAAC/scared.gif", "https://media.tenor.com/Jo5ApxvZa_QAAAAC/senko-the-helpful-fox-senko-san.gif", "https://media.tenor.com/RlPojBZOsd8AAAAM/d4dj-d4dj-petit-mix.gif", "https://media.tenor.com/0aSY5qsa0MgAAAAC/anime-no.gif",
-        "https://media.tenor.com/WMOA6XUEhGQAAAAM/kaguya-sama-love-is-war.gif", "https://media.tenor.com/A_bYazEnkBEAAAAC/scared-anime.gif", "https://media.tenor.com/A_bYazEnkBEAAAAC/scared-anime.gif", "https://media.tenor.com/3K3A9wznVOkAAAAC/zenitsu-agatsuma-demon-slayer.gif", "https://media.tenor.com/_xg6kWCTbYEAAAAC/onitsuka-natsumi-love-live-superstar.gif", "https://media.tenor.com/vDoHU2kftnsAAAAd/anime-point.gif", "https://media.tenor.com/PBNaeRJ-QUEAAAAC/anime-relife.gif"]
+        "https://media.tenor.com/WMOA6XUEhGQAAAAM/kaguya-sama-love-is-war.gif", "https://media.tenor.com/qKoW2fUSpjsAAAAd/the-maidens-are-falling-in-love-with-me-otome-wa-boku-ni-koishiteru.gif" ,"https://media.tenor.com/A_bYazEnkBEAAAAC/scared-anime.gif", "https://media.tenor.com/A_bYazEnkBEAAAAC/scared-anime.gif", "https://media.tenor.com/3K3A9wznVOkAAAAC/zenitsu-agatsuma-demon-slayer.gif", "https://media.tenor.com/_xg6kWCTbYEAAAAC/onitsuka-natsumi-love-live-superstar.gif", "https://media.tenor.com/vDoHU2kftnsAAAAd/anime-point.gif", "https://media.tenor.com/PBNaeRJ-QUEAAAAC/anime-relife.gif"]
         let randomfear = respuestafear[Math.floor(respuestafear.length * Math.random())]
 
         const embedfear = new Discord.MessageEmbed
