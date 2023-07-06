@@ -41,7 +41,7 @@ client.on("message", async (message) => {
     if (message.author.bot) return;
 	const args = message.content.trim().split(/ +/g);
     if(message.content.startsWith(prefix + 'help')) {
-        
+
         const embedUtilidad = new Discord.MessageEmbed()
             .setTitle("Utilidad")
             .setAuthor(message.author.username, message.author.avatarURL())
@@ -56,19 +56,17 @@ client.on("message", async (message) => {
             .addField('Snipe', 'Enviará el contenido del ultimo mensaje que ha sido borrado en un guild', true)
             .addField('Ping', 'Comprobará la latencia de la API de Discord', true)
             .addField('Img (BETA)', 'Enviará una imagen de la busqueda que hagas.', true)
-            
-        
+
         const embedEntretenimiento = new Discord.MessageEmbed()
             .setTitle("Entretenimiento")
             .setColor("PURPLE")
             .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
+            .addField('Roulette', 'Tirará una ruleta entre las opciones que des, eligirá una de ellas.', true)
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
             .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
             .addField('Coinflip', 'Lanzará una monera y saldrá cara o cruz', true)
-            .addField('RandomGif', 'Enviará un Gif aleatorio de tenor.')
             .addField('Randomuser', 'Dirá el nombre de un usuario aleatorio del server', true)
             .addField('RandomCap (BETA)', 'Enviará una captura aleatoria tomada por un usuario cualquiera.', true)
-            
 
         const embedImagenes = new Discord.MessageEmbed()
             .setTitle("Imagenes")
@@ -382,6 +380,13 @@ async function getRandomImage(query) {
 
      message.delete()
     }
+    if(message.content.startsWith(prefix + "roulette")) {
+        const opciones = message.content.slice(11).split(',').map(option => option.trim());
+        const randomopciones = Math.floor(Math.random() * opciones.length);
+        const selectedopciones = opciones[randomopciones];
+
+        message.channel.send(`La ruleta ha hablado... **¡${selectedopciones}!**`)
+    }
     if(message.content.startsWith(prefix + "8ball")) {
         const args = message.content.slice(7)
         if(!args) return message.channel.send(`Necesitas preguntarme algo para que pueda responderte ${msgEmote}`)
@@ -402,28 +407,6 @@ async function getRandomImage(query) {
         var randomcoin = respuestacoin[Math.floor(Math.random() * respuestacoin.length)]
 
       message.channel.send(randomcoin)
-    }
-    if (message.content.startsWith(prefix + "randomgif") || message.content.startsWith(prefix + "rg")) {
-        const tenorapi = "wawa";
-        const url = `https://api.tenor.com/v1/random?key=${tenorapi}`;
-    
-        axios
-          .get(url)
-          .then((response) => {
-            const gifUrl = response.data.results[0].media[0].gif.url;
-    
-            const embedgif = new Discord.MessageEmbed()
-              .setTitle('Gif aleatorio')
-              .setColor('RANDOM')
-              .setImage(gifUrl)
-              .setFooter('Tenor API');
-              
-            message.channel.send(embedgif);
-          })
-          .catch((error) => {
-            console.error(error);
-            message.channel.send('¡Ups! Ha ocurrido un error al enviar el gif.');
-          });
     }
     if (message.content.startsWith(prefix + "randomuser") || message.content.startsWith(prefix + "ru")) {
         const randomMember = message.guild.members.cache.random();
