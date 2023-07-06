@@ -60,6 +60,7 @@ client.on("message", async (message) => {
         const embedEntretenimiento = new Discord.MessageEmbed()
             .setTitle("Entretenimiento")
             .setColor("PURPLE")
+            .addField('Blackjack', 'Jugarás una partida de Blackjack contra el bot.')
             .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
             .addField('Roulette', 'Tirará una ruleta entre las opciones que des, eligirá una de ellas.', true)
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
@@ -80,14 +81,15 @@ client.on("message", async (message) => {
         const embedInteracción = new Discord.MessageEmbed()
             .setTitle("Interacción")
             .setColor("PURPLE")
-            .addField('Pat', 'Acariciarás a la persona que menciones', true)
-            .addField('Cuddle', 'Te acurrucarás con las personas que menciones', true)
-            .addField('Hug', 'Abrazás a  la  persona que menciones', true)
+            .addField('Poke', 'Tocarás a la persona mencionada.')
+            .addField('Pat', 'Acariciarás a la persona mencionada', true)
+            .addField('Cuddle', 'Te acurrucarás con la persona mencionada', true)
+            .addField('Hug', 'Abrazás a  la  persona mencionada ♥', true)
             .addField('Kiss', 'Besarás a la persona que menciones **o.o**', true)
             .addField('Dance', 'Hará que bailes', true)
-            .addField('Slap', 'Le darás una bofetada a la persona que menciones', true)
-            .addField('Punch', 'Le darás un golpe a las persona que menciones', true)
-            .addField('Kill', 'Matarás a la persona que menciones', true)
+            .addField('Slap', 'Le darás una bofetada a la persona mencionada', true)
+            .addField('Punch', 'Le darás un golpe a las persona mencionada', true)
+            .addField('Kill', 'Matarás a la persona mencionada. (￣﹏￣；)', true)
 
         const embedEmoción = new Discord.MessageEmbed()
             .setTitle('Emociones')
@@ -372,6 +374,7 @@ async function getRandomImage(query) {
 }
     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
+
     if(message.content.startsWith(prefix + "say")) {
      const args = message.content.slice(5)
      if(!args) return message.channel.send(`Necesitas poner algo para que pueda decirlo. ${msgEmote}`)
@@ -533,6 +536,22 @@ async function getRandomImage(query) {
     }
     // COMANDOS DE INTERACCIÓN ♥ ♥ ♥ //
     // COMANDOS DE INTERACCIÓN ♥ ♥ ♥ //
+    if(message.content.startsWith(prefix + "poke")) {
+        let user = message.author.username;
+        let ment = message.mentions.users.first();
+        if(!ment) return message.channel.send(`Menciona a alguien para poder tocarlo. ${msgEmote}`)
+        var respuestapoke = ["https://media.tenor.com/iu_Lnd86GxAAAAAC/nekone-utawarerumono.gif", "https://media.tenor.com/3dOqO4vVlr8AAAAC/poke-anime.gif", "https://media.tenor.com/B-E9cSUwhw8AAAAC/highschool-dxd-anime.gif", "https://media.tenor.com/HJa3EjH0iNMAAAAM/poke.gif", "https://media.tenor.com/XdfQaUIW4coAAAAC/poke.gif", "https://media.tenor.com/7iV_gBGrRAUAAAAC/boop-poke.gif", "https://media.tenor.com/jNx0V84WbqkAAAAM/anime-anime-poke.gif", "https://media.tenor.com/APqauOtznp4AAAAC/boop-poke.gif", "https://media.tenor.com/1YMrMsCtxLQAAAAC/anime-poke.gif",
+        "https://media.tenor.com/5j7eivfftw8AAAAC/poke.gif", "https://media.tenor.com/0i9CGM3SQsYAAAAC/anime-poke.gif", "https://media.tenor.com/gMqsQ1wwbhgAAAAC/anime-poke.gif", "https://media.tenor.com/0wPms8tS0eoAAAAC/boop-poke.gif", "https://media.tenor.com/QDNTqOInK5MAAAAC/anime-poke.gif", "https://media.tenor.com/MS7x-A5SsNkAAAAC/boob-poke.gif", "https://media.tenor.com/t6ABAaRJEA0AAAAC/oreimo-ore-no-im%C5%8Dto-ga-konna-ni-kawaii-wake-ga-nai.gif", "https://media.tenor.com/QQDEdB7Y1xoAAAAC/poke-usagi.gif", "https://media.tenor.com/AKMRjD0UDVoAAAAC/poke.gif",
+        "https://media.tenor.com/ebon-fK8aS0AAAAC/princess-connect-anime-poke.gif", "https://media.tenor.com/iXopfkIEWUUAAAAC/poke.gif", "https://media.tenor.com/B-gFTgUHZSEAAAAC/anime-platelet.gif", "https://media.tenor.com/OKfgEhfV3gAAAAAC/nananiji-poke.gif", "https://media.tenor.com/KKxmOxTh0LMAAAAC/poke-anime.gif", "https://media.tenor.com/YCZf5AM63E0AAAAC/hidamari-sketch-hiro.gif", "https://media.tenor.com/ySdxnfxoTrUAAAAM/ascendence-of-a-bookworm-bookworm-anime.gif", "https://media.tenor.com/ov73wDx2J_UAAAAM/vtuber-gura.gif", "https://media.tenor.com/Uy90Hf8peO8AAAAC/testament-of-sister-new-devil-shinmai-maou-no-testament.gif",]
+        let randompoke = respuestapoke[Math.floor(respuestapoke.length * Math.random())]
+
+        const embedpoke = new Discord.MessageEmbed() 
+        .setDescription(`**${user}** acaba de toquetear a ${ment} ${msgEmote}`)
+        .setColor("PURPLE")
+        .setImage(randompoke)
+
+        message.channel.send(embedpoke);
+    }
     if(message.content.startsWith(prefix + "pat")) {
         let user = message.author.username;
         let ment = message.mentions.users.first();
@@ -542,7 +561,6 @@ async function getRandomImage(query) {
         let randompat = respuestapat[Math.floor(respuestapat.length * Math.random())]
 
         const embedpat = new Discord.MessageEmbed() 
-        .setTitle("")
         .setDescription('**' + user + '**' + ' acarició a **<@' + ment + ">**")
         .setColor("PURPLE")
         .setImage(randompat)
