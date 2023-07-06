@@ -6,6 +6,7 @@ const cheerio = require('cheerio');
 const ms = require('ms');
 const axios = require('axios');
 
+
 let prefix = config.prefix;
 
 client.on("ready", () => {
@@ -64,8 +65,10 @@ client.on("message", async (message) => {
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
             .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
             .addField('Coinflip', 'Lanzará una monera y saldrá cara o cruz', true)
+            .addField('RandomGif', 'Enviará un Gif aleatorio de tenor.')
             .addField('Randomuser', 'Dirá el nombre de un usuario aleatorio del server', true)
             .addField('RandomCap (BETA)', 'Enviará una captura aleatoria tomada por un usuario cualquiera.', true)
+            
 
         const embedImagenes = new Discord.MessageEmbed()
             .setTitle("Imagenes")
@@ -399,6 +402,28 @@ async function getRandomImage(query) {
         var randomcoin = respuestacoin[Math.floor(Math.random() * respuestacoin.length)]
 
       message.channel.send(randomcoin)
+    }
+    if (message.content.startsWith(prefix + "randomgif") || message.content.startsWith(prefix + "rg")) {
+        const tenorapi = "wawa";
+        const url = `https://api.tenor.com/v1/random?key=${tenorapi}`;
+    
+        axios
+          .get(url)
+          .then((response) => {
+            const gifUrl = response.data.results[0].media[0].gif.url;
+    
+            const embedgif = new Discord.MessageEmbed()
+              .setTitle('Gif aleatorio')
+              .setColor('RANDOM')
+              .setImage(gifUrl)
+              .setFooter('Tenor API');
+              
+            message.channel.send(embedgif);
+          })
+          .catch((error) => {
+            console.error(error);
+            message.channel.send('¡Ups! Ha ocurrido un error al enviar el gif.');
+          });
     }
     if (message.content.startsWith(prefix + "randomuser") || message.content.startsWith(prefix + "ru")) {
         const randomMember = message.guild.members.cache.random();
