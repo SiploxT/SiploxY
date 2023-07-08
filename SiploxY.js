@@ -84,6 +84,7 @@ client.on("message", async (message) => {
             .addField('Pat', 'Acariciarás a la persona mencionada', true)
             .addField('Cuddle', 'Te acurrucarás con la persona mencionada', true)
             .addField('Hug', 'Abrazás a  la  persona mencionada ♥', true)
+            .addField('Lick', 'Lamerás a la persona que menciones o(〃＾▽＾〃)o')
             .addField('Kiss', 'Besarás a la persona que menciones **o.o**', true)
             .addField('Dance', 'Hará que bailes', true)
             .addField('Bite', 'Morderás a la persona mencionada >w<')
@@ -599,18 +600,36 @@ async function getRandomImage(query) {
 
         message.channel.send(embedhug);
     }
+    if(message.content.startsWith(prefix + "lick")) {
+        let user = message.author.username;
+        let ment = message.mentions.users.first();
+        if(!ment) return message.channel.send(`Debes mencionar a alguien para poder lamenrlo ${msgEmote}`)
+
+        var respuestalick = ["https://media.tenor.com/Ko4B_-GmEBwAAAAC/anime-lick-mio-naruse.gif", "https://media.tenor.com/Pb1JPfqXpAIAAAAC/lick-licky.gif", "https://media.tenor.com/al640NjsUccAAAAC/lick-intimate.gif", "https://media.tenor.com/Go7wnhOWjSkAAAAC/anime-lick-face.gif", "https://media.tenor.com/286PoD-NAiIAAAAC/anime-hajimete-no-gal.gif", "https://media.tenor.com/IZoJ7z5nBzgAAAAC/lick.gif", "https://media.tenor.com/S5I9g4dPRn4AAAAC/omamori-himari-manga.gif", "https://media.tenor.com/Ja6awViaQkUAAAAC/anime-lick.gif", "https://media.tenor.com/rWtIltahEoAAAAAC/kawaii-lick.gif",
+        "https://media.tenor.com/7x_pjt2jtYoAAAAC/lick-tongue-out.gif", "https://media.tenor.com/8q1ITCCJRuUAAAAM/lick.gif", "https://media.tenor.com/o5YDW53RaQkAAAAM/kurumi-anime.gif", "https://media.tenor.com/jyv9sexi1fYAAAAC/anime-lick.gif", "https://media.tenor.com/ZIfFiEBuKsAAAAAC/kiss-anime.gif", "https://media.tenor.com/0LMxPQdFBKAAAAAC/nekopara-kiss.gif", "https://media.tenor.com/74HCjRFV_sAAAAAC/delicious-lick-lips.gif", "https://media.tenor.com/zIU_JbsnMQ8AAAAC/zatch-bell-golden-gash.gif", "https://media.tenor.com/WEV6KvZIoAIAAAAC/anime-hybrid-heart.gif", "https://media.tenor.com/nZxVjstzs5QAAAAC/anime-datealive.gif",
+        "https://media.tenor.com/0gaNCsybxOoAAAAC/anime-genshin-impact.gif", "https://media.tenor.com/BdBizLMmDaIAAAAC/finger-blood.gif", "https://media.tenor.com/HRfSDhYzaCYAAAAC/saikin-yatotta-maid-ga-ayashii-anime-lick.gif", "https://media.tenor.com/4U2-K7XUIJUAAAAC/pain-ellenoar.gif", "https://media.tenor.com/dbLZE2ebPQ8AAAAC/shachiku-san-anime-lick.gif", "https://media.tenor.com/deoKcrsaruEAAAAC/oreimo-lick-lips.gif", "https://media.tenor.com/NYbbYx2-1_0AAAAC/lick.gif", "https://media.tenor.com/20EQthIlEgIAAAAC/lick-anime.gif", "https://media.tenor.com/ZnQHsG1i8aIAAAAC/elaina-anime.gif",
+        "https://media.tenor.com/Y95KJDdWZJgAAAAC/tooru-kobayashi.gif", "https://media.tenor.com/T4IKl8pPCdYAAAAC/arifureta-tio.gif", "https://media.tenor.com/Xb1u2Z6nLRQAAAAC/lick-anime.gif", "https://media.tenor.com/cPPGnJqYiJYAAAAC/kanna-kamui.gif", "https://media.tenor.com/Mwz2ih3-a-cAAAAC/anime-anime-kasumi.gif"]
+        var randomlick = respuestalick[Math.floor(respuestalick.length * Math.random())]
+
+        const embedlick = new Discord.MessageEmbed()
+        .setDescription(`**${user}** esta lamiendo a ${ment}.. ${msgEmote}`)
+        .setColor("PURPLE")
+        .setImage(randomlick)
+
+        message.channel.send(embedlick)
+    }
     if(message.content.startsWith(prefix + "kiss")) {
         let user = message.author.username;
         let ment = message.mentions.users.first();
         if(!ment) return message.channel.send(`Menciona a alguien para poder besarlo. ${msgEmote}`)
-        var respuestabeso = ["https://c.tenor.com/fiafXWajQFoAAAAC/kiss-anime.gif", "https://c.tenor.com/riftr5iWqZQAAAAC/xdd.gif", "https://c.tenor.com/OjcDtiEDUvMAAAAC/friendly-kiss.gif", "https://c.tenor.com/Fyq9izHlreQAAAAC/my-little-monster-haru-yoshida.gif", "https://c.tenor.com/jN35LrknUpkAAAAC/test.gif", "https://c.tenor.com/9jB6M6aoW0AAAAAC/val-ally-kiss.gif", "https://c.tenor.com/wQyttVAvkF0AAAAd/forehead-kiss-anime.gif", "https://c.tenor.com/NO6j5K8YuRAAAAAC/leni.gif", "https://c.tenor.com/yoMKK29AMQsAAAAC/kiss-toradora.gif", 
+        var respuestakiss = ["https://c.tenor.com/fiafXWajQFoAAAAC/kiss-anime.gif", "https://c.tenor.com/riftr5iWqZQAAAAC/xdd.gif", "https://c.tenor.com/OjcDtiEDUvMAAAAC/friendly-kiss.gif", "https://c.tenor.com/Fyq9izHlreQAAAAC/my-little-monster-haru-yoshida.gif", "https://c.tenor.com/jN35LrknUpkAAAAC/test.gif", "https://c.tenor.com/9jB6M6aoW0AAAAAC/val-ally-kiss.gif", "https://c.tenor.com/wQyttVAvkF0AAAAd/forehead-kiss-anime.gif", "https://c.tenor.com/NO6j5K8YuRAAAAAC/leni.gif", "https://c.tenor.com/yoMKK29AMQsAAAAC/kiss-toradora.gif", 
         "https://c.tenor.com/dn_KuOESmUYAAAAC/engage-kiss-anime-kiss.gif", "https://c.tenor.com/vhuon7swiOYAAAAC/rakudai-kishi-kiss.gif", "https://c.tenor.com/YeitcPAdSCYAAAAd/kyo-x-tohru-kiss.gif", "https://c.tenor.com/g9HjxRZM2C8AAAAd/anime-love.gif", "https://c.tenor.com/nRdyrvS3qa4AAAAC/anime-kiss.gif"]
-        var randombeso = respuestabeso[Math.floor(respuestabeso.length * Math.random())]
+        var randomkiss = respuestakiss[Math.floor(respuestakiss.length * Math.random())]
 
         const embedkiss = new Discord.MessageEmbed()
-        .setDescription('**' + user + '**' + ' ha besado a **<@' + ment + '>** o.o')
+        .setDescription(`**${user}** acaba de besar a ${ment} (。・ω・。)`)
         .setColor("PURPLE")
-        .setImage(randombeso)
+        .setImage(randomkiss)
 
         message.channel.send(embedkiss);
     }
@@ -629,14 +648,14 @@ async function getRandomImage(query) {
     }
     if(message.content.startsWith(prefix + "bite")) {
         let user = message.author.username;
-        let ment = message.mentions.user.first();
+        let ment = message.mentions.users.first();
         if(!ment) return message.channel.send(`Menciona a la persona que quieras morder. ${msgEmote}`)
 
         var respuestabite = ["https://media.tenor.com/5mVQ3ffWUTgAAAAC/anime-bite.gif", "https://media.tenor.com/_AkeqheWU-4AAAAC/anime-bite.gif", "https://media.tenor.com/BVFbvCZKNEsAAAAC/princess-connect-anime-bite.gif", "https://media.tenor.com/1LtA9dSoAIQAAAAC/zero-no-tsukaima-bite.gif", "https://media.tenor.com/BMEjcm2O8zsAAAAC/anime-bite.gif", "https://media.tenor.com/ECCpi63jZlUAAAAC/anime-bite.gif", "https://media.tenor.com/0neaBmDilHsAAAAC/anime-bite.gif", "https://media.tenor.com/n__KGrZPlQEAAAAC/bite.gif", "https://media.tenor.com/hwCVSWyji0QAAAAC/anime-bite.gif",
         "https://media.tenor.com/c3mqGRCrAzsAAAAC/bite.gif", "https://media.tenor.com/32b3QF976Y8AAAAd/anime-bite.gif", "https://media.tenor.com/jQ1anSa1FekAAAAC/bite-me.gif", "https://media.tenor.com/JEuY0WWcguIAAAAC/anime-bite.gif", "https://media.tenor.com/ZS2uG_TqqDwAAAAC/bite.gif", "https://media.tenor.com/y91DzE22_V4AAAAC/anime-bite.gif", "https://media.tenor.com/JtGP_P6diiYAAAAC/bite.gif", "https://media.tenor.com/DjvVtKrojMwAAAAC/anime-acchi-kocchi.gif", "https://media.tenor.com/FVqibRmEe-4AAAAC/neck-bite-anime.gif", "https://media.tenor.com/8UjO54apiUIAAAAC/gjbu-bite.gif",
         "https://media.tenor.com/YpUR5M28gtAAAAAC/katpurnicus-vtuber.gif", "https://media.tenor.com/8VptKIU2T_wAAAAd/anime-bite.gif", "https://media.tenor.com/_smhsCVsH4AAAAAC/no-blood-neck-bite.gif", "https://media.tenor.com/DrLl1pH034gAAAAC/gamerchick42092-anime.gif", "https://media.tenor.com/ab2O4qmrpGgAAAAC/index-touma.gif", "https://media.tenor.com/OYcQ7KWydG4AAAAC/azumanga-cat-bite-anime.gif", "https://media.tenor.com/_hcAvAYArrwAAAAC/anime-attack.gif", "https://media.tenor.com/iIAvibfzzFYAAAAC/demichan-wa-kataritai-nom-nom.gif", "https://media.tenor.com/oVE5AVnL_DIAAAAd/demon-cute.gif",
         "https://media.tenor.com/ay0Vpx9gwWsAAAAC/zombie-land-saga-tae-yamada.gif", "https://media.tenor.com/IjFUX_QqUaQAAAAd/neko-gaming.gif", "https://media.tenor.com/leZWEbMQEkEAAAAC/re-zero-rem.gif", "https://media.tenor.com/vHfD8O5dDd4AAAAC/acchi-kocchi-anime.gif", "https://media.tenor.com/Cz07Pzt7_LIAAAAC/bite-much.gif", "https://media.tenor.com/y8lPpL1jsIwAAAAC/nichijou-dog-pet.gif", "https://media.tenor.com/MGuHaYdPUJ4AAAAd/my-hero-academia-anime.gif"]
-        let randombite = respuestabite[Math.floor(resputabite.length * Math.floor())]
+        let randombite = respuestabite[Math.floor(respuestabite.length * Math.random())];
 
         const embedbite = new Discord.MessageEmbed()
         .setDescription(`${user} acaba de morder a ${ment} con todas sus fuerzas ${msgEmote}`)
