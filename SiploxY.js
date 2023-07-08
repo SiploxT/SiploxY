@@ -4,6 +4,7 @@ const config = require("./config.json");
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 const ms = require('ms');
+const axios = require('axios');
 
 
 let prefix = config.prefix;
@@ -60,6 +61,7 @@ client.on("message", async (message) => {
         const embedEntretenimiento = new Discord.MessageEmbed()
             .setTitle("Entretenimiento")
             .setColor("PURPLE")
+            .addField('Meme', 'Enviará un meme aleatorio', true)
             .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
             .addField('Roulette', 'Tirará una ruleta entre las opciones que des, eligirá una de ellas.', true)
             .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
@@ -84,10 +86,10 @@ client.on("message", async (message) => {
             .addField('Pat', 'Acariciarás a la persona mencionada', true)
             .addField('Cuddle', 'Te acurrucarás con la persona mencionada', true)
             .addField('Hug', 'Abrazás a  la  persona mencionada ♥', true)
-            .addField('Lick', 'Lamerás a la persona que menciones o(〃＾▽＾〃)o')
+            .addField('Lick', 'Lamerás a la persona que menciones o(〃＾▽＾〃)o', true)
             .addField('Kiss', 'Besarás a la persona que menciones **o.o**', true)
             .addField('Dance', 'Hará que bailes', true)
-            .addField('Bite', 'Morderás a la persona mencionada >w<')
+            .addField('Bite', 'Morderás a la persona mencionada >w<', true)
             .addField('Slap', 'Le darás una bofetada a la persona mencionada', true)
             .addField('Punch', 'Le darás un golpe a las persona mencionada', true)
             .addField('Kill', 'Matarás a la persona mencionada. (￣﹏￣；)', true)
@@ -375,7 +377,30 @@ async function getRandomImage(query) {
 }
     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
+    if(message.content.startsWith(prefix + "meme")) {
+        async function obtenerMemeAleatorio() {
+            try {
+              const response = await axios.get('https://meme-api.com/gimme');
+              return response.data;
+            } catch (error) {
+              console.error('Error al obtener el meme:', error);
+              return null;
+            }
+        }
+        const meme = await obtenerMemeAleatorio();
+    if (meme) {
+      const embed = new Discord.MessageEmbed()
+        .setTitle(meme.title)
+        .setURL(meme.postLink)
+        .setColor('RANDOM')
+        .setImage(meme.url)
+        .setFooter(`Subreddit: ${meme.subreddit}`);
 
+      message.channel.send(embed);
+    } else {
+      message.channel.send('No se pudo obtener un meme aleatorio, nya.');
+    }
+    }
     if(message.content.startsWith(prefix + "say")) {
      const args = message.content.slice(5)
      if(!args) return message.channel.send(`Necesitas poner algo para que pueda decirlo. ${msgEmote}`)
