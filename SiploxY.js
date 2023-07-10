@@ -88,6 +88,7 @@ client.on("message", async (message) => {
             .addField('Hug', 'Abrazás a  la  persona mencionada ♥', true)
             .addField('Lick', 'Lamerás a la persona que menciones o(〃＾▽＾〃)o', true)
             .addField('Kiss', 'Besarás a la persona que menciones **o.o**', true)
+            .addField('Sleep', 'Empezarñas a dormir.. (。-ω-)zzz')
             .addField('Dance', 'Hará que bailes', true)
             .addField('Bite', 'Morderás a la persona mencionada >w<', true)
             .addField('Slap', 'Le darás una bofetada a la persona mencionada', true)
@@ -657,6 +658,22 @@ async function getRandomImage(query) {
         .setImage(randomkiss)
 
         message.channel.send(embedkiss);
+    }
+    if(message.content.startsWith(prefix + "sleep")) {
+        let user = message.author.username;
+        var respuestasleep = ["https://media.tenor.com/Q-nEqZ_N2DkAAAAC/anime-sleep.gif", "https://media.tenor.com/ssMAXsyy7jsAAAAC/sleep-anime.gif", "https://media.tenor.com/u2f7GM10EKQAAAAC/sleep-anime.gif", "https://media.tenor.com/23NQtnQLhLQAAAAC/rit-red.gif", "https://media.tenor.com/JKA8N5VeJ6wAAAAC/azumanga-daioh-azumanga.gif", "https://media.tenor.com/tSnPYbrKcRQAAAAC/anime-sleeping.gif", "https://media.tenor.com/J2xl7jv0zpYAAAAC/yuru-yuri-sleep.gif", "https://media.tenor.com/PB2B6NDQBGIAAAAd/anime-sleep.gif",
+        "https://media.tenor.com/JTqXUbfSSkYAAAAC/anime-bed.gif", "https://media.tenor.com/UygbJyHNMGUAAAAd/kiniro-mosaic-anime.gif", "https://media.tenor.com/g4ppzvfgIfQAAAAC/sleep-sleepy.gif", "https://media.tenor.com/gid_9dutgIEAAAAC/sleep-anime.gif", "https://media.tenor.com/IpzUPvWKhJEAAAAd/kon-yui.gif", "https://media.tenor.com/EO_k8kxEyTgAAAAC/noela-anime.gif", "https://media.tenor.com/qwmK6t1dc7sAAAAd/shoujo-kageki-revue-starlight-anime.gif", "https://media.tenor.com/tFK85O0L6EEAAAAM/anime-good.gif", "https://media.tenor.com/GtiqQONQJYAAAAAM/sleep-anime.gif",
+        "https://media.tenor.com/0WkIrZqP4oQAAAAC/sleep.gif", "https://media.tenor.com/g75K3KA3VeAAAAAd/anime-sleep.gif", "https://media.tenor.com/_o4ZWpDb8yUAAAAd/sleep-endro.gif", "https://media.tenor.com/i9iqGw1Unt4AAAAC/misaka-mikoto-railgun.gif", "https://media.tenor.com/BV0xBnKK6VIAAAAd/anime-sofa.gif", "https://media.tenor.com/tFippftiD50AAAAC/anime-sleep.gif", "https://media.tenor.com/w8bVOlSAZkUAAAAC/spy-x-family-anya-spy-x-family.gif", "https://media.tenor.com/e_d1mTN6kHUAAAAC/yamaguchi-tadashi-haikyuu.gif", "https://media.tenor.com/8ltep0wxKAgAAAAC/anime-sleeping.gif",
+        "https://media.tenor.com/w1oPx_LisdUAAAAM/sleeping-drooling.gif", "https://media.tenor.com/2LJqv5NFZRQAAAAd/anime-sleeping.gif", "https://media.tenor.com/rSsEpegAWRkAAAAd/akebi-chan-anime.gif", "https://media.tenor.com/EDV_6goJOpIAAAAC/anime-awake-sleepy.gif", "https://media.tenor.com/Ntox6AN073oAAAAC/sleep-anime.gif", "https://media.tenor.com/9l5SbUKgdEIAAAAC/sleeptalk-sleeping.gif", "https://media.tenor.com/-FxC89a4DXMAAAAC/kawaii-anime.gif", "https://media.tenor.com/j-zkdTfQ4dUAAAAd/bed-sleep.gif", "https://media.tenor.com/ygF2TTmLCFwAAAAd/kanna-sleep-kanna.gif",
+        "https://media.tenor.com/Z58VAbS51EEAAAAC/slee-asushin.gif"]
+        let randomsleep = respuestasleep[Math.floor(respuestasleep.length * Math.random())]
+
+        const embedsleep = new Discord.MessageEmbed()
+        .setDescription(`**${user}** acaba de dormirse.... (。-ω-)zzz`)
+        .setColor("PURPLE")
+        .setImage(randomsleep)
+
+        message.channel.send(embedsleep)
     }
     if(message.content.startsWith(prefix + "dance")) {
         let user = message.author.username;
