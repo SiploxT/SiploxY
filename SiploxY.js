@@ -61,6 +61,7 @@ client.on("message", async (message) => {
         const embedEntretenimiento = new Discord.MessageEmbed()
             .setTitle("Entretenimiento")
             .setColor("PURPLE")
+            .addField('SCP', 'Enviará la página del SCP que envies.')
             .addField('Meme', 'Enviará un meme aleatorio', true)
             .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
             .addField('Roulette', 'Tirará una ruleta entre las opciones que des, eligirá una de ellas.', true)
@@ -378,6 +379,11 @@ async function getRandomImage(query) {
 }
     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
+    if(message.content.startsWith(prefix + "SCP")) {
+        const numero = message.content.split(' ')[1]; // Obtiene el número del SCP del mensaje
+        const enlace = `http://scp-wiki.wikidot.com/scp-${numero}`;
+        message.channel.send(enlace);
+    }
     if(message.content.startsWith(prefix + "meme")) {
         async function obtenerMemeAleatorio() {
             try {
