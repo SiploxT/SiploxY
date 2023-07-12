@@ -22,6 +22,9 @@
 Definitivamente el mejor bot de Discord, con una gran variedad de comandos distintos y muy utiles para servidores de Discord.
 
 ---
+## Problemas Actuales
+- s!img (BETA) - Envia imagenes a mala calidad.
+- s!randomcap (BETA) - Algunas capturas no existen o no cargan.
 
 ## Licencia
 Este proyecto utiliza la licencia de "[GNU Affero General Public License v3.0](https://github.com/SiploxT/SiploxY/blob/main/LICENSE)"
