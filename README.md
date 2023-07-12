@@ -1,18 +1,12 @@
-<div align="center">
-  <h1><strong><u>SiploxY</u></strong></h1>
-  
-  ![Nyaa](https://user-images.githubusercontent.com/102182731/183133332-2d9db17d-b833-4c3c-9ef8-70c1f23ed9dd.png)
-  <br />
-  <br />
-  <p>
-    <a href="https://discord.com/api/oauth2/authorize?client_id=955869268359127050&permissions=8&scope=bot"><img alt="Invitame!" src="https://img.shields.io/badge/Invitame!-8A2BE2?style=for-the-badge&logo=discord&logoColor=white" /></a>
-      <br />
-      <br />
-    <a href="https://www.npmjs.com/package/discord.js"><img src="https://img.shields.io/npm/v/discord.js.svg?maxAge=3600" alt="npm version" /></a>
-    <a href="https://www.npmjs.com/package/discord.js"><img src="https://img.shields.io/npm/dt/discord.js.svg?maxAge=3600" alt="npm downloads" /></a>
-  </p>
-</div>
+<img width="155" height="155" align="left" style="float: left; margin: 0 10px 10px 0;" src="https://cdn.discordapp.com/avatars/955869268359127050/b9e32902d5940b83b41edcb6d07182db.webp?size=2048">
 
+# SiploxY ·w·
+[![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/)
+![Lenguaje](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+[![Node](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org)
+<br /><br />
+
+# ℹ️ Info
 
 - _Prefix: s!_
 - _Versión: discord.js@14.8.0_
@@ -22,9 +16,10 @@
 Definitivamente el mejor bot de Discord, con una gran variedad de comandos distintos y muy utiles para servidores de Discord.
 
 ---
-## Problemas Actuales
+## ⚠ Problemas Actuales
 - s!img (BETA) - Envia imagenes a mala calidad.
 - s!randomcap (BETA) - Algunas capturas no existen o no cargan.
 
-## Licencia
+## 📜 Licencia
 Este proyecto utiliza la licencia de "[GNU Affero General Public License v3.0](https://github.com/SiploxT/SiploxY/blob/main/LICENSE)"
+
