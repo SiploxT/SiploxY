@@ -200,7 +200,7 @@ client.on("message", async (message) => {
     
         message.channel.send(userinfoEmbed);
     }
-    if(message.content.startsWith(prefix + "avatar") || message.content.startsWith(prefix + "a")) {
+    if(message.content.startsWith(prefix + "avatar") || message.content.startsWith(prefix + "av")) {
         let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
         let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048})
    
@@ -858,6 +858,8 @@ async function getRandomImage(query) {
         .setDescription(`** ${user} ** se acaba de enfadar. ಠ_ಠ`)
         .setColor("PURPLE")
         .setImage(randomangry)
+
+        message.channel.send(embedangry)
     }
     if(message.content.startsWith(prefix + "confused")) {
         let user = message.author.username;
