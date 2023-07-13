@@ -2,8 +2,8 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");
 const fetch = require('node-fetch');
-const cheerio = require('cheerio');
 const ms = require('ms');
+const cheerio = require('cheerio');
 const axios = require('axios');
 
 
@@ -579,7 +579,7 @@ async function getRandomImage(query) {
         let randompoke = respuestapoke[Math.floor(respuestapoke.length * Math.random())]
 
         const embedpoke = new Discord.MessageEmbed() 
-        .setDescription(`**${user}** acaba de toquetear a ${ment} ${msgEmote}`)
+        .setDescription(`**${user}** acaba de toquetear a **${ment.username}**. ${msgEmote}`)
         .setColor("PURPLE")
         .setImage(randompoke)
 
@@ -594,7 +594,7 @@ async function getRandomImage(query) {
         let randompat = respuestapat[Math.floor(respuestapat.length * Math.random())]
 
         const embedpat = new Discord.MessageEmbed() 
-        .setDescription('**' + user + '**' + ' acarició a **<@' + ment + ">**")
+        .setDescription(`**${user}** acaba de acariciar a **${ment.username}**. ${msgEmote}`)
         .setColor("PURPLE")
         .setImage(randompat)
 
@@ -610,7 +610,7 @@ async function getRandomImage(query) {
 
         const embedcuddle = new Discord.MessageEmbed()
         .setTitle("")
-        .setDescription('**' + user + '**' + ' se acurrucó con **<@' + ment + ">**")
+        .setDescription(`**${user}** acaba de acurrucarse con **${ment.username}**. ${msgEmote}`)
         .setColor("PURPLE")
         .setImage(randomcuddle)
 
@@ -626,7 +626,7 @@ async function getRandomImage(query) {
 
         const embedhug = new Discord.MessageEmbed()
         .setTitle("")
-        .setDescription('**' + user + '**' + ' abrazó a **<@' + ment + ">**")
+        .setDescription(`**${user}** acaba de abrazar a **${ment.username}**. ${msgEmote}`)
         .setColor("PURPLE")
         .setImage(randomhug)
 
@@ -644,7 +644,7 @@ async function getRandomImage(query) {
         var randomlick = respuestalick[Math.floor(respuestalick.length * Math.random())]
 
         const embedlick = new Discord.MessageEmbed()
-        .setDescription(`**${user}** esta lamiendo a ${ment}.. ${msgEmote}`)
+        .setDescription(`**${user}** esta lamiendo a **${ment.username}**.. ${msgEmote}`)
         .setColor("PURPLE")
         .setImage(randomlick)
 
@@ -659,7 +659,7 @@ async function getRandomImage(query) {
         var randomkiss = respuestakiss[Math.floor(respuestakiss.length * Math.random())]
 
         const embedkiss = new Discord.MessageEmbed()
-        .setDescription(`**${user}** acaba de besar a ${ment} (。・ω・。)`)
+        .setDescription(`**${user}** acaba de besar a **${ment.username}**. (。・ω・。)`)
         .setColor("PURPLE")
         .setImage(randomkiss)
 
@@ -688,7 +688,7 @@ async function getRandomImage(query) {
         let randomdance = respuestadance[Math.floor(respuestadance.length * Math.random())]
 
         const embeddance = new Discord.MessageEmbed() 
-        .setDescription('**' + user + '** está bailando')
+        .setDescription(`${user} esta bailando. ${msgEmote}`)
         .setColor("PURPLE")
         .setImage(randomdance)
 
@@ -706,7 +706,7 @@ async function getRandomImage(query) {
         let randombite = respuestabite[Math.floor(respuestabite.length * Math.random())];
 
         const embedbite = new Discord.MessageEmbed()
-        .setDescription(`${user} acaba de morder a ${ment} con todas sus fuerzas ${msgEmote}`)
+        .setDescription(`**${user}** acaba de morder a **${ment.username}** con todas sus fuerzas ${msgEmote}`)
         .setColor("PURPLE")
         .setImage(randombite)
 
@@ -724,7 +724,7 @@ async function getRandomImage(query) {
         var randomslap = respuestaslap[Math.floor(respuestaslap.length * Math.random())]
 
         const embedslap = new Discord.MessageEmbed()
-        .setDescription('**' + user + '**' + ' le ha dado una bofetada a **<@' + ment + '>**')
+        .setDescription(`**${user} acaba de abofetear a **${ment.username}**, ouch. ${msgEmote}`)
         .setColor("PURPLE")
         .setImage(randomslap)
 
@@ -739,7 +739,7 @@ async function getRandomImage(query) {
         let randompunch = respuestapunch[Math.floor(respuestapunch.length * Math.random())]
 
         const embedpunch = new Discord.MessageEmbed()
-        .setDescription('**' + user + '**' + ' le ha pegado a **<@' + ment + '>**')
+        .setDescription(`**${user} acaba de pegarle a **${ment.username}**. ${msgEmote}`)
         .setColor("PURPLE")
         .setImage(randompunch)
 
@@ -755,7 +755,7 @@ async function getRandomImage(query) {
         let randomkill = respuestakill[Math.floor(respuestakill.length * Math.random())]
 
         const embedkill = new Discord.MessageEmbed()
-        .setDescription('**' + user + '**' + ' ha matado a **<@' + ment + '>**')
+        .setDescription(`**${user}** acaba de matar a **${ment.username}**..`)
         .setColor("PURPLE")
         .setImage(randomkill)
 
