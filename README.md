@@ -19,6 +19,7 @@ Definitivamente el mejor bot de Discord, con una gran variedad de comandos disti
 ## ⚠ Problemas Actuales
 - s!img (BETA) - Envia imagenes a mala calidad.
 - s!randomcap (BETA) - Algunas capturas no existen o no cargan.
+- - s!SCP (BETA) - Simplemente copia lo que tu digas en el enlace, resultando en que si este npc no existe, creará un enlace a una página inexistente.
 
 ## 📜 Licencia
 Este proyecto utiliza la licencia de "[GNU Affero General Public License v3.0](https://github.com/SiploxT/SiploxY/blob/main/LICENSE)"
