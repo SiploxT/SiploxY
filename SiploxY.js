@@ -1,11 +1,10 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");
-const fetch = require('node-fetch');
 const ms = require('ms');
+const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 const axios = require('axios');
-
 
 let prefix = config.prefix;
 
@@ -158,7 +157,7 @@ client.on("message", async (message) => {
         const embedInfo = new Discord.MessageEmbed()
         .setAuthor("SiploxY", client.user.avatarURL())
         .setThumbnail(client.user.avatarURL())
-        .addField("Developer: ", `siploxT#2805`)
+        .addField("Developer: ", `siploxt - ${msgEmote}`)
         .addField("Servers: ", ` ${client.guilds.cache.size}`)
         .addField("Usuarios: ", ` ${client.users.cache.size}`)
         .addField("Uptime: ", ` ${uptime}` )
@@ -170,14 +169,26 @@ client.on("message", async (message) => {
     }
     if (message.content.startsWith(prefix + "reminder")) {
         const argsReminder = message.content.slice(prefix.length).trim().split(/ +/);
+        if (argsReminder.length < 3) {
+            // Si faltan argumentos, enviar mensaje de ayuda
+            message.channel.send("Por favor, usa el comando correctamente: s!reminder [tiempo] [recordatorio]");
+            return;
+        }
+    
         const time = argsReminder[1];
         const textReminder = argsReminder.slice(2).join(' ');
-
-        message.channel.send(`Entendido, te lo recordaré dentro de **${time}**.`)
+    
+        if (!ms(time)) {
+            // Si el tiempo no tiene un formato válido, enviar mensaje de error
+            message.channel.send("Por favor, usa el comando correctamente: s!reminder [tiempo] [recordatorio]");
+            return;
+        }
+    
+        message.channel.send(`Entendido, te lo recordaré dentro de **${time}**.`);
     
         setTimeout(() => {
             message.channel.send(`${message.author}: Recuerda hacer lo siguiente - ${textReminder}.`);
-            message.channel.send(`Me has pedido recordarte esto hace: ${time}`)
+            message.channel.send(`Me has pedido recordarte esto hace: ${time}`);
         }, ms(time));
     }
     if (message.content.startsWith(prefix + "userinfo")) {
@@ -379,6 +390,11 @@ async function getRandomImage(query) {
 }
     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
+    if(message.content.startsWith(prefix + "2048")) {
+        const game = gameManager.createGame();
+        message.channel.send(`¡Iniciando el juego 2048! ${msgEmote}`);
+        message.channel.send(game.board.toString());
+    }
     if(message.content.startsWith(prefix + "SCP")) {
         const numero = message.content.split(' ')[1]; // Obtiene el número del SCP del mensaje
         const enlace = `http://scp-wiki.wikidot.com/scp-${numero}`;
