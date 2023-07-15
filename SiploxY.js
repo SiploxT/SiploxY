@@ -330,11 +330,6 @@ client.on("message", async (message) => {
     }
     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
-    if(message.content.startsWith(prefix + "SCP")) {
-        const numero = message.content.split(' ')[1]; // Obtiene el número del SCP del mensaje
-        const enlace = `http://scp-wiki.wikidot.com/scp-${numero}`;
-        message.channel.send(enlace);
-    }
     if(message.content.startsWith(prefix + "meme")) {
         async function obtenerMemeAleatorio() {
             try {
@@ -358,6 +353,11 @@ client.on("message", async (message) => {
     } else {
       message.channel.send('No se pudo obtener un meme aleatorio, nya.');
     }
+    }
+    if(message.content.startsWith(prefix + "SCP")) {
+        const numero = message.content.split(' ')[1]; // Obtiene el número del SCP del mensaje
+        const enlace = `http://scp-wiki.wikidot.com/scp-${numero}`;
+        message.channel.send(enlace);
     }
     if(message.content.startsWith(prefix + "say")) {
      const args = message.content.slice(5)
@@ -520,52 +520,20 @@ client.on("message", async (message) => {
     }
     // COMANDOS DE INTERACCIÓN ♥ ♥ ♥ //
     // COMANDOS DE INTERACCIÓN ♥ ♥ ♥ //
-    if(message.content.startsWith(prefix + "poke")) {
+    if(message.content.startsWith(prefix + "kiss")) {
         let user = message.author.username;
         let ment = message.mentions.users.first();
-        if(!ment) return message.channel.send(`Menciona a alguien para poder tocarlo. ${msgEmote}`)
-        var respuestapoke = ["https://media.tenor.com/iu_Lnd86GxAAAAAC/nekone-utawarerumono.gif", "https://media.tenor.com/3dOqO4vVlr8AAAAC/poke-anime.gif", "https://media.tenor.com/B-E9cSUwhw8AAAAC/highschool-dxd-anime.gif", "https://media.tenor.com/HJa3EjH0iNMAAAAM/poke.gif", "https://media.tenor.com/XdfQaUIW4coAAAAC/poke.gif", "https://media.tenor.com/7iV_gBGrRAUAAAAC/boop-poke.gif", "https://media.tenor.com/jNx0V84WbqkAAAAM/anime-anime-poke.gif", "https://media.tenor.com/APqauOtznp4AAAAC/boop-poke.gif", "https://media.tenor.com/1YMrMsCtxLQAAAAC/anime-poke.gif",
-        "https://media.tenor.com/5j7eivfftw8AAAAC/poke.gif", "https://media.tenor.com/0i9CGM3SQsYAAAAC/anime-poke.gif", "https://media.tenor.com/gMqsQ1wwbhgAAAAC/anime-poke.gif", "https://media.tenor.com/0wPms8tS0eoAAAAC/boop-poke.gif", "https://media.tenor.com/QDNTqOInK5MAAAAC/anime-poke.gif", "https://media.tenor.com/MS7x-A5SsNkAAAAC/boob-poke.gif", "https://media.tenor.com/t6ABAaRJEA0AAAAC/oreimo-ore-no-im%C5%8Dto-ga-konna-ni-kawaii-wake-ga-nai.gif", "https://media.tenor.com/QQDEdB7Y1xoAAAAC/poke-usagi.gif", "https://media.tenor.com/AKMRjD0UDVoAAAAC/poke.gif",
-        "https://media.tenor.com/ebon-fK8aS0AAAAC/princess-connect-anime-poke.gif", "https://media.tenor.com/iXopfkIEWUUAAAAC/poke.gif", "https://media.tenor.com/B-gFTgUHZSEAAAAC/anime-platelet.gif", "https://media.tenor.com/OKfgEhfV3gAAAAAC/nananiji-poke.gif", "https://media.tenor.com/KKxmOxTh0LMAAAAC/poke-anime.gif", "https://media.tenor.com/YCZf5AM63E0AAAAC/hidamari-sketch-hiro.gif", "https://media.tenor.com/ySdxnfxoTrUAAAAM/ascendence-of-a-bookworm-bookworm-anime.gif", "https://media.tenor.com/ov73wDx2J_UAAAAM/vtuber-gura.gif", "https://media.tenor.com/Uy90Hf8peO8AAAAC/testament-of-sister-new-devil-shinmai-maou-no-testament.gif",]
-        let randompoke = respuestapoke[Math.floor(respuestapoke.length * Math.random())]
+        if(!ment) return message.channel.send(`Menciona a alguien para poder besarlo. ${msgEmote}`)
+        var respuestakiss = ["https://c.tenor.com/fiafXWajQFoAAAAC/kiss-anime.gif", "https://c.tenor.com/riftr5iWqZQAAAAC/xdd.gif", "https://c.tenor.com/OjcDtiEDUvMAAAAC/friendly-kiss.gif", "https://c.tenor.com/Fyq9izHlreQAAAAC/my-little-monster-haru-yoshida.gif", "https://c.tenor.com/jN35LrknUpkAAAAC/test.gif", "https://c.tenor.com/9jB6M6aoW0AAAAAC/val-ally-kiss.gif", "https://c.tenor.com/wQyttVAvkF0AAAAd/forehead-kiss-anime.gif", "https://c.tenor.com/NO6j5K8YuRAAAAAC/leni.gif", "https://c.tenor.com/yoMKK29AMQsAAAAC/kiss-toradora.gif", 
+        "https://c.tenor.com/dn_KuOESmUYAAAAC/engage-kiss-anime-kiss.gif", "https://c.tenor.com/vhuon7swiOYAAAAC/rakudai-kishi-kiss.gif", "https://c.tenor.com/YeitcPAdSCYAAAAd/kyo-x-tohru-kiss.gif", "https://c.tenor.com/g9HjxRZM2C8AAAAd/anime-love.gif", "https://c.tenor.com/nRdyrvS3qa4AAAAC/anime-kiss.gif"]
+        var randomkiss = respuestakiss[Math.floor(respuestakiss.length * Math.random())]
 
-        const embedpoke = new Discord.MessageEmbed() 
-        .setDescription(`**${user}** acaba de toquetear a **${ment.username}**. ${msgEmote}`)
+        const embedkiss = new Discord.MessageEmbed()
+        .setDescription(`**${user}** acaba de besar a **${ment.username}**. (。・ω・。)`)
         .setColor("PURPLE")
-        .setImage(randompoke)
+        .setImage(randomkiss)
 
-        message.channel.send(embedpoke);
-    }
-    if(message.content.startsWith(prefix + "pat")) {
-        let user = message.author.username;
-        let ment = message.mentions.users.first();
-        if(!ment) return message.channel.send(`Menciona a alguien para poder acariciarlo. ${msgEmote}`)
-        var respuestapat = ["https://c.tenor.com/Y7B6npa9mXcAAAAC/rikka-head-pat-pat-on-head.gif", "https://c.tenor.com/E6fMkQRZBdIAAAAC/kanna-kamui-pat.gif", "https://c.tenor.com/8DaE6qzF0DwAAAAC/neet-anime.gif", "https://c.tenor.com/i7nXGbPLqTsAAAAC/anime-hug.gif", "https://c.tenor.com/kM1mVaXE8Y8AAAAC/kaede-azusagawa-kaede.gif", "https://c.tenor.com/TRxNL32jtEIAAAAC/anime-pat.gif", 
-        "https://c.tenor.com/8o4fWGwBY1EAAAAd/aharensan-aharen.gif", "https://c.tenor.com/jEfC8cztigIAAAAC/anime-pat.gif", "https://c.tenor.com/lOawy4d-SHMAAAAd/anime-cuddle-gauge.gif", "https://c.tenor.com/VzJtkXVo06wAAAAC/yuru-yuri-anime.gif", "https://c.tenor.com/Jj-vHGZOgT4AAAAC/anime-anime-girl.gif", "https://c.tenor.com/jBuHEbqxarcAAAAC/k-on-anime.gif"]
-        let randompat = respuestapat[Math.floor(respuestapat.length * Math.random())]
-
-        const embedpat = new Discord.MessageEmbed() 
-        .setDescription(`**${user}** acaba de acariciar a **${ment.username}**. ${msgEmote}`)
-        .setColor("PURPLE")
-        .setImage(randompat)
-
-        message.channel.send(embedpat);
-    }
-    if(message.content.startsWith(prefix + "cuddle")) {                                                                                         
-        let user = message.author.username;
-        let ment = message.mentions.users.first();
-        if(!ment) return message.channel.send(`Menciona a alguien para poder acurrucarte con el ${msgEmote}`)
-        var respuestacuddle = ["https://c.tenor.com/doc8uMAT5ssAAAAC/anime-love.gif", "https://c.tenor.com/wwd7R-pi7DIAAAAC/anime-cuddle.gif", "https://c.tenor.com/s44ige0diLYAAAAC/sanriokill-anime.gif", "https://c.tenor.com/ItpTQW2UKPYAAAAC/cuddle-hug.gif", "https://c.tenor.com/2VVGNLi-EV4AAAAC/anime-cute.gif", "https://c.tenor.com/gowinK__PvAAAAAC/anime-cuddle.gif", "https://c.tenor.com/8BqG6yTLCLEAAAAC/anime.gif",
-        "https://c.tenor.com/WWgamF4xjZcAAAAC/anime-cuddle.gif", "https://c.tenor.com/y9_xxO9iMwkAAAAC/hug.gif", "https://c.tenor.com/hGUWkkHB_DQAAAAC/cuddle-anime.gif", "https://c.tenor.com/b3Qvt--s_i0AAAAC/hugs.gif", "https://c.tenor.com/NaJIRcVnWloAAAAd/sao-sword-art-online.gif", "https://c.tenor.com/XLWytMsrNy8AAAAC/kaioura-anime-girl.gif", "https://c.tenor.com/Fld0jbqWpDsAAAAC/gochuumon-wa-usagi-desuka-is-the-order-a-rabbit.gif"]
-        let randomcuddle = respuestacuddle[Math.floor(respuestacuddle.length * Math.random())]
-
-        const embedcuddle = new Discord.MessageEmbed()
-        .setTitle("")
-        .setDescription(`**${user}** acaba de acurrucarse con **${ment.username}**. ${msgEmote}`)
-        .setColor("PURPLE")
-        .setImage(randomcuddle)
-
-        message.channel.send(embedcuddle);
+        message.channel.send(embedkiss);
     }
     if(message.content.startsWith(prefix + "hug")) {
         let user = message.author.username;
@@ -582,6 +550,22 @@ client.on("message", async (message) => {
         .setImage(randomhug)
 
         message.channel.send(embedhug);
+    }
+    if(message.content.startsWith(prefix + "cuddle")) {                                                                                         
+        let user = message.author.username;
+        let ment = message.mentions.users.first();
+        if(!ment) return message.channel.send(`Menciona a alguien para poder acurrucarte con el ${msgEmote}`)
+        var respuestacuddle = ["https://c.tenor.com/doc8uMAT5ssAAAAC/anime-love.gif", "https://c.tenor.com/wwd7R-pi7DIAAAAC/anime-cuddle.gif", "https://c.tenor.com/s44ige0diLYAAAAC/sanriokill-anime.gif", "https://c.tenor.com/ItpTQW2UKPYAAAAC/cuddle-hug.gif", "https://c.tenor.com/2VVGNLi-EV4AAAAC/anime-cute.gif", "https://c.tenor.com/gowinK__PvAAAAAC/anime-cuddle.gif", "https://c.tenor.com/8BqG6yTLCLEAAAAC/anime.gif",
+        "https://c.tenor.com/WWgamF4xjZcAAAAC/anime-cuddle.gif", "https://c.tenor.com/y9_xxO9iMwkAAAAC/hug.gif", "https://c.tenor.com/hGUWkkHB_DQAAAAC/cuddle-anime.gif", "https://c.tenor.com/b3Qvt--s_i0AAAAC/hugs.gif", "https://c.tenor.com/NaJIRcVnWloAAAAd/sao-sword-art-online.gif", "https://c.tenor.com/XLWytMsrNy8AAAAC/kaioura-anime-girl.gif", "https://c.tenor.com/Fld0jbqWpDsAAAAC/gochuumon-wa-usagi-desuka-is-the-order-a-rabbit.gif"]
+        let randomcuddle = respuestacuddle[Math.floor(respuestacuddle.length * Math.random())]
+
+        const embedcuddle = new Discord.MessageEmbed()
+        .setTitle("")
+        .setDescription(`**${user}** acaba de acurrucarse con **${ment.username}**. ${msgEmote}`)
+        .setColor("PURPLE")
+        .setImage(randomcuddle)
+
+        message.channel.send(embedcuddle);
     }
     if(message.content.startsWith(prefix + "lick")) {
         let user = message.author.username;
@@ -601,20 +585,36 @@ client.on("message", async (message) => {
 
         message.channel.send(embedlick)
     }
-    if(message.content.startsWith(prefix + "kiss")) {
+    if(message.content.startsWith(prefix + "pat")) {
         let user = message.author.username;
         let ment = message.mentions.users.first();
-        if(!ment) return message.channel.send(`Menciona a alguien para poder besarlo. ${msgEmote}`)
-        var respuestakiss = ["https://c.tenor.com/fiafXWajQFoAAAAC/kiss-anime.gif", "https://c.tenor.com/riftr5iWqZQAAAAC/xdd.gif", "https://c.tenor.com/OjcDtiEDUvMAAAAC/friendly-kiss.gif", "https://c.tenor.com/Fyq9izHlreQAAAAC/my-little-monster-haru-yoshida.gif", "https://c.tenor.com/jN35LrknUpkAAAAC/test.gif", "https://c.tenor.com/9jB6M6aoW0AAAAAC/val-ally-kiss.gif", "https://c.tenor.com/wQyttVAvkF0AAAAd/forehead-kiss-anime.gif", "https://c.tenor.com/NO6j5K8YuRAAAAAC/leni.gif", "https://c.tenor.com/yoMKK29AMQsAAAAC/kiss-toradora.gif", 
-        "https://c.tenor.com/dn_KuOESmUYAAAAC/engage-kiss-anime-kiss.gif", "https://c.tenor.com/vhuon7swiOYAAAAC/rakudai-kishi-kiss.gif", "https://c.tenor.com/YeitcPAdSCYAAAAd/kyo-x-tohru-kiss.gif", "https://c.tenor.com/g9HjxRZM2C8AAAAd/anime-love.gif", "https://c.tenor.com/nRdyrvS3qa4AAAAC/anime-kiss.gif"]
-        var randomkiss = respuestakiss[Math.floor(respuestakiss.length * Math.random())]
+        if(!ment) return message.channel.send(`Menciona a alguien para poder acariciarlo. ${msgEmote}`)
+        var respuestapat = ["https://c.tenor.com/Y7B6npa9mXcAAAAC/rikka-head-pat-pat-on-head.gif", "https://c.tenor.com/E6fMkQRZBdIAAAAC/kanna-kamui-pat.gif", "https://c.tenor.com/8DaE6qzF0DwAAAAC/neet-anime.gif", "https://c.tenor.com/i7nXGbPLqTsAAAAC/anime-hug.gif", "https://c.tenor.com/kM1mVaXE8Y8AAAAC/kaede-azusagawa-kaede.gif", "https://c.tenor.com/TRxNL32jtEIAAAAC/anime-pat.gif", 
+        "https://c.tenor.com/8o4fWGwBY1EAAAAd/aharensan-aharen.gif", "https://c.tenor.com/jEfC8cztigIAAAAC/anime-pat.gif", "https://c.tenor.com/lOawy4d-SHMAAAAd/anime-cuddle-gauge.gif", "https://c.tenor.com/VzJtkXVo06wAAAAC/yuru-yuri-anime.gif", "https://c.tenor.com/Jj-vHGZOgT4AAAAC/anime-anime-girl.gif", "https://c.tenor.com/jBuHEbqxarcAAAAC/k-on-anime.gif"]
+        let randompat = respuestapat[Math.floor(respuestapat.length * Math.random())]
 
-        const embedkiss = new Discord.MessageEmbed()
-        .setDescription(`**${user}** acaba de besar a **${ment.username}**. (。・ω・。)`)
+        const embedpat = new Discord.MessageEmbed() 
+        .setDescription(`**${user}** acaba de acariciar a **${ment.username}**. ${msgEmote}`)
         .setColor("PURPLE")
-        .setImage(randomkiss)
+        .setImage(randompat)
 
-        message.channel.send(embedkiss);
+        message.channel.send(embedpat);
+    }
+    if(message.content.startsWith(prefix + "poke")) {
+        let user = message.author.username;
+        let ment = message.mentions.users.first();
+        if(!ment) return message.channel.send(`Menciona a alguien para poder tocarlo. ${msgEmote}`)
+        var respuestapoke = ["https://media.tenor.com/iu_Lnd86GxAAAAAC/nekone-utawarerumono.gif", "https://media.tenor.com/3dOqO4vVlr8AAAAC/poke-anime.gif", "https://media.tenor.com/B-E9cSUwhw8AAAAC/highschool-dxd-anime.gif", "https://media.tenor.com/HJa3EjH0iNMAAAAM/poke.gif", "https://media.tenor.com/XdfQaUIW4coAAAAC/poke.gif", "https://media.tenor.com/7iV_gBGrRAUAAAAC/boop-poke.gif", "https://media.tenor.com/jNx0V84WbqkAAAAM/anime-anime-poke.gif", "https://media.tenor.com/APqauOtznp4AAAAC/boop-poke.gif", "https://media.tenor.com/1YMrMsCtxLQAAAAC/anime-poke.gif",
+        "https://media.tenor.com/5j7eivfftw8AAAAC/poke.gif", "https://media.tenor.com/0i9CGM3SQsYAAAAC/anime-poke.gif", "https://media.tenor.com/gMqsQ1wwbhgAAAAC/anime-poke.gif", "https://media.tenor.com/0wPms8tS0eoAAAAC/boop-poke.gif", "https://media.tenor.com/QDNTqOInK5MAAAAC/anime-poke.gif", "https://media.tenor.com/MS7x-A5SsNkAAAAC/boob-poke.gif", "https://media.tenor.com/t6ABAaRJEA0AAAAC/oreimo-ore-no-im%C5%8Dto-ga-konna-ni-kawaii-wake-ga-nai.gif", "https://media.tenor.com/QQDEdB7Y1xoAAAAC/poke-usagi.gif", "https://media.tenor.com/AKMRjD0UDVoAAAAC/poke.gif",
+        "https://media.tenor.com/ebon-fK8aS0AAAAC/princess-connect-anime-poke.gif", "https://media.tenor.com/iXopfkIEWUUAAAAC/poke.gif", "https://media.tenor.com/B-gFTgUHZSEAAAAC/anime-platelet.gif", "https://media.tenor.com/OKfgEhfV3gAAAAAC/nananiji-poke.gif", "https://media.tenor.com/KKxmOxTh0LMAAAAC/poke-anime.gif", "https://media.tenor.com/YCZf5AM63E0AAAAC/hidamari-sketch-hiro.gif", "https://media.tenor.com/ySdxnfxoTrUAAAAM/ascendence-of-a-bookworm-bookworm-anime.gif", "https://media.tenor.com/ov73wDx2J_UAAAAM/vtuber-gura.gif", "https://media.tenor.com/Uy90Hf8peO8AAAAC/testament-of-sister-new-devil-shinmai-maou-no-testament.gif",]
+        let randompoke = respuestapoke[Math.floor(respuestapoke.length * Math.random())]
+
+        const embedpoke = new Discord.MessageEmbed() 
+        .setDescription(`**${user}** acaba de toquetear a **${ment.username}**. ${msgEmote}`)
+        .setColor("PURPLE")
+        .setImage(randompoke)
+
+        message.channel.send(embedpoke);
     }
     if(message.content.startsWith(prefix + "sleep")) {
         let user = message.author.username;
@@ -645,6 +645,23 @@ client.on("message", async (message) => {
 
         message.channel.send(embeddance);
     }
+    if(message.content.startsWith(prefix + "slap")) {
+        let user = message.author.username;
+        let ment = message.mentions.users.first();
+        if(!ment) return message.channel.send(`Menciona a la persona que quieras abofetear. ${msgEmote}`)
+
+        var respuestaslap = ["https://c.tenor.com/XiYuU9h44-AAAAAC/anime-slap-mad.gif", "https://c.tenor.com/LUJRVpYgy-8AAAAC/kiniro-kiniro-mosaic.gif", "https://c.tenor.com/Ws6Dm1ZW_vMAAAAC/girl-slap.gif", "https://c.tenor.com/PeJyQRCSHHkAAAAC/saki-saki-mukai-naoya.gif", "https://c.tenor.com/rVXByOZKidMAAAAd/anime-slap.gif", "https://c.tenor.com/eU5H6GbVjrcAAAAM/slap-jjk.gif", "https://c.tenor.com/L0fsdBYmh_wAAAAC/kokoro-connect-slap-anime.gif",
+        "https://c.tenor.com/pgq_YsVX7sEAAAAC/meliodas-seven-deadly-sins.gif", "https://c.tenor.com/UDo0WPttiRsAAAAM/bunny-girl-slap.gif", "https://c.tenor.com/E3OW-MYYum0AAAAC/no-angry.gif", "https://c.tenor.com/iDdGxlZZfGoAAAAC/powerful-head-slap.gif", "https://c.tenor.com/Sp7yE5UzqFMAAAAC/spank-slap.gif", "https://c.tenor.com/FrEq8y-Qf78AAAAC/anime-slapping.gif", "https://c.tenor.com/CvBTA0GyrogAAAAC/anime-slap.gif", "https://c.tenor.com/2-r7BEc-cb8AAAAC/slap-smack.gif",
+        "https://c.tenor.com/hscOq_sMFdAAAAAM/kakashi-zabuza.gif", "https://media.tenor.com/QhOI8j0ck8cAAAAd/rei-rei-ayanami.gif", "https://media.tenor.com/TaGqZmYEWWQAAAAd/metal-gear-rising.gif", "https://c.tenor.com/yl9kMAB2pHYAAAAC/slap.gif", "https://c.tenor.com/743sV2IWMEAAAAAC/chuunibyou-demo-koi-ga-shitai-anime.gif", "https://c.tenor.com/OuYAPinRFYgAAAAC/anime-slap.gif", "https://c.tenor.com/469w9za-5a0AAAAC/anime.gif", "https://c.tenor.com/Lc7C5mLIVIQAAAAC/anime-slap.gif", "https://c.tenor.com/vzQLL0MsF0cAAAAC/darkelfcarla-windmill.gif"]
+        var randomslap = respuestaslap[Math.floor(respuestaslap.length * Math.random())]
+
+        const embedslap = new Discord.MessageEmbed()
+        .setDescription(`**${user} acaba de abofetear a **${ment.username}**, ouch. ${msgEmote}`)
+        .setColor("PURPLE")
+        .setImage(randomslap)
+
+        message.channel.send(embedslap);
+    }
     if(message.content.startsWith(prefix + "bite")) {
         let user = message.author.username;
         let ment = message.mentions.users.first();
@@ -663,23 +680,6 @@ client.on("message", async (message) => {
 
         message.channel.send(embedbite)
 
-    }
-    if(message.content.startsWith(prefix + "slap")) {
-        let user = message.author.username;
-        let ment = message.mentions.users.first();
-        if(!ment) return message.channel.send(`Menciona a la persona que quieras abofetear. ${msgEmote}`)
-
-        var respuestaslap = ["https://c.tenor.com/XiYuU9h44-AAAAAC/anime-slap-mad.gif", "https://c.tenor.com/LUJRVpYgy-8AAAAC/kiniro-kiniro-mosaic.gif", "https://c.tenor.com/Ws6Dm1ZW_vMAAAAC/girl-slap.gif", "https://c.tenor.com/PeJyQRCSHHkAAAAC/saki-saki-mukai-naoya.gif", "https://c.tenor.com/rVXByOZKidMAAAAd/anime-slap.gif", "https://c.tenor.com/eU5H6GbVjrcAAAAM/slap-jjk.gif", "https://c.tenor.com/L0fsdBYmh_wAAAAC/kokoro-connect-slap-anime.gif",
-        "https://c.tenor.com/pgq_YsVX7sEAAAAC/meliodas-seven-deadly-sins.gif", "https://c.tenor.com/UDo0WPttiRsAAAAM/bunny-girl-slap.gif", "https://c.tenor.com/E3OW-MYYum0AAAAC/no-angry.gif", "https://c.tenor.com/iDdGxlZZfGoAAAAC/powerful-head-slap.gif", "https://c.tenor.com/Sp7yE5UzqFMAAAAC/spank-slap.gif", "https://c.tenor.com/FrEq8y-Qf78AAAAC/anime-slapping.gif", "https://c.tenor.com/CvBTA0GyrogAAAAC/anime-slap.gif", "https://c.tenor.com/2-r7BEc-cb8AAAAC/slap-smack.gif",
-        "https://c.tenor.com/hscOq_sMFdAAAAAM/kakashi-zabuza.gif", "https://media.tenor.com/QhOI8j0ck8cAAAAd/rei-rei-ayanami.gif", "https://media.tenor.com/TaGqZmYEWWQAAAAd/metal-gear-rising.gif", "https://c.tenor.com/yl9kMAB2pHYAAAAC/slap.gif", "https://c.tenor.com/743sV2IWMEAAAAAC/chuunibyou-demo-koi-ga-shitai-anime.gif", "https://c.tenor.com/OuYAPinRFYgAAAAC/anime-slap.gif", "https://c.tenor.com/469w9za-5a0AAAAC/anime.gif", "https://c.tenor.com/Lc7C5mLIVIQAAAAC/anime-slap.gif", "https://c.tenor.com/vzQLL0MsF0cAAAAC/darkelfcarla-windmill.gif"]
-        var randomslap = respuestaslap[Math.floor(respuestaslap.length * Math.random())]
-
-        const embedslap = new Discord.MessageEmbed()
-        .setDescription(`**${user} acaba de abofetear a **${ment.username}**, ouch. ${msgEmote}`)
-        .setColor("PURPLE")
-        .setImage(randomslap)
-
-        message.channel.send(embedslap);
     }
     if(message.content.startsWith(prefix + "punch")) {
         let user = message.author.username;
@@ -714,19 +714,19 @@ client.on("message", async (message) => {
     }
     // COMANDOS DE EMOCIONES ♥ ♥ ♥ //
     // COMANDOS DE EMOCIONES ♥ ♥ ♥ //
-    if(message.content.startsWith(prefix + "blush")) {
-        let user = message.author.username;
-        var respuestablush = ["https://media.tenor.com/FRunV08QBXwAAAAd/sumi-sakurasawa-rent-a-girlfriend.gif", "https://media.tenor.com/GiOGySHeERMAAAAC/anime-blush.gif", "https://media.tenor.com/CEkiOjpsylwAAAAd/kitagawa-kitagawa-marin.gif", "https://media.tenor.com/T51BLj_Cj8cAAAAC/blush.gif", "https://media.tenor.com/wJm0MKvI6fkAAAAd/shy-blush.gif", "https://media.tenor.com/1Dtt5RPYfu0AAAAC/anime-blush.gif", "https://media.tenor.com/daIZ-e7VvkwAAAAd/anime-blush.gif",
-        "https://media.tenor.com/30a9CPebaZoAAAAC/koiseka-anime-blush.gif", "https://media.tenor.com/-AkkTCm1Y8IAAAAC/flushed.gif", "https://media.tenor.com/ESCuELwXI58AAAAC/umaru-channnn-blush.gif", "https://media.tenor.com/KDPRHWcjUY8AAAAC/yeison.gif", "https://media.tenor.com/EpHViZYIWVQAAAAC/miss-kuroitsu-anime-blush.gif", "https://media.tenor.com/bEes0xCurvMAAAAC/anime-blush-dizzy.gif", "https://media.tenor.com/g8azBMokn4gAAAAC/koiseka-anime-blush.gif", "https://media.tenor.com/9i3ivLGn68YAAAAM/anime-blush.gif", "https://media.tenor.com/bCULNdEPzU0AAAAC/blushing-anime-anime-girl.gif", 
-        "https://media.tenor.com/7KaaBzVxAdAAAAAC/rpg-fudousan-anime-blush.gif", "https://media.tenor.com/wzG1wiC7d74AAAAC/anime-sonrojo.gif", "https://media.tenor.com/yKtYfA0mizYAAAAC/my-dress-up-darling-anime-blush.gif", "https://media.tenor.com/CSdDnG_7HN4AAAAC/anime-blush-sakuhubtwt.gif", "https://media.tenor.com/CSdDnG_7HN4AAAAC/anime-blush-sakuhubtwt.gif", "https://media.tenor.com/58lwQm_4AzoAAAAC/shake-no.gif", "https://media.tenor.com/DO_gjRXkeU4AAAAM/glasses-denkigainohonyasan.gif", "https://media.tenor.com/Ly58nyHo0o0AAAAC/anime-relife.gif", "https://media.tenor.com/F4eUZjxs_VgAAAAC/gabriel-dropout.gif"]
-        let randomblush = respuestablush[Math.floor(respuestablush.length * Math.random())]
+    if(message.content.startsWith(prefix + "suprise")) {
+        let user = message.author.username
+        var respuestasuprise = ["https://media.tenor.com/VqgdK6STvZ0AAAAC/anime-fan27-idoly-pride.gif", "https://media.tenor.com/sHRwuETGrQAAAAAC/nichijou-hakase-shinonome.gif", "https://media.tenor.com/0gwoVD1Q6GQAAAAC/kaguya-shocked.gif", "https://media.tenor.com/ceZmZ6VDgeQAAAAC/hifumi-bubblyroz.gif", "https://media.tenor.com/mBG7KOJUyFwAAAAC/murenase-seton-gakuen-anime.gif", "https://media.tenor.com/xUU2lMEE79kAAAAC/idolypride-anime.gif", "https://media.tenor.com/hGCzNZNt5CYAAAAC/princess-connect-re-dive-kokkoro.gif", "https://media.tenor.com/4YbFUNwW9f8AAAAC/pokemon-surprised.gif", "https://media.tenor.com/OgwGtVKmXWAAAAAM/shocked-shy.gif",
+        "https://media.tenor.com/gAvUv5tY1pkAAAAM/anime-shocked.gif", "https://media.tenor.com/lrKi_mKGrXcAAAAM/chivalry-chivalry-of-a-failed-knight.gif", "https://media.tenor.com/nRrlYt8w7v8AAAAd/anime-smile.gif", "https://media.tenor.com/h3Uz-hrhgJgAAAAC/shocked-face.gif", "https://media.tenor.com/Y-L5r7LP_t0AAAAC/hologra-hololive.gif", "https://media.tenor.com/TmenruYgq0IAAAAC/fright-surprised.gif", "https://media.tenor.com/CSxTrBGvOOwAAAAC/hitoribocchi-shocked.gif", "https://media.tenor.com/nZk9wHCTBe0AAAAM/spy-x-family-anya.gif", "https://media.tenor.com/qp7g9UD7UeAAAAAC/anime-wow.gif", "https://media.tenor.com/ui1h5F1eIcIAAAAC/umaru-shocked.gif",
+        "https://media.tenor.com/A8Gv0K7mcvkAAAAC/shocked-scared-sailormoon-usagi-anime-oh-what.gif", "https://media.tenor.com/kfA-u3R5Ca8AAAAC/sailor-moon-shocked.gif", "https://media.tenor.com/OXyKtUKn_HIAAAAC/anime-karakei-jouzo-no-takagi-san.gif", "https://media.tenor.com/fZ4qQGQfSzgAAAAC/anime-kon-azusa.gif", "https://media.tenor.com/BkPzcaCsWAwAAAAC/omg-overwhelmed.gif", "https://media.tenor.com/PofuJvzbaIQAAAAC/loli-shy.gif", "https://media.tenor.com/XAMUJ6bzBJ8AAAAM/awkward-pout.gif"]
+        let randomsuprise = respuestasuprise[Math.floor(respuestasuprise.length * Math.random())]
 
-        const embedblush = new Discord.MessageEmbed()
-        .setDescription(`**${user}** acaba de sonrojarse o(≧∀≦)o`)
+        const embedsuprise = new Discord.MessageEmbed()
+        .setDescription(`**${user}** se acaba de sorprender o.o`)
         .setColor("PURPLE")
-        .setImage(randomblush)
+        .setImage(randomsuprise)
 
-        message.channel.send(embedblush)
+        message.channel.send(embedsuprise)
     }
     if(message.content.startsWith(prefix + "happy")) {
         let user = message.author.username;
@@ -742,32 +742,19 @@ client.on("message", async (message) => {
 
         message.channel.send(embedhappy)
     }
-    if(message.content.startsWith(prefix + "suprise")) {
-        let user = message.author.username
-        var respuestasuprise = ["https://media.tenor.com/VqgdK6STvZ0AAAAC/anime-fan27-idoly-pride.gif", "https://media.tenor.com/sHRwuETGrQAAAAAC/nichijou-hakase-shinonome.gif", "https://media.tenor.com/0gwoVD1Q6GQAAAAC/kaguya-shocked.gif", "https://media.tenor.com/ceZmZ6VDgeQAAAAC/hifumi-bubblyroz.gif", "https://media.tenor.com/mBG7KOJUyFwAAAAC/murenase-seton-gakuen-anime.gif", "https://media.tenor.com/xUU2lMEE79kAAAAC/idolypride-anime.gif", "https://media.tenor.com/hGCzNZNt5CYAAAAC/princess-connect-re-dive-kokkoro.gif", "https://media.tenor.com/4YbFUNwW9f8AAAAC/pokemon-surprised.gif", "https://media.tenor.com/OgwGtVKmXWAAAAAM/shocked-shy.gif",
-        "https://media.tenor.com/gAvUv5tY1pkAAAAM/anime-shocked.gif", "https://media.tenor.com/lrKi_mKGrXcAAAAM/chivalry-chivalry-of-a-failed-knight.gif", "https://media.tenor.com/nRrlYt8w7v8AAAAd/anime-smile.gif", "https://media.tenor.com/h3Uz-hrhgJgAAAAC/shocked-face.gif", "https://media.tenor.com/Y-L5r7LP_t0AAAAC/hologra-hololive.gif", "https://media.tenor.com/TmenruYgq0IAAAAC/fright-surprised.gif", "https://media.tenor.com/CSxTrBGvOOwAAAAC/hitoribocchi-shocked.gif", "https://media.tenor.com/nZk9wHCTBe0AAAAM/spy-x-family-anya.gif", "https://media.tenor.com/qp7g9UD7UeAAAAAC/anime-wow.gif", "https://media.tenor.com/ui1h5F1eIcIAAAAC/umaru-shocked.gif",
-        "https://media.tenor.com/A8Gv0K7mcvkAAAAC/shocked-scared-sailormoon-usagi-anime-oh-what.gif", "https://media.tenor.com/kfA-u3R5Ca8AAAAC/sailor-moon-shocked.gif", "https://media.tenor.com/OXyKtUKn_HIAAAAC/anime-karakei-jouzo-no-takagi-san.gif", "https://media.tenor.com/fZ4qQGQfSzgAAAAC/anime-kon-azusa.gif", "https://media.tenor.com/BkPzcaCsWAwAAAAC/omg-overwhelmed.gif", "https://media.tenor.com/PofuJvzbaIQAAAAC/loli-shy.gif", "https://media.tenor.com/XAMUJ6bzBJ8AAAAM/awkward-pout.gif"]
-        let randomsuprise = respuestasuprise[Math.floor(respuestasuprise.length * Math.random())]
-
-        const embedsuprise = new Discord.MessageEmbed()
-        .setDescription(`**${user}** se acaba de sorprender o.o`)
-        .setColor("PURPLE")
-        .setImage(randomsuprise)
-
-        message.channel.send(embedsuprise)
-    }
-    if(message.content.startsWith(prefix + "neutral")) {
+    if(message.content.startsWith(prefix + "blush")) {
         let user = message.author.username;
-        var respuestaneutral = ["https://media.tenor.com/DlqkARzWq3wAAAAd/really-anime-seriously.gif", "https://media.tenor.com/-htQlAzVwKcAAAAM/anime-blinking.gif", "https://media.tenor.com/ontwohzKkvgAAAAC/lucia-omori.gif", "https://media.tenor.com/FFd634daPcoAAAAC/laid-back-camp-anime.gif", "https://media.tenor.com/O1LYOF4_6GIAAAAC/kel-omori-neutral.gif", "https://media.tenor.com/09ExK7gMpwIAAAAC/oh-fr-luffy.gif", "https://media.tenor.com/_0i19uunKJ8AAAAC/anime-oops.gif", "https://media.tenor.com/V_0ti1a3_GoAAAAC/loading-azurlane.gif", "https://media.tenor.com/Mv4YPxF3jiYAAAAM/wondering-really.gif", "https://media.tenor.com/qayXeWAKNIsAAAAC/omori-neutral-omori.gif", "https://media.tenor.com/hZJlNhWdhF0AAAAC/mafumafu-mafu.gif",
-        "https://media.tenor.com/VVnBNQberP4AAAAM/black-bullet-rentaro-satomi.gif", "https://media.tenor.com/XWpLSR7jXbkAAAAC/neutral-neutral-hero-omori.gif", "https://media.tenor.com/EW2jyyfAVJgAAAAC/omori-mari.gif", "https://media.tenor.com/8-qZ7KZQ1zwAAAAC/aesthetic-anime.gif", "https://media.tenor.com/XNP23mZA8G8AAAAM/megumin-konosuba.gif", "https://media.tenor.com/K51g9qGNCegAAAAC/real-aubrey-emotions-omori-aubrey.gif", "https://media.tenor.com/DuTjduKPeIkAAAAd/neutral-face-floating.gif", "https://media.tenor.com/Ol-nEvmc8EoAAAAd/writing-write.gif", "https://media.tenor.com/bIOQRofK7jUAAAAC/pory-porymations.gif", "https://media.tenor.com/eWn9himEnrEAAAAC/komi-komisan.gif"]
-        let randomneutral = respuestaneutral[Math.floor(respuestaneutral.length * Math.random())]
+        var respuestablush = ["https://media.tenor.com/FRunV08QBXwAAAAd/sumi-sakurasawa-rent-a-girlfriend.gif", "https://media.tenor.com/GiOGySHeERMAAAAC/anime-blush.gif", "https://media.tenor.com/CEkiOjpsylwAAAAd/kitagawa-kitagawa-marin.gif", "https://media.tenor.com/T51BLj_Cj8cAAAAC/blush.gif", "https://media.tenor.com/wJm0MKvI6fkAAAAd/shy-blush.gif", "https://media.tenor.com/1Dtt5RPYfu0AAAAC/anime-blush.gif", "https://media.tenor.com/daIZ-e7VvkwAAAAd/anime-blush.gif",
+        "https://media.tenor.com/30a9CPebaZoAAAAC/koiseka-anime-blush.gif", "https://media.tenor.com/-AkkTCm1Y8IAAAAC/flushed.gif", "https://media.tenor.com/ESCuELwXI58AAAAC/umaru-channnn-blush.gif", "https://media.tenor.com/KDPRHWcjUY8AAAAC/yeison.gif", "https://media.tenor.com/EpHViZYIWVQAAAAC/miss-kuroitsu-anime-blush.gif", "https://media.tenor.com/bEes0xCurvMAAAAC/anime-blush-dizzy.gif", "https://media.tenor.com/g8azBMokn4gAAAAC/koiseka-anime-blush.gif", "https://media.tenor.com/9i3ivLGn68YAAAAM/anime-blush.gif", "https://media.tenor.com/bCULNdEPzU0AAAAC/blushing-anime-anime-girl.gif", 
+        "https://media.tenor.com/7KaaBzVxAdAAAAAC/rpg-fudousan-anime-blush.gif", "https://media.tenor.com/wzG1wiC7d74AAAAC/anime-sonrojo.gif", "https://media.tenor.com/yKtYfA0mizYAAAAC/my-dress-up-darling-anime-blush.gif", "https://media.tenor.com/CSdDnG_7HN4AAAAC/anime-blush-sakuhubtwt.gif", "https://media.tenor.com/CSdDnG_7HN4AAAAC/anime-blush-sakuhubtwt.gif", "https://media.tenor.com/58lwQm_4AzoAAAAC/shake-no.gif", "https://media.tenor.com/DO_gjRXkeU4AAAAM/glasses-denkigainohonyasan.gif", "https://media.tenor.com/Ly58nyHo0o0AAAAC/anime-relife.gif", "https://media.tenor.com/F4eUZjxs_VgAAAAC/gabriel-dropout.gif"]
+        let randomblush = respuestablush[Math.floor(respuestablush.length * Math.random())]
 
-        const embedneutral = new Discord.MessageEmbed()
-        .setDescription(`** ${user} ** no tiene nada que decir. ...(。_。)`)
+        const embedblush = new Discord.MessageEmbed()
+        .setDescription(`**${user}** acaba de sonrojarse o(≧∀≦)o`)
         .setColor("PURPLE")
-        .setImage(randomneutral)
+        .setImage(randomblush)
 
-        message.channel.send(embedneutral)
+        message.channel.send(embedblush)
     }
     if(message.content.startsWith(prefix + "sleepy")) {
         let user = message.author.username;
@@ -783,19 +770,33 @@ client.on("message", async (message) => {
 
         message.channel.send(embedsleepy)
     }
-    if(message.content.startsWith(prefix + "disgust")) {
+    if(message.content.startsWith(prefix + "neutral")) {
         let user = message.author.username;
-        var respuestadisgust = ["https://media.tenor.com/DQ0AVM4ODRoAAAAd/disgust.gif", "https://media.tenor.com/YniEhuPth4UAAAAC/kyoukai-no-kanata-nase.gif", "https://media.tenor.com/0JHFlpscz44AAAAC/anime-disgust.gif", "https://media.tenor.com/dpSu2TI7MrYAAAAM/yukihana-lamy-hololive.gif", "https://media.tenor.com/ew7hDhIqUFkAAAAC/anime-tanjiro.gif", "https://media.tenor.com/THvIJmmkiKkAAAAd/hatsune-miku.gif", "https://media.tenor.com/Lftq9JiwGYMAAAAC/cartoon-anime.gif", "https://media.tenor.com/rhHGRmDYD5sAAAAd/serious-anime.gif", "https://media.tenor.com/oSNsOmxp8iEAAAAd/beatrice-spit.gif", "https://media.tenor.com/RzwllAkt2DUAAAAC/shock-fate-zero.gif", "https://media.tenor.com/LfGl33Wdxv0AAAAC/anime-nge.gif",
-        "https://media.tenor.com/UxTt74R2TZsAAAAM/sagiri-disgust.gif", "https://media.tenor.com/FNqZHylgNicAAAAC/mushoku-tensei-anime.gif", "https://media.tenor.com/3ku_QVMm70cAAAAC/bad-joke-tomioka.gif", "https://media.tenor.com/63FsgzWz4TQAAAAC/karyl-princess-connect.gif", "https://media.tenor.com/CbCFYyMGcroAAAAd/oden-annoyed-one-piece.gif", "https://media.tenor.com/xxuam91fOFAAAAAd/anime-rem.gif", "https://media.tenor.com/dt5lIbqrjtQAAAAC/anime-bad-taste.gif", "https://media.tenor.com/I29HZewneOoAAAAC/one-piece-anime.gif", "https://media.tenor.com/o4gIV8taulMAAAAd/one-piece-anime.gif", "https://media.tenor.com/hdGugwORapQAAAAM/anime-girl-anime.gif", "https://media.tenor.com/qWUcWFwaBJEAAAAC/anime-angry.gif", "https://media.tenor.com/t2Yu6k5yHrkAAAAC/jojo.gif",
-        "https://media.tenor.com/0bIMD076bWwAAAAC/anime-nisekoi.gif", "https://media.tenor.com/bocDp2NBeoMAAAAC/mad-annoyed.gif", "https://media.tenor.com/ljy1LMHGMF8AAAAC/anime-awkward.gif", "https://media.tenor.com/3KXNrPm1R4UAAAAC/mob-psycho100-mob-psycho.gif", "https://media.tenor.com/MpWP9okaLtYAAAAC/vegeta-disgust.gif", "https://media.tenor.com/WeM44VA36McAAAAC/anime-irritated.gif", "https://media.tenor.com/XF9FkAViN1YAAAAC/anime-pissed.gif", "https://media.tenor.com/8MfRXHqywIgAAAAd/panko-komachi.gif", "https://media.tenor.com/VJXern5FiXYAAAAC/fate-rin.gif", "https://media.tenor.com/UT31MLLjlw0AAAAd/raison-de-etre-eve.gif", "https://tenor.com/view/metal-gear-rising-gif-24741953", "https://media.tenor.com/BCOmEMhcxsoAAAAC/gawr-gura-disgusted.gif"]
-        let randomdisgust = respuestadisgust[Math.floor(respuestadisgust.length * Math.random())]
+        var respuestaneutral = ["https://media.tenor.com/DlqkARzWq3wAAAAd/really-anime-seriously.gif", "https://media.tenor.com/-htQlAzVwKcAAAAM/anime-blinking.gif", "https://media.tenor.com/ontwohzKkvgAAAAC/lucia-omori.gif", "https://media.tenor.com/FFd634daPcoAAAAC/laid-back-camp-anime.gif", "https://media.tenor.com/O1LYOF4_6GIAAAAC/kel-omori-neutral.gif", "https://media.tenor.com/09ExK7gMpwIAAAAC/oh-fr-luffy.gif", "https://media.tenor.com/_0i19uunKJ8AAAAC/anime-oops.gif", "https://media.tenor.com/V_0ti1a3_GoAAAAC/loading-azurlane.gif", "https://media.tenor.com/Mv4YPxF3jiYAAAAM/wondering-really.gif", "https://media.tenor.com/qayXeWAKNIsAAAAC/omori-neutral-omori.gif", "https://media.tenor.com/hZJlNhWdhF0AAAAC/mafumafu-mafu.gif",
+        "https://media.tenor.com/VVnBNQberP4AAAAM/black-bullet-rentaro-satomi.gif", "https://media.tenor.com/XWpLSR7jXbkAAAAC/neutral-neutral-hero-omori.gif", "https://media.tenor.com/EW2jyyfAVJgAAAAC/omori-mari.gif", "https://media.tenor.com/8-qZ7KZQ1zwAAAAC/aesthetic-anime.gif", "https://media.tenor.com/XNP23mZA8G8AAAAM/megumin-konosuba.gif", "https://media.tenor.com/K51g9qGNCegAAAAC/real-aubrey-emotions-omori-aubrey.gif", "https://media.tenor.com/DuTjduKPeIkAAAAd/neutral-face-floating.gif", "https://media.tenor.com/Ol-nEvmc8EoAAAAd/writing-write.gif", "https://media.tenor.com/bIOQRofK7jUAAAAC/pory-porymations.gif", "https://media.tenor.com/eWn9himEnrEAAAAC/komi-komisan.gif"]
+        let randomneutral = respuestaneutral[Math.floor(respuestaneutral.length * Math.random())]
 
-        const embeddisgust = new Discord.MessageEmbed()
-        .setDescription(`** ${user} ** no podía estar mas disgustado.. (。﹏。*)s`)
+        const embedneutral = new Discord.MessageEmbed()
+        .setDescription(`** ${user} ** no tiene nada que decir. ...(。_。)`)
         .setColor("PURPLE")
-        .setImage(randomdisgust)
+        .setImage(randomneutral)
 
-        message.channel.send(embeddisgust)
+        message.channel.send(embedneutral)
+    }
+    if(message.content.startsWith(prefix + "confused")) {
+        let user = message.author.username;
+        var respuestaconfused = ["https://media.tenor.com/obB_7KixgO4AAAAC/speechless-no-comment.gif", "https://media.tenor.com/Gv1cMkqev0wAAAAC/anime-confused.gif", "https://media.tenor.com/K3LslQdLo04AAAAM/inugami-korone-hololive.gif", "https://media.tenor.com/wf2ohk7KIiAAAAAC/confused-head-tilt.gif", "https://media.tenor.com/WAlzvPeA3g8AAAAC/anime-utanoprincesama.gif", "https://media.tenor.com/96mR_W6LE1EAAAAC/anime-confusion-what.gif", "https://media.tenor.com/qljo2BEYlVMAAAAd/dio-brando-dio.gif", "https://media.tenor.com/SptyU7LTASwAAAAC/anime-yumiko.gif", "https://media.tenor.com/y34Mm1myriQAAAAM/shamiko-confused.gif", 
+        "https://media.tenor.com/1RyM7ikzraIAAAAC/anime-what.gif", "https://media.tenor.com/hHYgobUpDSwAAAAC/what-anime.gif", "https://media.tenor.com/SRwhd6rGlOgAAAAC/anime-girl.gif", "https://media.tenor.com/gzjKEWGQvh0AAAAM/demon-slayer-tanjiro.gif", "https://media.tenor.com/3Vm0IYNFtKsAAAAC/re-life-anime.gif", "https://media.tenor.com/JZX16xr_yyQAAAAC/food-anime.gif", "https://media.tenor.com/LRgXK_PKFkYAAAAC/anime-syaro.gif", "https://media.tenor.com/iIpVPcee16kAAAAC/anime-cirno.gif", "https://media.tenor.com/bbjoFhJAIpIAAAAM/tokyo-mew-mew-anime.gif", "https://media.tenor.com/eNpgx6pd9xIAAAAC/confused-anime.gif", 
+        "https://media.tenor.com/VypYy-84gY4AAAAd/confused-chibi.gif", "https://media.tenor.com/SjAoc_yt1TsAAAAd/love-live-nijigasaki-high-school.gif", "https://media.tenor.com/L5TJMj7kvbEAAAAd/confused-shocked.gif", "https://media.tenor.com/kHkyHf5MpewAAAAM/anime-smiles.gif", "https://media.tenor.com/5eO4er6KlmUAAAAC/question-mark-gif-anime-boy.gif", "https://media.tenor.com/v_9KyusYIesAAAAC/eyespin-confused.gif", "    https://media.tenor.com/FqEXZQD8HpoAAAAC/confused-anime.gif", "https://media.tenor.com/MSal6ZHRd5sAAAAM/ichigo-confused.gif", "https://media.tenor.com/7VQ3uurmLewAAAAC/anime-kaos.gif", "https://media.tenor.com/rJaEPtTU2UUAAAAM/denpa-onna-touwa.gif", 
+        "https://media.tenor.com/j_FMGmTV-ToAAAAM/eh-shomin.gif", "https://media.tenor.com/X0cbSPtNONgAAAAC/what-wtf.gif", "https://media.tenor.com/8ASyg0AzXeMAAAAC/confused-dizzy.gif", "https://media.tenor.com/-bo8gmpinMwAAAAd/confusion-what.gif", "https://media.tenor.com/9sifZzURdmcAAAAd/what-gjb93.gif", "https://media.tenor.com/0gAu0gBYkCIAAAAM/rikkatakanashi-anime.gif"]
+        let randomconfused = respuestaconfused[Math.floor(respuestaconfused.length * Math.random())]
+
+        const embedconfused = new Discord.MessageEmbed()
+        .setDescription(`** ${user} ** esta completamente confundido (+_+)?`)
+        .setColor("PURPLE")
+        .setImage(randomconfused)
+
+        message.channel.send(embedconfused)
     }
     if(message.content.startsWith(prefix + "angry")) {
         let user = message.author.username;
@@ -812,20 +813,19 @@ client.on("message", async (message) => {
 
         message.channel.send(embedangry)
     }
-    if(message.content.startsWith(prefix + "confused")) {
+    if(message.content.startsWith(prefix + "disgust")) {
         let user = message.author.username;
-        var respuestaconfused = ["https://media.tenor.com/obB_7KixgO4AAAAC/speechless-no-comment.gif", "https://media.tenor.com/Gv1cMkqev0wAAAAC/anime-confused.gif", "https://media.tenor.com/K3LslQdLo04AAAAM/inugami-korone-hololive.gif", "https://media.tenor.com/wf2ohk7KIiAAAAAC/confused-head-tilt.gif", "https://media.tenor.com/WAlzvPeA3g8AAAAC/anime-utanoprincesama.gif", "https://media.tenor.com/96mR_W6LE1EAAAAC/anime-confusion-what.gif", "https://media.tenor.com/qljo2BEYlVMAAAAd/dio-brando-dio.gif", "https://media.tenor.com/SptyU7LTASwAAAAC/anime-yumiko.gif", "https://media.tenor.com/y34Mm1myriQAAAAM/shamiko-confused.gif", 
-        "https://media.tenor.com/1RyM7ikzraIAAAAC/anime-what.gif", "https://media.tenor.com/hHYgobUpDSwAAAAC/what-anime.gif", "https://media.tenor.com/SRwhd6rGlOgAAAAC/anime-girl.gif", "https://media.tenor.com/gzjKEWGQvh0AAAAM/demon-slayer-tanjiro.gif", "https://media.tenor.com/3Vm0IYNFtKsAAAAC/re-life-anime.gif", "https://media.tenor.com/JZX16xr_yyQAAAAC/food-anime.gif", "https://media.tenor.com/LRgXK_PKFkYAAAAC/anime-syaro.gif", "https://media.tenor.com/iIpVPcee16kAAAAC/anime-cirno.gif", "https://media.tenor.com/bbjoFhJAIpIAAAAM/tokyo-mew-mew-anime.gif", "https://media.tenor.com/eNpgx6pd9xIAAAAC/confused-anime.gif", 
-        "https://media.tenor.com/VypYy-84gY4AAAAd/confused-chibi.gif", "https://media.tenor.com/SjAoc_yt1TsAAAAd/love-live-nijigasaki-high-school.gif", "https://media.tenor.com/L5TJMj7kvbEAAAAd/confused-shocked.gif", "https://media.tenor.com/kHkyHf5MpewAAAAM/anime-smiles.gif", "https://media.tenor.com/5eO4er6KlmUAAAAC/question-mark-gif-anime-boy.gif", "https://media.tenor.com/v_9KyusYIesAAAAC/eyespin-confused.gif", "    https://media.tenor.com/FqEXZQD8HpoAAAAC/confused-anime.gif", "https://media.tenor.com/MSal6ZHRd5sAAAAM/ichigo-confused.gif", "https://media.tenor.com/7VQ3uurmLewAAAAC/anime-kaos.gif", "https://media.tenor.com/rJaEPtTU2UUAAAAM/denpa-onna-touwa.gif", 
-        "https://media.tenor.com/j_FMGmTV-ToAAAAM/eh-shomin.gif", "https://media.tenor.com/X0cbSPtNONgAAAAC/what-wtf.gif", "https://media.tenor.com/8ASyg0AzXeMAAAAC/confused-dizzy.gif", "https://media.tenor.com/-bo8gmpinMwAAAAd/confusion-what.gif", "https://media.tenor.com/9sifZzURdmcAAAAd/what-gjb93.gif", "https://media.tenor.com/0gAu0gBYkCIAAAAM/rikkatakanashi-anime.gif"]
-        let randomconfused = respuestaconfused[Math.floor(respuestaconfused.length * Math.random())]
+        var respuestadisgust = ["https://media.tenor.com/DQ0AVM4ODRoAAAAd/disgust.gif", "https://media.tenor.com/YniEhuPth4UAAAAC/kyoukai-no-kanata-nase.gif", "https://media.tenor.com/0JHFlpscz44AAAAC/anime-disgust.gif", "https://media.tenor.com/dpSu2TI7MrYAAAAM/yukihana-lamy-hololive.gif", "https://media.tenor.com/ew7hDhIqUFkAAAAC/anime-tanjiro.gif", "https://media.tenor.com/THvIJmmkiKkAAAAd/hatsune-miku.gif", "https://media.tenor.com/Lftq9JiwGYMAAAAC/cartoon-anime.gif", "https://media.tenor.com/rhHGRmDYD5sAAAAd/serious-anime.gif", "https://media.tenor.com/oSNsOmxp8iEAAAAd/beatrice-spit.gif", "https://media.tenor.com/RzwllAkt2DUAAAAC/shock-fate-zero.gif", "https://media.tenor.com/LfGl33Wdxv0AAAAC/anime-nge.gif",
+        "https://media.tenor.com/UxTt74R2TZsAAAAM/sagiri-disgust.gif", "https://media.tenor.com/FNqZHylgNicAAAAC/mushoku-tensei-anime.gif", "https://media.tenor.com/3ku_QVMm70cAAAAC/bad-joke-tomioka.gif", "https://media.tenor.com/63FsgzWz4TQAAAAC/karyl-princess-connect.gif", "https://media.tenor.com/CbCFYyMGcroAAAAd/oden-annoyed-one-piece.gif", "https://media.tenor.com/xxuam91fOFAAAAAd/anime-rem.gif", "https://media.tenor.com/dt5lIbqrjtQAAAAC/anime-bad-taste.gif", "https://media.tenor.com/I29HZewneOoAAAAC/one-piece-anime.gif", "https://media.tenor.com/o4gIV8taulMAAAAd/one-piece-anime.gif", "https://media.tenor.com/hdGugwORapQAAAAM/anime-girl-anime.gif", "https://media.tenor.com/qWUcWFwaBJEAAAAC/anime-angry.gif", "https://media.tenor.com/t2Yu6k5yHrkAAAAC/jojo.gif",
+        "https://media.tenor.com/0bIMD076bWwAAAAC/anime-nisekoi.gif", "https://media.tenor.com/bocDp2NBeoMAAAAC/mad-annoyed.gif", "https://media.tenor.com/ljy1LMHGMF8AAAAC/anime-awkward.gif", "https://media.tenor.com/3KXNrPm1R4UAAAAC/mob-psycho100-mob-psycho.gif", "https://media.tenor.com/MpWP9okaLtYAAAAC/vegeta-disgust.gif", "https://media.tenor.com/WeM44VA36McAAAAC/anime-irritated.gif", "https://media.tenor.com/XF9FkAViN1YAAAAC/anime-pissed.gif", "https://media.tenor.com/8MfRXHqywIgAAAAd/panko-komachi.gif", "https://media.tenor.com/VJXern5FiXYAAAAC/fate-rin.gif", "https://media.tenor.com/UT31MLLjlw0AAAAd/raison-de-etre-eve.gif", "https://tenor.com/view/metal-gear-rising-gif-24741953", "https://media.tenor.com/BCOmEMhcxsoAAAAC/gawr-gura-disgusted.gif"]
+        let randomdisgust = respuestadisgust[Math.floor(respuestadisgust.length * Math.random())]
 
-        const embedconfused = new Discord.MessageEmbed()
-        .setDescription(`** ${user} ** esta completamente confundido (+_+)?`)
+        const embeddisgust = new Discord.MessageEmbed()
+        .setDescription(`** ${user} ** no podía estar mas disgustado.. (。﹏。*)s`)
         .setColor("PURPLE")
-        .setImage(randomconfused)
+        .setImage(randomdisgust)
 
-        message.channel.send(embedconfused)
+        message.channel.send(embeddisgust)
     }
     if(message.content.startsWith(prefix + "fear")) {
         let user = message.author.username;
