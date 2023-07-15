@@ -33,96 +33,31 @@ client.on("messageDelete", async (deletedMessage) => {
     console.log(`~${executor.username}~ ha borrado un mensaje en ~${guild.name}~ que decía: "${deletedMessage.content}" ·w·`);
 
 });
-
+// EMOTES ♥ ♥ ♥ //
+// EMOTES ♥ ♥ ♥ //
+let emotes = ["·w·", "(p≧w≦q)", "o((>ω< ))o", "( •̀ ω •́ )✧", "ヾ(•ω•`)o", "(^人^)", "(。・ω・。)", "(★ ω ★)", "(^._.^)ﾉ", "(*/ω＼*)", "＞﹏＜", "(lll￢ω￢)", "つ﹏⊂"] 
+var msgEmote = emotes[Math.floor(Math.random() * emotes.length)]
+// COMANDOS ☺ ☺ ☺ //
+// COMANDOS ☺ ☺ ☺ //
 client.on("message", async (message) => {
     let week = 0
     let days = 0
     if (message.author.bot) return;
 	const args = message.content.trim().split(/ +/g);
     if(message.content.startsWith(prefix + 'help')) {
+        const embedhelp = new Discord.MessageEmbed()
+        .setTitle(`**📑 | Comandos |** ${msgEmote}`)
+        .setDescription(`_47 comandos en total > <_`)
+        .addField(`▸ 🔧 Utilidad`, "> ``reminder`` | ``userinfo`` | ``avatar`` | ``serverinfo`` | ``servericon`` | ``rolinfo`` | ``roles`` | ``snipe`` | ``ping`` | ``img (BETA)``")
+        .addField(`▸ 🎲 Entretenimiento`, "> ``meme`` | ``SCP`` | ``say`` | ``roulette`` | ``8ball`` | ``dado`` | ``coinflip`` | ``randomuser`` | ``randomcap (BETA)``")
+        .addField(`▸ 🖼 Imagen`, "> ``capybara`` | ``neko`` | ``cat`` | ``sadcat`` | ``dog``")
+        .addField(`▸ 🎭 Interacción`, "> ``kiss`` | ``hug`` | ``cuddle`` | ``lick`` | ``pat`` | ``poke`` | ``sleep`` | ``dance`` | ``slap`` | ``bite`` | ``punch`` | ``kill``")
+        .addField(`▸ 😄 Emoción`, "> ``suprise`` | ``happy`` | ``blush`` | ``sleepy`` | ``neutral`` | ``confused`` | ``angry`` | ``disgust`` | ``fear`` | ``cry``")
+        .setFooter(`s!botinfo para mas información .w.`)
+        .setColor("PURPLE")
 
-        const embedUtilidad = new Discord.MessageEmbed()
-            .setTitle("Utilidad")
-            .setAuthor(message.author.username, message.author.avatarURL())
-            .setColor("PURPLE")
-            .addField('Reminder (BETA)', 'Te recordará cualquier cosa que le pidas en el tiempo que le pidas.')
-            .addField('Userinfo', 'Enviará toda la información posible del usuario mencionado.', true)
-            .addField('Avatar', 'Enviará el avatar de el usuario mencionado', true)
-            .addField('Emoji', 'Enviará la imagen del emoji que se envie junto al comando.')
-            .addField('Serverinfo', 'Mostrará toda la información posible del servidor.')
-            .addField('Servericon', 'Mostrará el icono del servidor en el que estes.', true)
-            .addField('Rolinfo', 'Mostrará toda la información de el rol que menciones.', true)
-            .addField('Roles', 'Mostrará todos los roles de el servidor en el que estes', true)
-            .addField('Snipe', 'Enviará el contenido del ultimo mensaje que ha sido borrado en un guild', true)
-            .addField('Ping', 'Comprobará la latencia de la API de Discord', true)
-            .addField('Img (BETA)', 'Enviará una imagen de la busqueda que hagas.', true)
-
-        const embedEntretenimiento = new Discord.MessageEmbed()
-            .setTitle("Entretenimiento")
-            .setColor("PURPLE")
-            .addField('SCP', 'Enviará la página del SCP que envies.')
-            .addField('Meme', 'Enviará un meme aleatorio', true)
-            .addField('Say', 'Dirá lo que que tu escribas y borrará tu mensaje', true)
-            .addField('Roulette', 'Tirará una ruleta entre las opciones que des, eligirá una de ellas.', true)
-            .addField('8ball', 'Adivinará el futuro de la pregunta que hagas', true)
-            .addField('Dado', 'Tirara un dado, te dará un numero del 1 al 6', true)
-            .addField('Coinflip', 'Lanzará una monera y saldrá cara o cruz', true)
-            .addField('Randomuser', 'Dirá el nombre de un usuario aleatorio del server', true)
-            .addField('RandomCap (BETA)', 'Enviará una captura aleatoria tomada por un usuario cualquiera.', true)
-
-        const embedImagenes = new Discord.MessageEmbed()
-            .setTitle("Imagenes")
-            .setColor("PURPLE")
-            .addField('Capybara', 'Enviará imagenes aleatorias de Capybaras', true)
-            .addField('Neko', 'Enviará imagenes aleatorias de nekos ·w·', true)
-            .addField('Cat', 'Enviará imagenes aleatorias de gatos ￣ω￣', true)
-            .addField('SadCat', 'Enviará imagenes aleatorias de gatos tristes', true)
-            .addField('Dog', 'Enviará imagenes aleatorias de perros', true)
-
-        const embedInteracción = new Discord.MessageEmbed()
-            .setTitle("Interacción")
-            .setColor("PURPLE")
-            .addField('Poke', 'Tocarás a la persona mencionada.')
-            .addField('Pat', 'Acariciarás a la persona mencionada', true)
-            .addField('Cuddle', 'Te acurrucarás con la persona mencionada', true)
-            .addField('Hug', 'Abrazás a  la  persona mencionada ♥', true)
-            .addField('Lick', 'Lamerás a la persona que menciones o(〃＾▽＾〃)o', true)
-            .addField('Kiss', 'Besarás a la persona que menciones **o.o**', true)
-            .addField('Sleep', 'Empezarñas a dormir.. (。-ω-)zzz')
-            .addField('Dance', 'Hará que bailes', true)
-            .addField('Bite', 'Morderás a la persona mencionada >w<', true)
-            .addField('Slap', 'Le darás una bofetada a la persona mencionada', true)
-            .addField('Punch', 'Le darás un golpe a las persona mencionada', true)
-            .addField('Kill', 'Matarás a la persona mencionada. (￣﹏￣；)', true)
-
-        const embedEmoción = new Discord.MessageEmbed()
-            .setTitle('Emociones')
-            .setColor("PURPLE")
-            .addField('Blush', 'Empezarás a sonrojarte', true)
-            .addField('Happy', 'Mostrarás lo feliz que estas ^-^', true)
-            .addField('Suprise', 'Expresarás como de sorprendido estás ◉_◉')
-            .addField('Neutral', '..Úsalo cuando no tengas nada que decir.')
-            .addField('Sleepy', 'Mostrarás el sueño que tienes', true)
-            .addField('Disgust', 'Enseñarás los disgustado que estas ＞︿＜')
-            .addField('Angry', 'Te enfadarás.')
-            .addField('Confused', 'Mostrarás tu confusión (。_。)')
-            .addField('Fear', 'Expresa lo asustado que es-estas... o((⊙﹏⊙))o.')
-            .addField('Cry', 'Te echarás a llorar unu', true)
-            .setFooter("~~ s!botinfo para ver mas información del bot ~~")
-
-        message.author.send(embedUtilidad)
-        message.author.send(embedEntretenimiento)
-        message.author.send(embedImagenes)
-        message.author.send(embedInteracción);
-        message.author.send(embedEmoción)
-
-        message.channel.send("Te he mandado un mensaje con todos los comandos a tu md ·w·")
-                                                                   
+        message.channel.send(embedhelp)
     }
-    // EMOTES ♥ ♥ ♥ //
-    // EMOTES ♥ ♥ ♥ // 
-    let emotes = ["·w·", "(p≧w≦q)", "o((>ω< ))o", "( •̀ ω •́ )✧", "ヾ(•ω•`)o", "(^人^)", "(。・ω・。)", "(★ ω ★)", "(^._.^)ﾉ", "(*/ω＼*)", "＞﹏＜", "(lll￢ω￢)", "つ﹏⊂"] 
-    var msgEmote = emotes[Math.floor(Math.random() * emotes.length)]
     // COMANDOS DE UTILIDAD ♥ ♥ ♥ //
     // COMANDOS DE UTILIDAD ♥ ♥ ♥ //
     if(message.content.startsWith(prefix + "botinfo")) {
@@ -170,7 +105,6 @@ client.on("message", async (message) => {
     if (message.content.startsWith(prefix + "reminder")) {
         const argsReminder = message.content.slice(prefix.length).trim().split(/ +/);
         if (argsReminder.length < 3) {
-            // Si faltan argumentos, enviar mensaje de ayuda
             message.channel.send("Por favor, usa el comando correctamente: s!reminder [tiempo] [recordatorio]");
             return;
         }
@@ -179,7 +113,6 @@ client.on("message", async (message) => {
         const textReminder = argsReminder.slice(2).join(' ');
     
         if (!ms(time)) {
-            // Si el tiempo no tiene un formato válido, enviar mensaje de error
             message.channel.send("Por favor, usa el comando correctamente: s!reminder [tiempo] [recordatorio]");
             return;
         }
@@ -361,40 +294,42 @@ client.on("message", async (message) => {
           const imgEmbed = new Discord.MessageEmbed()
             .setTitle(`Imagen de${query}`)
             .setImage(image_url)
-            .setColor("RANDOM");
+            .setColor('RANDOM');
     
           message.channel.send(imgEmbed);
         } else {
-          message.channel.send(`No se encontraron imágenes acerca de${query}.`);
+          message.channel.send(`No se encontraron imágenes acerca de ${query}.`);
         }
-}
-async function getRandomImage(query) {
-    const searchQuery = encodeURIComponent(query);
-    const url = `https://www.google.com/search?q=${searchQuery}&tbm=isch&tbs=isz:l`;
-  
-    try {
-      const response = await fetch(url);
-      if (response.ok) {
-        const html = await response.text();
-        const $ = cheerio.load(html);
-        const images = $('img[src^="http"]').map((index, element) => $(element).attr('src')).get();
-        if (images.length > 0) {
-          const randomIndex = Math.floor(Math.random() * images.length);
-          return images[randomIndex];
+    }
+
+    
+    async function getRandomImage(query) {
+      const searchQuery = encodeURIComponent(query);
+      const url = `https://www.google.com/search?q=${searchQuery}&tbm=isch&tbs=isz:l`;
+    
+      try {
+        const response = await fetch(url);
+        if (response.ok) {
+          const html = await response.text();
+          const $ = cheerio.load(html);
+          const images = $('img[src^="http"]').map((index, element) => {
+            const imageUrl = $(element).attr('src');
+            // Obtener la URL de la imagen en tamaño completo
+            const fullImageUrl = imageUrl.replace('data:image', 'https://encrypted-tbn0.gstatic.com/images');
+            return fullImageUrl;
+          }).get();
+          if (images.length > 0) {
+            const randomIndex = Math.floor(Math.random() * images.length);
+            return images[randomIndex];
+          }
         }
+      } catch (error) {
+        console.error('Error al obtener la imagen:', error);
       }
-    } catch (error) {
-      console.error('Error al obtener la imagen:', error);
+      return null;
     }
-    return null;
-}
     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
     // COMANDOS DE ENTRETENIMIENTO ♥ ♥ ♥ //
-    if(message.content.startsWith(prefix + "2048")) {
-        const game = gameManager.createGame();
-        message.channel.send(`¡Iniciando el juego 2048! ${msgEmote}`);
-        message.channel.send(game.board.toString());
-    }
     if(message.content.startsWith(prefix + "SCP")) {
         const numero = message.content.split(' ')[1]; // Obtiene el número del SCP del mensaje
         const enlace = `http://scp-wiki.wikidot.com/scp-${numero}`;
