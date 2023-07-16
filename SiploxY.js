@@ -52,7 +52,7 @@ client.on("message", async (message) => {
         .setTitle(`**📑 | Comandos |** ${msgEmote}`)
         .setDescription(`_47 comandos en total > <_`)
         .addField(`▸ 🔧 Utilidad`, "> ``reminder`` | ``userinfo`` | ``avatar`` | ``serverinfo`` | ``servericon`` | ``rolinfo`` | ``roles`` | ``snipe`` | ``ping`` | ``img (BETA)``")
-        .addField(`▸ 🎲 Entretenimiento`, "> ``meme`` | ``SCP`` | ``say`` | ``roulette`` | ``8ball`` | ``dado`` | ``coinflip`` | ``randomuser`` | ``randomcap (BETA)``")
+        .addField(`▸ 🎲 Entretenimiento`, "> ``meme`` | ``say`` | ``roulette`` | ``8ball`` | ``dado`` | ``coinflip`` | ``randomuser`` | ``randomcap (BETA)``")
         .addField(`▸ 🖼 Imagen`, "> ``capybara`` | ``neko`` | ``cat`` | ``sadcat`` | ``dog``")
         .addField(`▸ 🎭 Interacción`, "> ``kiss`` | ``hug`` | ``cuddle`` | ``lick`` | ``pat`` | ``poke`` | ``sleep`` | ``dance`` | ``slap`` | ``bite`` | ``punch`` | ``kill``")
         .addField(`▸ 😄 Emoción`, "> ``suprise`` | ``happy`` | ``blush`` | ``sleepy`` | ``neutral`` | ``confused`` | ``angry`` | ``disgust`` | ``fear`` | ``cry``")
