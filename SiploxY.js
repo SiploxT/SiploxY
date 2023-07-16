@@ -27,10 +27,13 @@ client.on('messageDelete', message => {     // VAR SNIPE 2
 client.on("messageDelete", async (deletedMessage) => {
     const { guild } = deletedMessage;
     const deletionLog = (await guild.fetchAuditLogs({ type: "MESSAGE_DELETE" })).entries.first();
+    
     if (!deletionLog) return;
-  
+    
     const { executor } = deletionLog;
-    console.log(`~${executor.username}~ ha borrado un mensaje en ~${guild.name}~ que decía: "${deletedMessage.content}" ·w·`);
+    const usuario = guild.members.cache.get(executor.id);
+    
+    console.log(`Un usuario ha borrado un mensaje en "${guild.name}" que decía: "${deletedMessage.content}" ·w·`);
 
 });
 // EMOTES ♥ ♥ ♥ //
@@ -353,11 +356,6 @@ client.on("message", async (message) => {
     } else {
       message.channel.send('No se pudo obtener un meme aleatorio, nya.');
     }
-    }
-    if(message.content.startsWith(prefix + "SCP")) {
-        const numero = message.content.split(' ')[1]; // Obtiene el número del SCP del mensaje
-        const enlace = `http://scp-wiki.wikidot.com/scp-${numero}`;
-        message.channel.send(enlace);
     }
     if(message.content.startsWith(prefix + "say")) {
      const args = message.content.slice(5)
