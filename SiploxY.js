@@ -51,7 +51,7 @@ client.on("message", async (message) => {
         const embedhelp = new Discord.MessageEmbed()
         .setTitle(`**📑 | Comandos |** ${msgEmote}`)
         .setDescription(`_47 comandos en total > <_`)
-        .addField(`▸ 🔧 Utilidad`, "> ``reminder`` | ``userinfo`` | ``avatar`` | ``serverinfo`` | ``servericon`` | ``rolinfo`` | ``roles`` | ``snipe`` | ``ping`` | ``img (BETA)``")
+        .addField(`▸ 🔧 Utilidad`, "> ```poll`` | ``reminder`` | ``userinfo`` | ``avatar`` | ``serverinfo`` | ``servericon`` | ``rolinfo`` | ``roles`` | ``snipe`` | ``ping`` | ``img (BETA)``")
         .addField(`▸ 🎲 Entretenimiento`, "> ``meme`` | ``say`` | ``roulette`` | ``8ball`` | ``dado`` | ``coinflip`` | ``randomuser`` | ``randomcap (BETA)``")
         .addField(`▸ 🖼 Imagen`, "> ``capybara`` | ``neko`` | ``cat`` | ``sadcat`` | ``dog``")
         .addField(`▸ 🎭 Interacción`, "> ``kiss`` | ``hug`` | ``cuddle`` | ``lick`` | ``pat`` | ``poke`` | ``sleep`` | ``dance`` | ``slap`` | ``bite`` | ``punch`` | ``kill``")
@@ -104,6 +104,29 @@ client.on("message", async (message) => {
         .setColor("PURPLE")
 
         message.channel.send(embedInfo)
+    }
+    if (message.content.startsWith(prefix + "poll")) {
+        const regex = /"(.*?)"/g;
+        const args = message.content.match(regex);
+    
+        if (!args || args.length < 2) {
+            message.channel.send(`Para utilizar el comando poll, debes delimitar las preguntas y respuestas con comillas. ${msgEmote}\n**Por ejemplo:** s!poll \"¿Qué hora es?\" \"La una\" \"Las dos\"`);
+            return;
+        }
+    
+        const question = args[0].replace(/"/g, "").trim();
+        const options = args.slice(1).map(option => option.replace(/"/g, "").trim());
+    
+        const embedpoll = new Discord.MessageEmbed()
+            .setTitle(question)
+            .setDescription(options.map((option, index) => `${index+1}. ${option}`).join('\n'))
+            .setColor("PURPLE");
+    
+        message.channel.send(embedpoll).then(sentEmbed => {
+            for (let i = 0; i < options.length; i++) {
+                sentEmbed.react(`${i+1}\u20E3`);
+            }
+        });
     }
     if (message.content.startsWith(prefix + "reminder")) {
         const argsReminder = message.content.slice(prefix.length).trim().split(/ +/);
