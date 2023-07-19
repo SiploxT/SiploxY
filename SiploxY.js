@@ -25,16 +25,19 @@ client.on('messageDelete', message => {     // VAR SNIPE 2
 })
 
 client.on("messageDelete", async (deletedMessage) => {
-    const { guild } = deletedMessage;
-    const deletionLog = (await guild.fetchAuditLogs({ type: "MESSAGE_DELETE" })).entries.first();
-    
-    if (!deletionLog) return;
-    
-    const { executor } = deletionLog;
-    const usuario = guild.members.cache.get(executor.id);
-    
-    console.log(`Un usuario ha borrado un mensaje en "${guild.name}" que decía: "${deletedMessage.content}" ·w·`);
+    const { guild, author, content } = deletedMessage;
 
+    const auditLogs = await guild.fetchAuditLogs({ type: "MESSAGE_DELETE" });
+    const deletionLog = auditLogs.entries.first();
+
+    if (!deletionLog) return;
+
+    if (deletionLog.target.id === author.id) {
+        const executor = deletionLog.executor;
+        console.log(`${executor.username} borró el mensaje de ${author.username} en "${guild.name}" que decía: "${content}" ·w·`);
+    } else {
+        console.log(`El mensaje de ${author.username} en "${guild.name}" que decía: "${content}" fue borrado, pero no se pudo determinar quién lo eliminó.`);
+    }
 });
 // EMOTES ♥ ♥ ♥ //
 // EMOTES ♥ ♥ ♥ //
