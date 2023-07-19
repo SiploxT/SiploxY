@@ -150,26 +150,49 @@ client.on("message", async (message) => {
             message.channel.send(`Me has pedido recordarte esto hace: ${time}`);
         }, ms(time));
     }
-    if (message.content.startsWith(prefix + "userinfo")) {
-        const user = message.mentions.users.first() || message.author;
-        const member = message.guild.member(user);
-    
-        const userRoles = member.roles.cache
-            .filter(role => role.id !== message.guild.id)
-            .map(role => role.name).join(`, `);
-    
-        const joinDate = member.joinedAt.toDateString();
-    
-        const userinfoEmbed = new Discord.MessageEmbed()
-            .setThumbnail(user.displayAvatarURL())
-            .setTitle(`Información de ~${user.username} ~ - ${msgEmote}`)
-            .addField(`Id de usuario`, `- ${user.id}`)
-            .addField(`Fecha de unión al servidor`, `- ${joinDate}`)
-            .addField(`Roles`, `- ${userRoles}`)
-            .setColor("PURPLE")
-    
-        message.channel.send(userinfoEmbed);
+if (message.content.startsWith(prefix + "userinfo") || message.content.startsWith(prefix + "ui")) {
+    const getUserFromMentionOrID = (mention) => {
+        if (!mention) return;
+        const matches = mention.match(/^<@!?(\d+)>$/);
+        if (matches) {
+            const id = matches[1];
+            return message.guild.members.cache.get(id)?.user || message.client.users.cache.get(id);
+        } else {
+            mention = mention.toLowerCase();
+            return message.client.users.cache.find(u => u.username.toLowerCase() === mention);
+        }
+    };
+
+    const args = message.content.slice(prefix.length).trim().split(/ +/);
+    let user = message.mentions.users.first() || getUserFromMentionOrID(args[1]) || message.author;
+    const member = message.guild.member(user);
+
+    if (!user) {
+        return message.channel.send(`Usuario incorrecto. Por favor, menciona a un usuario válido o utiliza su ID o nombre de usuario de Discord. ${msgEmote}`);
     }
+
+    const userRoles = member ? member.roles.cache
+        .filter(role => role.id !== message.guild.id)
+        .map(role => role.name).join(`, `) : 'No es miembro del servidor';
+
+    const joinDate = member ? member.joinedAt.toDateString() : 'No es miembro del servidor';
+    const creationDate = user.createdAt.toDateString();
+    const status = user.presence.status;
+    const activity = user.presence.activities.length > 0 ? user.presence.activities[0].name : 'None';
+
+    const userinfoEmbed = new Discord.MessageEmbed()
+        .setThumbnail(user.displayAvatarURL())
+        .setTitle(`Información de ~${user.username}~   ${msgEmote}`)
+        .addField(`Estado`, `- ${status}`)
+        .addField(`Actividad`, `- ${activity}`)
+        .addField(`Roles`, `- ${userRoles}`)
+        .addField(`Fecha de unión al servidor`, `- ${joinDate}`)
+        .addField(`Fecha de creación`, `- ${creationDate}`)
+        .setFooter(`ID de usuario: ${user.id}`)
+        .setColor("PURPLE");
+
+    message.channel.send(userinfoEmbed);
+}
     if (message.content.startsWith(prefix + "avatar") || message.content.startsWith(prefix + "av")) {
         let user;
         const args = message.content.slice(prefix.length).trim().split(/ +/);
@@ -190,7 +213,7 @@ client.on("message", async (message) => {
         if (user) {
             let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048 });
             const embedAvatar = new Discord.MessageEmbed()
-                .setDescription(`Avatar de ${user} - ${msgEmote}`)
+                .setDescription(`Avatar de ${user} -  ${msgEmote}`)
                 .setColor("RANDOM")
                 .setImage(avatar);
             message.channel.send(embedAvatar);
