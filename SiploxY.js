@@ -170,17 +170,33 @@ client.on("message", async (message) => {
     
         message.channel.send(userinfoEmbed);
     }
-    if(message.content.startsWith(prefix + "avatar") || message.content.startsWith(prefix + "av")) {
-        let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
-        let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048})
-   
-        const embedAvatar = new Discord.MessageEmbed()
-   
-        .setDescription("**Avatar de** <@" + user + "> **:** " )
-        .setColor("RANDOM")
-        .setImage(avatar)
-   
-        message.channel.send(embedAvatar)
+    if (message.content.startsWith(prefix + "avatar") || message.content.startsWith(prefix + "av")) {
+        let user;
+        const args = message.content.slice(prefix.length).trim().split(/ +/);
+        
+        if (message.mentions.members.first()) {
+            user = message.mentions.members.first();
+        } else if (args[1]) {
+            const guildMembers = message.guild.members.cache;
+            user = guildMembers.find(member => member.user.username.toLowerCase() === args[1].toLowerCase());
+            
+            if (!user) {
+                user = guildMembers.get(args[1]);
+            }
+        } else {
+            user = message.member;
+        }
+        
+        if (user) {
+            let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048 });
+            const embedAvatar = new Discord.MessageEmbed()
+                .setDescription(`Avatar de ${user} - ${msgEmote}`)
+                .setColor("RANDOM")
+                .setImage(avatar);
+            message.channel.send(embedAvatar);
+        } else {
+            message.channel.send(`No se encontró al usuario especificado ${msgEmote}`);
+        }
     }
     if(message.content.startsWith(prefix + "serverinfo")) {
         const server = message.guild // Info del server
@@ -310,7 +326,6 @@ client.on("message", async (message) => {
     }
     if(message.content.startsWith(prefix + "ping")) {
         message.channel.send(`La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.**. ${msgEmote}`);
-
     }
     if (message.content.startsWith(prefix + 'img')) {
         const query = message.content.slice(5);
@@ -328,7 +343,6 @@ client.on("message", async (message) => {
         }
     }
 
-    
     async function getRandomImage(query) {
       const searchQuery = encodeURIComponent(query);
       const url = `https://www.google.com/search?q=${searchQuery}&tbm=isch&tbs=isz:l`;
@@ -340,7 +354,6 @@ client.on("message", async (message) => {
           const $ = cheerio.load(html);
           const images = $('img[src^="http"]').map((index, element) => {
             const imageUrl = $(element).attr('src');
-            // Obtener la URL de la imagen en tamaño completo
             const fullImageUrl = imageUrl.replace('data:image', 'https://encrypted-tbn0.gstatic.com/images');
             return fullImageUrl;
           }).get();
