@@ -36,7 +36,7 @@ client.on("messageDelete", async (deletedMessage) => {
         const executor = deletionLog.executor;
         console.log(`${executor.username} borró el mensaje de ${author.username} en "${guild.name}" que decía: "${content}" ·w·`);
     } else {
-        console.log(`El mensaje de ${author.username} en "${guild.name}" que decía: "${content}" fue borrado, pero no se pudo determinar quién lo eliminó.`);
+        console.log(`El mensaje de ${author.username} en "${guild.name}" que decía: "${content}" fue borrado por ${author.username}`);
     }
 });
 // EMOTES ♥ ♥ ♥ //
@@ -419,14 +419,26 @@ if (message.content.startsWith(prefix + "userinfo") || message.content.startsWit
       message.channel.send('No se pudo obtener un meme aleatorio, nya.');
     }
     }
-    if(message.content.startsWith(prefix + "say")) {
-     const args = message.content.slice(5)
-     if(!args) return message.channel.send(`Necesitas poner algo para que pueda decirlo. ${msgEmote}`)
+    if (message.content.startsWith(prefix + "say")) {
 
-     message.channel.send(args)
+        if (!message.member.hasPermission("MANAGE_MESSAGES")) {
 
-     message.delete()
-    }
+          const args = message.content.slice(5).replace(/@everyone/g, "@\u200Beveryone").replace(/@here/g, "@\u200Bhere");
+      
+          if (!args.trim()) return message.channel.send(`Necesitas poner algo para que pueda decirlo. ${msgEmote}`);
+          
+          message.channel.send(args);
+          message.delete();
+        } else {
+
+          const args = message.content.slice(5);
+          
+          if (!args.trim()) return message.channel.send(`Necesitas poner algo para que pueda decirlo. ${msgEmote}`);
+          
+          message.channel.send(args);
+          message.delete();
+        }
+    }      
     if(message.content.startsWith(prefix + "roulette")) {
         const opciones = message.content.slice(11).split(',').map(option => option.trim());
         const randomopciones = Math.floor(Math.random() * opciones.length);
