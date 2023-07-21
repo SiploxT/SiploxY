@@ -9,7 +9,7 @@
 # ℹ️ Info
 
 - _Prefix: s!_
-- _Versión: discord.js@14.8.0_
+- _Versión: discord.js@12.5.3_
 - _Hay un comando help para poder ver todos los comandos que tiene el bot ahora mismo. (s!help)_ 
 - _El bot cuenta con 48 comandos, 11 de utilidad, 9 de entretenimiento, 5 de imagenes, 12 comandos de interacción y 10 comandos de emoción. (Mas s!botinfo)_
   
