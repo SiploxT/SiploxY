@@ -60,7 +60,7 @@ client.on("messageCreate", async (message) => {
     const embedHelp = new Discord.EmbedBuilder()
       .setTitle(`**📑 | Comandos |** ${msgEmote}`)
       .setDescription(`_46 comandos en total > <_`)
-      .addFields({ name: `▸ 🔧 Utilidad`, value: "> ``poll`` | ``reminder`` | ``userinfo (WIP)`` | ``avatar`` | ``serverinfo (WIP)`` | ``servericon`` | ``rolinfo`` | ``roles`` | ``ping`` | ``snipe``" })
+      .addFields({ name: `▸ 🔧 Utilidad`, value: "> ``poll`` | ``reminder`` | ``avatar`` | ``serverinfo`` | ``servericon`` | ``rolinfo`` | ``roles`` | ``ping`` | ``snipe``" })
       .addFields({ name: `▸ 🎲 Entretenimiento`, value: "> ``meme`` | ``say`` | ``roulette`` | ``8ball`` | ``dado`` | ``coinflip`` | ``randomuser`` | ``randomcap (BETA)``" })
       .addFields({ name: `▸ 🖼 Imagen`, value: "> ``capybara`` | ``neko`` | ``cat`` | ``sadcat`` | ``dog``" })
       .addFields({ name: `▸ 🎭 Interacción`, value: "> ``kiss`` | ``hug`` | ``cuddle`` | ``lick`` | ``pat`` | ``poke`` | ``nap`` | ``dance`` | ``slap`` | ``bite`` | ``punch`` | ``kill``" })
@@ -162,49 +162,6 @@ client.on("messageCreate", async (message) => {
       message.channel.send({ content: `Me has pedido recordarte esto hace: ${time}` });
     }, ms(time));
   }
-  if (message.content.startsWith(prefix + "userinfo") || message.content.startsWith(prefix + "ui")) {
-    const getUserFromMentionOrID = (mention) => {
-      if (!mention) return;
-      const matches = mention.match(/^<@!?(\d+)>$/);
-      if (matches) {
-        const id = matches[1];
-        return message.guild.members.cache.get(id)?.user || message.client.users.cache.get(id);
-      } else {
-        mention = mention.toLowerCase();
-        return message.client.users.cache.find(u => u.username.toLowerCase() === mention);
-      }
-    };
-
-    const args = message.content.slice(prefix.length).trim().split(/ +/);
-    let user = message.mentions.users.first() || getUserFromMentionOrID(args[1]) || message.author;
-    const member = message.guild.members.cache.get(user);
-
-    if (!user) {
-      return message.channel.send(`Usuario incorrecto. Por favor, menciona a un usuario válido o utiliza su ID o nombre de usuario de Discord. ${msgEmote}`);
-    }
-
-    const userRoles = member ? member.roles.cache
-      .filter(role => role.id !== message.guild.id)
-      .map(role => role.name).join(`, `) : 'No es miembro del servidor';
-
-    const joinDate = member ? member.joinedAt.toDateString() : 'No es miembro del servidor';
-    const creationDate = user.createdAt.toDateString();
-    //const status = user.presence.status; -- ERROR
-    //const activity = user.presence.activities.length > 0 ? user.presence.activities[0].name : 'None'; -- ERROR
-
-    const userinfoEmbed = new Discord.EmbedBuilder()
-      .setThumbnail(user.displayAvatarURL())
-      .setTitle(`Información de ~${user.username}~   ${msgEmote}`)
-      //.addFields(`Estado`, `- ${status}`) -- ERROR
-      //.addFields({ name: `Actividad`, value: `- ${activity}` }) -- ERROR
-      .addFields({ name: `Roles`, value: `- ${userRoles}` })
-      .addFields({ name: `Fecha de unión al servidor`, value: `- ${joinDate}` })
-      .addFields({ name: `Fecha de creación`, value: `- ${creationDate}` })
-      .setFooter({ text: `ID de usuario: ${user.id}` })
-      .setColor("#9C59B6")
-
-    message.channel.send({ embeds: [userinfoEmbed] });
-  }
   if (message.content.startsWith(prefix + "avatar") || message.content.startsWith(prefix + "av")) {
     let user;
     const args = message.content.slice(prefix.length).trim().split(/ +/);
@@ -247,9 +204,9 @@ client.on("messageCreate", async (message) => {
     const offlineMembers = server.members.cache.filter(member => !member.presence || member.presence.status === 'offline').size;
     // ↓↓↓ Cantidad de Canales
     const totalChannels = server.channels.cache.size;
-    const textChannels = server.channels.cache.filter(channel => channel.type === 'GUILD_TEXT').size;
-    const voiceChannels = server.channels.cache.filter(channel => channel.type === 'GUILD_VOICE').size;
-    const threadChannels = server.channels.cache.filter(channel => channel.type === 'GUILD_PUBLIC_THREAD' || channel.type === 'GUILD_PRIVATE_THREAD').size;
+    const textChannels = server.channels.cache.filter((m) => m.type == Discord.ChannelType.GuildText).size;
+    const voiceChannels = server.channels.cache.filter((m) => m.type == Discord.ChannelType.GuildVoice).size;
+    const threadChannels = server.channels.cache.filter((m) => m.type == Discord.ChannelType.GuildPublicThread).size;
     // ↓↓↓ Nivel de Verificación
     const verificationLevel = server.verificationLevel;
     // ↓↓↓ Icono del Servidor
@@ -257,15 +214,15 @@ client.on("messageCreate", async (message) => {
     // ↓↓↓ Nivel de Verificación
     function getVerificationLevelText(level) {
       switch (level) {
-        case 'NONE':
+        case 0:
           return 'Ninguno';
-        case 'LOW':
+        case 1:
           return 'Bajo';
-        case 'MEDIUM':
+        case 2:
           return 'Medio';
-        case 'HIGH':
+        case 3:
           return 'Alto';
-        case 'VERY_HIGH':
+        case 4:
           return 'Muy alto';
         default:
           return 'Desconocido';
@@ -280,7 +237,6 @@ client.on("messageCreate", async (message) => {
       .addFields({ name: '__Estados de los Usuarios__', value: `- En línea: ${onlineMembers}\n- Ausente: ${idleMembers}\n- No molestar: ${dndMembers}\n- Desconectado: ${offlineMembers}` })
       .addFields({ name: '__Canales__', value: `- Total: ${totalChannels}\n- Texto: ${textChannels}\n- Voz: ${voiceChannels}\n- Hilos: ${threadChannels}` })
       .addFields({ name: '__Nivel de Verificación__', value: `- ${getVerificationLevelText(verificationLevel)}` })
-      .setFooter({ text: `Región: ${server.region}` })
       .setColor("#9C59B6")
 
     message.channel.send({ embeds: [embedServer] })
@@ -838,7 +794,7 @@ client.on("messageCreate", async (message) => {
     message.channel.send({ embeds: [embedneutral] })
   }
   if (message.content.startsWith(prefix + "confused")) {
-    let user = message.author.username;
+    let user = message.author.user;
     var respuestaconfused = ["https://media.tenor.com/obB_7KixgO4AAAAC/speechless-no-comment.gif", "https://media.tenor.com/Gv1cMkqev0wAAAAC/anime-confused.gif", "https://media.tenor.com/K3LslQdLo04AAAAM/inugami-korone-hololive.gif", "https://media.tenor.com/wf2ohk7KIiAAAAAC/confused-head-tilt.gif", "https://media.tenor.com/WAlzvPeA3g8AAAAC/anime-utanoprincesama.gif", "https://media.tenor.com/96mR_W6LE1EAAAAC/anime-confusion-what.gif", "https://media.tenor.com/qljo2BEYlVMAAAAd/dio-brando-dio.gif", "https://media.tenor.com/SptyU7LTASwAAAAC/anime-yumiko.gif", "https://media.tenor.com/y34Mm1myriQAAAAM/shamiko-confused.gif",
       "https://media.tenor.com/1RyM7ikzraIAAAAC/anime-what.gif", "https://media.tenor.com/hHYgobUpDSwAAAAC/what-anime.gif", "https://media.tenor.com/SRwhd6rGlOgAAAAC/anime-girl.gif", "https://media.tenor.com/gzjKEWGQvh0AAAAM/demon-slayer-tanjiro.gif", "https://media.tenor.com/3Vm0IYNFtKsAAAAC/re-life-anime.gif", "https://media.tenor.com/JZX16xr_yyQAAAAC/food-anime.gif", "https://media.tenor.com/LRgXK_PKFkYAAAAC/anime-syaro.gif", "https://media.tenor.com/iIpVPcee16kAAAAC/anime-cirno.gif", "https://media.tenor.com/bbjoFhJAIpIAAAAM/tokyo-mew-mew-anime.gif", "https://media.tenor.com/eNpgx6pd9xIAAAAC/confused-anime.gif",
       "https://media.tenor.com/VypYy-84gY4AAAAd/confused-chibi.gif", "https://media.tenor.com/SjAoc_yt1TsAAAAd/love-live-nijigasaki-high-school.gif", "https://media.tenor.com/L5TJMj7kvbEAAAAd/confused-shocked.gif", "https://media.tenor.com/kHkyHf5MpewAAAAM/anime-smiles.gif", "https://media.tenor.com/5eO4er6KlmUAAAAC/question-mark-gif-anime-boy.gif", "https://media.tenor.com/v_9KyusYIesAAAAC/eyespin-confused.gif", "    https://media.tenor.com/FqEXZQD8HpoAAAAC/confused-anime.gif", "https://media.tenor.com/MSal6ZHRd5sAAAAM/ichigo-confused.gif", "https://media.tenor.com/7VQ3uurmLewAAAAC/anime-kaos.gif", "https://media.tenor.com/rJaEPtTU2UUAAAAM/denpa-onna-touwa.gif",
