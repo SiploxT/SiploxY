@@ -15,6 +15,8 @@ const config = require("./config.json");
 const fetch = require('node-fetch');
 const axios = require('axios');
 const ms = require('ms');
+const {Client} = require('google-img.js');
+const google = new Client(config.CSE_ID, config.CSE_API_KEY);
 
 let prefix = config.prefix;
 
@@ -448,7 +450,20 @@ client.on("messageCreate", async (message) => {
   // COMANDOS DE IMAGENES ♥ ♥ ♥ //
   // COMANDOS DE IMAGENES ♥ ♥ ♥ //
 
-
+  if(message.content.startsWith(prefix + "img")) {
+    const query = message.content.slice(5); 
+    google.search(query).then(result => {
+      var currentImage = 0;
+      var totalImages = result.length
+      if(result[0] == undefined) return message.channel.send({content: "No se han encontrado imagenes"});
+      const imgEmbed = new Discord.EmbedBuilder()
+      .setTitle(`Imagen de **~${query} ~**`)
+      .setImage(result[currentImage].url)
+      .setColor("ffffff")
+      message.channel.send({embeds: [imgEmbed]})
+    });
+  }
+  
   if (message.content.startsWith(prefix + "capybara")) {
     var capy = ["capybara ?!", "capybara !  !! !", "^__^", "coconut doggy", "o my gosh", "cappy blappy"]
     var capyrandom = capy[Math.floor(capy.length * Math.random())]

@@ -1,4 +1,6 @@
 {
   "token": "Tu token (https://discord.com/developers/applications)",
-  "prefix": "s!"
+  "prefix": "s!",
+  "CSE_ID": "El ID de tu Custom Search Engine (https://cse.google.com/cse)",
+  "CSE_API_KEY": "El API KEY de tu Custom Search engine (https://cse.google.com/cse), mas informacion de como sacar estos datos en https://github.com/Mendo6472/google-img.js"
 }
