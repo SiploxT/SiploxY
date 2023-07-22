@@ -64,7 +64,7 @@ client.on("messageCreate", async (message) => {
       .setDescription(`_46 comandos en total > <_`)
       .addFields({ name: `▸ 🔧 Utilidad`, value: "> ``poll`` | ``reminder`` | ``avatar`` | ``serverinfo`` | ``servericon`` | ``rolinfo`` | ``roles`` | ``ping`` | ``snipe``" })
       .addFields({ name: `▸ 🎲 Entretenimiento`, value: "> ``meme`` | ``say`` | ``roulette`` | ``8ball`` | ``dado`` | ``coinflip`` | ``randomuser`` | ``randomcap (BETA)``" })
-      .addFields({ name: `▸ 🖼 Imagen`, value: "> ``capybara`` | ``neko`` | ``cat`` | ``sadcat`` | ``dog``" })
+      .addFields({ name: `▸ 🖼 Imagen`, value: "> ``ìmg`` ``capybara`` | ``neko`` | ``cat`` | ``sadcat`` | ``dog``" })
       .addFields({ name: `▸ 🎭 Interacción`, value: "> ``kiss`` | ``hug`` | ``cuddle`` | ``lick`` | ``pat`` | ``poke`` | ``nap`` | ``dance`` | ``slap`` | ``bite`` | ``punch`` | ``kill``" })
       .addFields({ name: `▸ 😄 Emoción`, value: "> ``suprise`` | ``happy`` | ``blush`` | ``sleepy`` | ``neutral`` | ``confused`` | ``angry`` | ``disgust`` | ``fear`` | ``cry``" })
       .setColor("#9C59B6")
