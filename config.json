@@ -1,5 +1,4 @@
 {
-    "token":"wawa",
-    "prefix":"s!"
-   
-   }
+  "token": "Tu token (https://discord.com/developers/applications)",
+  "prefix": "s!"
+}
