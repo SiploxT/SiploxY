@@ -350,26 +350,25 @@ client.on("messageCreate", async (message) => {
       message.channel.send({ content: 'No se pudo obtener un meme aleatorio, nya.' });
     }
   }
-  if (message.content.startsWith(prefix + "say")) {
-
-    if (!message.member.permissions.has("MANAGE_MESSAGES")) {
-
-      const args = message.content.slice(5)
-
-      if (!args.trim()) return message.channel.send(`Necesitas poner algo para que pueda decirlo. ${msgEmote}`);
-
-      message.channel.send({ content: args, allowedMentions: { parse: [], repliedUser: true } });
-      message.delete();
-    } else {
-
-      const args = message.content.slice(5);
-
-      if (!args.trim()) return message.channel.send(`Necesitas poner algo para que pueda decirlo. ${msgEmote}`);
-
-      message.channel.send({ content: args, allowedMentions: { parse: ['users', 'roles', 'everyone'], repliedUser: true } });
-      message.delete();
-    }
-  }
+  if (message.content.startsWith(prefix + "say") || message.content.startsWith(prefix + "ss")) {
+    const args = message.content.slice(prefix.length).trim().split(/ +/);
+    const command = args.shift().toLowerCase();
+  
+    let msg = args.join(" ");
+    if (!msg) return message.channel.send("Necesitas proporcionar algo que decir.");
+  
+    // Elimina solo el símbolo "@" de las menciones a usuarios, roles, @everyone y @here
+    msg = msg.replace(/<@!?(\d+)>/g, (match, userID) => {
+      const member = message.guild.members.cache.get(userID);
+      return member.displayName;
+    });
+    msg = msg.replace(/@(everyone|here)/g, (match, mention) => {
+      return mention;
+    });
+  
+    message.delete();
+    message.channel.send(msg);
+  }  
   if (message.content.startsWith(prefix + "roulette")) {
     const argRuleta = message.content.slice(prefix.length + 9).trim();
     
