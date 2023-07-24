@@ -368,7 +368,7 @@ client.on("messageCreate", async (message) => {
   
     message.delete();
     message.channel.send(msg);
-  }  
+  }
   if (message.content.startsWith(prefix + "roulette")) {
     const argRuleta = message.content.slice(prefix.length + 9).trim();
     
@@ -552,7 +552,7 @@ client.on("messageCreate", async (message) => {
 
     const embedkiss = new Discord.EmbedBuilder()
       .setDescription(`**${user}** acaba de besar a **${ment.username}**. (。・ω・。)`)
-      .setColor("#9C59B6")
+      .setColor("#FFC0CB")
       .setImage(randomkiss)
 
     message.channel.send({ embeds: [embedkiss] });
@@ -567,7 +567,7 @@ client.on("messageCreate", async (message) => {
 
     const embedhug = new Discord.EmbedBuilder()
       .setDescription(`**${user}** acaba de abrazar a **${ment.username}**. ${msgEmote}`)
-      .setColor("#9C59B6")
+      .setColor("#FF69B4")
       .setImage(randomhug)
 
     message.channel.send({ embeds: [embedhug] });
@@ -582,7 +582,7 @@ client.on("messageCreate", async (message) => {
 
     const embedcuddle = new Discord.EmbedBuilder()
       .setDescription(`**${user}** acaba de acurrucarse con **${ment.username}**. ${msgEmote}`)
-      .setColor("#9C59B6")
+      .setColor("#FF69B4")
       .setImage(randomcuddle)
 
     message.channel.send({ embeds: [embedcuddle] });
@@ -600,7 +600,7 @@ client.on("messageCreate", async (message) => {
 
     const embedlick = new Discord.EmbedBuilder()
       .setDescription(`**${user}** esta lamiendo a **${ment.username}**.. ${msgEmote}`)
-      .setColor("#9C59B6")
+      .setColor("#FF69B4")
       .setImage(randomlick)
 
     message.channel.send({ embeds: [embedlick] })
@@ -615,7 +615,7 @@ client.on("messageCreate", async (message) => {
 
     const embedpat = new Discord.EmbedBuilder()
       .setDescription(`**${user}** acaba de acariciar a **${ment.username}**. ${msgEmote}`)
-      .setColor("#9C59B6")
+      .setColor("#FFC0CB")
       .setImage(randompat)
 
     message.channel.send({ embeds: [embedpat] });
@@ -631,7 +631,7 @@ client.on("messageCreate", async (message) => {
 
     const embedpoke = new Discord.EmbedBuilder()
       .setDescription(`**${user}** acaba de toquetear a **${ment.username}**. ${msgEmote}`)
-      .setColor("#9C59B6")
+      .setColor("#FF4500")
       .setImage(randompoke)
 
     message.channel.send({ embeds: [embedpoke] });
@@ -647,7 +647,7 @@ client.on("messageCreate", async (message) => {
 
     const embednap = new Discord.EmbedBuilder()
       .setDescription(`**${user}** se esta echando una siesta.... (。-ω-)zzz`)
-      .setColor("#9C59B6")
+      .setColor("#6A6Af7")
       .setImage(randomnap)
 
     message.channel.send({ embeds: [embednap] })
@@ -660,7 +660,7 @@ client.on("messageCreate", async (message) => {
 
     const embeddance = new Discord.EmbedBuilder()
       .setDescription(`${user} esta bailando. ${msgEmote}`)
-      .setColor("#9C59B6")
+      .setColor("#FF69B4")
       .setImage(randomdance)
 
     message.channel.send({ embeds: [embeddance] });
@@ -677,7 +677,7 @@ client.on("messageCreate", async (message) => {
 
     const embedslap = new Discord.EmbedBuilder()
       .setDescription(`**${user} acaba de abofetear a **${ment.username}**, ouch. ${msgEmote}`)
-      .setColor("#9C59B6")
+      .setColor("#8B0000")
       .setImage(randomslap)
 
     message.channel.send({ embeds: [embedslap] });
@@ -695,7 +695,7 @@ client.on("messageCreate", async (message) => {
 
     const embedbite = new Discord.EmbedBuilder()
       .setDescription(`**${user}** acaba de morder a **${ment.username}** con todas sus fuerzas ${msgEmote}`)
-      .setColor("#9C59B6")
+      .setColor("#ffffff")
       .setImage(randombite)
 
     message.channel.send({ embeds: [embedbite] })
@@ -711,7 +711,7 @@ client.on("messageCreate", async (message) => {
 
     const embedpunch = new Discord.EmbedBuilder()
       .setDescription(`**${user} acaba de pegarle a **${ment.username}**. ${msgEmote}`)
-      .setColor("#9C59B6")
+      .setColor("#8B0000")
       .setImage(randompunch)
 
     message.channel.send({ embeds: [embedpunch] });
@@ -727,7 +727,7 @@ client.on("messageCreate", async (message) => {
 
     const embedkill = new Discord.EmbedBuilder()
       .setDescription(`**${user}** acaba de matar a **${ment.username}**..`)
-      .setColor("#9C59B6")
+      .setColor("#800000")
       .setImage(randomkill)
 
     message.channel.send({ embeds: [embedkill] })
@@ -747,7 +747,7 @@ client.on("messageCreate", async (message) => {
 
     const embedsuprise = new Discord.EmbedBuilder()
       .setDescription(`**${user}** se acaba de sorprender o.o`)
-      .setColor("#9C59B6")
+      .setColor("#FF00FF")
       .setImage(randomsuprise)
 
     message.channel.send({ embeds: [embedsuprise] })
@@ -761,7 +761,7 @@ client.on("messageCreate", async (message) => {
 
     const embedhappy = new Discord.EmbedBuilder()
       .setDescription(`**${user}** esta feliz ^-^`)
-      .setColor("#9C59B6")
+      .setColor("#FFD700")
       .setImage(randomhappy)
 
     message.channel.send({ embeds: [embedhappy] })
@@ -775,7 +775,7 @@ client.on("messageCreate", async (message) => {
 
     const embedblush = new Discord.EmbedBuilder()
       .setDescription(`**${user}** acaba de sonrojarse o(≧∀≦)o`)
-      .setColor("#9C59B6")
+      .setColor("#FFC0CB")
       .setImage(randomblush)
 
     message.channel.send({ embeds: [embedblush] })
@@ -789,7 +789,7 @@ client.on("messageCreate", async (message) => {
 
     const embedsleepy = new Discord.EmbedBuilder()
       .setDescription(`** ${user} ** esta muriendose de sueño... ≡(▔﹏▔)≡`)
-      .setColor("#9C59B6")
+      .setColor("#6A6Af7")
       .setImage(randomsleepy)
 
     message.channel.send({ embeds: [embedsleepy] })
@@ -802,7 +802,7 @@ client.on("messageCreate", async (message) => {
 
     const embedneutral = new Discord.EmbedBuilder()
       .setDescription(`** ${user} ** no tiene nada que decir. ...(。_。)`)
-      .setColor("#9C59B6")
+      .setColor("#808080")
       .setImage(randomneutral)
 
     message.channel.send({ embeds: [embedneutral] })
@@ -817,7 +817,7 @@ client.on("messageCreate", async (message) => {
 
     const embedconfused = new Discord.EmbedBuilder()
       .setDescription(`** ${user} ** esta completamente confundido (+_+)?`)
-      .setColor("#9C59B6")
+      .setColor("#C0C0C0")
       .setImage(randomconfused)
 
     message.channel.send({ embeds: [embedconfused] })
@@ -832,7 +832,7 @@ client.on("messageCreate", async (message) => {
 
     const embedangry = new Discord.EmbedBuilder()
       .setDescription(`** ${user} ** se acaba de enfadar. ಠ_ಠ`)
-      .setColor("#9C59B6")
+      .setColor("#FF0000")
       .setImage(randomangry)
 
     message.channel.send({ embeds: [embedangry] })
@@ -846,7 +846,7 @@ client.on("messageCreate", async (message) => {
 
     const embeddisgust = new Discord.EmbedBuilder()
       .setDescription(`** ${user} ** no podía estar mas disgustado.. (。﹏。*)s`)
-      .setColor("#9C59B6")
+      .setColor("#66BB6A")
       .setImage(randomdisgust)
 
     message.channel.send({ embeds: [embeddisgust] })
@@ -861,7 +861,7 @@ client.on("messageCreate", async (message) => {
 
     const embedfear = new Discord.EmbedBuilder()
       .setDescription(`**${user}** acaba de llevarse el susto de su vida w(ﾟДﾟ)w`)
-      .setColor("#9C59B6")
+      .setColor("#A63838")
       .setImage(randomfear)
 
     message.channel.send({ embeds: [embedfear] })
@@ -877,7 +877,7 @@ client.on("messageCreate", async (message) => {
 
     const embedcry = new Discord.EmbedBuilder()
       .setDescription(`** ${user} ** se ha echado a llorar ::>_<::`)
-      .setColor("#9C59B6")
+      .setColor("#6495ED")
       .setImage(randomcry)
 
     message.channel.send({ embeds: [embedcry] })
