@@ -62,11 +62,12 @@ client.on("messageCreate", async (message) => {
     const embedHelp = new Discord.EmbedBuilder()
       .setTitle(`**📑 | Comandos |** ${msgEmote}`)
       .setDescription(`_46 comandos en total > <_`)
-      .addFields({ name: `▸ 🔧 Utilidad`, value: "> ``poll`` | ``reminder`` | ``avatar`` | ``serverinfo`` | ``servericon`` | ``rolinfo`` | ``roles`` | ``ping`` | ``snipe``" })
+      .addFields({ name: `▸ 🔧 Utilidad`, value: "> ``purge`` | ``poll`` | ``reminder`` | ``avatar`` | ``serverinfo`` | ``servericon`` | ``rolinfo`` | ``roles`` | ``ping`` | ``snipe``" })
       .addFields({ name: `▸ 🎲 Entretenimiento`, value: "> ``meme`` | ``say`` | ``roulette`` | ``8ball`` | ``dado`` | ``coinflip`` | ``randomuser`` | ``randomcap (BETA)``" })
-      .addFields({ name: `▸ 🖼 Imagen`, value: "> ``ìmg`` ``capybara`` | ``neko`` | ``cat`` | ``sadcat`` | ``dog``" })
+      .addFields({ name: `▸ 🖼 Imagen`, value: "> ``ìmg`` | ``capybara`` | ``neko`` | ``cat`` | ``sadcat`` | ``dog``" })
       .addFields({ name: `▸ 🎭 Interacción`, value: "> ``kiss`` | ``hug`` | ``cuddle`` | ``lick`` | ``pat`` | ``poke`` | ``nap`` | ``dance`` | ``slap`` | ``bite`` | ``punch`` | ``kill``" })
       .addFields({ name: `▸ 😄 Emoción`, value: "> ``suprise`` | ``happy`` | ``blush`` | ``sleepy`` | ``neutral`` | ``confused`` | ``angry`` | ``disgust`` | ``fear`` | ``cry``" })
+      .setFooter({text: `s!botinfo para más información`})
       .setColor("#9C59B6")
 
     message.channel.send({ embeds: [embedHelp] })
@@ -118,6 +119,35 @@ client.on("messageCreate", async (message) => {
       .setColor("#9C59B6")
 
     message.channel.send({ embeds: [embedInfo] })
+  }
+  if (message.content.startsWith(prefix + "purge") || message.content.startsWith(prefix + "pur")) {
+    if (!message.member.permissions.has(Discord.PermissionsBitField.Flags.ManageMessages)) {
+      return message.reply(`Solo los administradores pueden usar este comando. ${msgEmote}`);
+    }
+  
+    const args = message.content.slice(prefix.length).trim().split(/ +/);
+    const amount = parseInt(args[1]);
+  
+    if (isNaN(amount) || amount <= 0) {
+      return message.reply(`Por favor, proporciona un número válido de mensajes a eliminar. ${msgEmote}`);
+    }
+  
+    message.channel.bulkDelete(amount + 1)
+      .then((messages) => {
+        if (messages.size > 2) {
+          message.channel.send(`Se han borrado **${messages.size - 1}** mensajes. ${msgEmote}`);
+        } else if (messages.size === 2) {
+          message.channel.send(`Se ha borrado **un** mensaje. ${msgEmote}`);
+        } else {
+          message.channel.send(`No se ha borrado ningún mensaje adicional al comando. ${msgEmote}`);
+        }
+  
+        console.log(`Usuario ${message.author.tag} borró ${messages.size - 1} mensajes en el servidor ${message.guild.name}.`);
+      })
+      .catch((error) => {
+        console.error("Error al intentar borrar mensajes:", error);
+        message.channel.send("Ocurrió un error al intentar borrar los mensajes.");
+      });
   }
   if (message.content.startsWith(prefix + "poll")) {
     const regex = /"(.*?)"/g;
