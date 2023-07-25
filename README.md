@@ -22,4 +22,3 @@
 
 ## 📜 Licencia
 Este proyecto utiliza la licencia de "[GNU Affero General Public License v3.0](https://github.com/SiploxT/SiploxY/blob/main/LICENSE)"\
-Este repositorio es un fork de [SiploxT/SiploxY](https://github.com/SiploxT/SiploxY)
