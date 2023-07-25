@@ -61,7 +61,7 @@ client.on("messageCreate", async (message) => {
   if (message.content.startsWith(prefix + 'help')) {
     const embedHelp = new Discord.EmbedBuilder()
       .setTitle(`**📑 | Comandos |** ${msgEmote}`)
-      .setDescription(`_46 comandos en total > <_`)
+      .setDescription(`_47 comandos en total > <_`)
       .addFields({ name: `▸ 🔧 Utilidad`, value: "> ``purge`` | ``poll`` | ``reminder`` | ``avatar`` | ``serverinfo`` | ``servericon`` | ``rolinfo`` | ``roles`` | ``ping`` | ``snipe``" })
       .addFields({ name: `▸ 🎲 Entretenimiento`, value: "> ``meme`` | ``say`` | ``roulette`` | ``8ball`` | ``dado`` | ``coinflip`` | ``randomuser`` | ``randomcap (BETA)``" })
       .addFields({ name: `▸ 🖼 Imagen`, value: "> ``ìmg`` | ``capybara`` | ``neko`` | ``cat`` | ``sadcat`` | ``dog``" })
@@ -382,19 +382,23 @@ client.on("messageCreate", async (message) => {
   }
   if (message.content.startsWith(prefix + "say") || message.content.startsWith(prefix + "ss")) {
     const args = message.content.slice(prefix.length).trim().split(/ +/);
-    const command = args.shift().toLowerCase();
+  
+    // Eliminar el nombre del comando antes de obtener el mensaje
+    args.shift();
   
     let msg = args.join(" ");
     if (!msg) return message.channel.send("Necesitas proporcionar algo que decir.");
   
-    // Elimina solo el símbolo "@" de las menciones a usuarios, roles, @everyone y @here
-    msg = msg.replace(/<@!?(\d+)>/g, (match, userID) => {
-      const member = message.guild.members.cache.get(userID);
-      return member.displayName;
-    });
-    msg = msg.replace(/@(everyone|here)/g, (match, mention) => {
-      return mention;
-    });
+    if (!message.member.permissions.has(Discord.PermissionsBitField.Flags.ManageMessages)) {
+      // Reemplazar @everyone y @here
+      msg = msg.replace(/@(everyone|here)/g, "$1");
+  
+      // Reemplazar menciones a usuarios
+      msg = msg.replace(/<@!?(\d+)>/g, (match, userID) => {
+        const member = message.guild.members.cache.get(userID);
+        return member.displayName;
+      });
+    }
   
     message.delete();
     message.channel.send(msg);
