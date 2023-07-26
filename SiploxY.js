@@ -744,7 +744,7 @@ client.on("messageCreate", async (message) => {
     var randomslap = respuestaslap[Math.floor(respuestaslap.length * Math.random())]
 
     const embedslap = new Discord.EmbedBuilder()
-      .setDescription(`**${user} acaba de abofetear a **${ment.username}**, ouch. ${msgEmote}`)
+      .setDescription(`**${user}** acaba de abofetear a **${ment.username}**, ouch. ${msgEmote}`)
       .setColor("#8B0000")
       .setImage(randomslap)
 
