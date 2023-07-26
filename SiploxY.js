@@ -85,30 +85,29 @@ client.on("messageCreate", async (message) => {
     totalS %= 3600;
     let MINS = Math.floor(totalS / 60);
     let SEC = Math.floor(totalS % 60);
-
+  
     if (HRS > 23) {
       days = days + 1;
       hours = 0;
     }
-
+  
     if (days == 7) {
       days = 0;
       week = + 1;
     }
-
+  
     if (week > 0) {
       uptime += `${week} week`;
     }
-
+  
     if (MINS > 60) {
       MINS = 0;
     }
-
+  
     uptime += `${days} Dias, ${HRS} Horas, ${MINS} Minutos ${SEC} Segundos`;
-
-
+  
     const embedInfo = new Discord.EmbedBuilder()
-      .setAuthor("SiploxY", client.user.avatarURL())
+      .setAuthor({name: `SiploxY`, iconURL: client.user.avatarURL()})
       .setThumbnail(client.user.avatarURL())
       .addFields({ name: "Developer: ", value: `siploxt - ${msgEmote}` })
       .addFields({ name: "Servers: ", value: ` ${client.guilds.cache.size}` })
@@ -116,9 +115,9 @@ client.on("messageCreate", async (message) => {
       .addFields({ name: "Uptime: ", value: ` ${uptime}` })
       .addFields({ name: "Ram: ", value: ` ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB` })
       .addFields({ name: "Libreria: ", value: "discord.js@14.8.0" })
-      .setColor("#9C59B6")
-
-    message.channel.send({ embeds: [embedInfo] })
+      .setColor("#9C59B6");
+  
+    message.channel.send({ embeds: [embedInfo] });
   }
   if (message.content.startsWith(prefix + "poll")) {
     const regex = /"(.*?)"/g;
