@@ -61,8 +61,8 @@ client.on("messageCreate", async (message) => {
   if (message.content.startsWith(prefix + 'help')) {
     const embedHelp = new Discord.EmbedBuilder()
       .setTitle(`**📑 | Comandos |** ${msgEmote}`)
-      .setDescription(`_47 comandos en total > <_`)
-      .addFields({ name: `▸ 🔧 Utilidad`, value: "> ``purge`` | ``poll`` | ``reminder`` | ``avatar`` | ``serverinfo`` | ``servericon`` | ``rolinfo`` | ``roles`` | ``ping`` | ``snipe``" })
+      .setDescription(`_48 comandos en total > <_`)
+      .addFields({ name: `▸ 🔧 Utilidad`, value: "> ``poll`` | ``reminder`` | ``avatar`` | ``userinfo`` | ``serverinfo`` | ``servericon`` | ``rolinfo`` | ``roles`` | ``purge`` | ``ping`` | ``snipe``" })
       .addFields({ name: `▸ 🎲 Entretenimiento`, value: "> ``meme`` | ``say`` | ``roulette`` | ``8ball`` | ``dado`` | ``coinflip`` | ``randomuser`` | ``randomcap (BETA)``" })
       .addFields({ name: `▸ 🖼 Imagen`, value: "> ``ìmg`` | ``capybara`` | ``neko`` | ``cat`` | ``sadcat`` | ``dog``" })
       .addFields({ name: `▸ 🎭 Interacción`, value: "> ``kiss`` | ``hug`` | ``cuddle`` | ``lick`` | ``pat`` | ``poke`` | ``nap`` | ``dance`` | ``slap`` | ``bite`` | ``punch`` | ``kill``" })
@@ -119,35 +119,6 @@ client.on("messageCreate", async (message) => {
       .setColor("#9C59B6")
 
     message.channel.send({ embeds: [embedInfo] })
-  }
-  if (message.content.startsWith(prefix + "purge") || message.content.startsWith(prefix + "pur")) {
-    if (!message.member.permissions.has(Discord.PermissionsBitField.Flags.ManageMessages)) {
-      return message.reply(`Solo los administradores pueden usar este comando. ${msgEmote}`);
-    }
-  
-    const args = message.content.slice(prefix.length).trim().split(/ +/);
-    const amount = parseInt(args[1]);
-  
-    if (isNaN(amount) || amount <= 0) {
-      return message.reply(`Por favor, proporciona un número válido de mensajes a eliminar. ${msgEmote}`);
-    }
-  
-    message.channel.bulkDelete(amount + 1)
-      .then((messages) => {
-        if (messages.size > 2) {
-          message.channel.send(`Se han borrado **${messages.size - 1}** mensajes. ${msgEmote}`);
-        } else if (messages.size === 2) {
-          message.channel.send(`Se ha borrado **un** mensaje. ${msgEmote}`);
-        } else {
-          message.channel.send(`No se ha borrado ningún mensaje adicional al comando. ${msgEmote}`);
-        }
-  
-        console.log(`Usuario ${message.author.tag} borró ${messages.size - 1} mensajes en el servidor ${message.guild.name}.`);
-      })
-      .catch((error) => {
-        console.error("Error al intentar borrar mensajes:", error);
-        message.channel.send("Ocurrió un error al intentar borrar los mensajes.");
-      });
   }
   if (message.content.startsWith(prefix + "poll")) {
     const regex = /"(.*?)"/g;
@@ -218,6 +189,41 @@ client.on("messageCreate", async (message) => {
         .setImage(avatar)
         .setColor("#9C59B6")
       message.channel.send({ embeds: [embedAvatar] });
+    } else {
+      message.channel.send({ content: `No se encontró al usuario especificado ${msgEmote}` });
+    }
+  }
+  if (message.content.startsWith(prefix + "userinfo") || message.content.startsWith(prefix + "ui")) {
+    let user;
+    const args = message.content.slice(prefix.length).trim().split(/ +/);
+
+    if (message.mentions.members.first()) {
+      user = message.mentions.members.first();
+    } else if (args[1]) {
+      const guildMembers = message.guild.members.cache;
+      user = guildMembers.find(member => member.user.username.toLowerCase() === args[1].toLowerCase());
+
+      if (!user) {
+        user = guildMembers.get(args[1]);
+      }
+    } else {
+      user = message.member;
+    }
+
+    let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048 })
+
+    if (user) {
+      const embeduserinfo = new Discord.EmbedBuilder()
+      .setAuthor({name: user.displayName, iconURL: avatar})
+      .setTitle(`Información de ${user.displayName} - ${msgEmote} `)
+      .addFields({name: `Roles`, value: `${user.roles.cache.map(r => r).join(' ')}`})
+      .addFields({name: `Fecha de unión`, value: `<t:${parseInt(user.joinedAt / 1000)}:R>`, inline: true})
+      .addFields({name: `Fecha de creación`, value: `<t:${parseInt(user.user.createdAt.getTime() / 1000)}:R>`, inline: true})
+      .setThumbnail(avatar)
+      .setFooter({text: `User ID:` + `${user.id}`})
+      .setColor("#9C59B6")
+
+      message.channel.send({ embeds : [embeduserinfo]})
     } else {
       message.channel.send({ content: `No se encontró al usuario especificado ${msgEmote}` });
     }
@@ -334,6 +340,35 @@ client.on("messageCreate", async (message) => {
 
     message.channel.send({ embeds: [embedRoles] });
 
+  }
+  if (message.content.startsWith(prefix + "purge") || message.content.startsWith(prefix + "pur")) {
+    if (!message.member.permissions.has(Discord.PermissionsBitField.Flags.ManageMessages)) {
+      return message.reply(`Solo los administradores pueden usar este comando. ${msgEmote}`);
+    }
+  
+    const args = message.content.slice(prefix.length).trim().split(/ +/);
+    const amount = parseInt(args[1]);
+  
+    if (isNaN(amount) || amount <= 0) {
+      return message.reply(`Por favor, proporciona un número válido de mensajes a eliminar. ${msgEmote}`);
+    }
+  
+    message.channel.bulkDelete(amount + 1)
+      .then((messages) => {
+        if (messages.size > 2) {
+          message.channel.send(`Se han borrado **${messages.size - 1}** mensajes. ${msgEmote}`);
+        } else if (messages.size === 2) {
+          message.channel.send(`Se ha borrado **un** mensaje. ${msgEmote}`);
+        } else {
+          message.channel.send(`No se ha borrado ningún mensaje adicional al comando. ${msgEmote}`);
+        }
+  
+        console.log(`Usuario ${message.author.tag} borró ${messages.size - 1} mensajes en el servidor ${message.guild.name}.`);
+      })
+      .catch((error) => {
+        console.error("Error al intentar borrar mensajes:", error);
+        message.channel.send("Ocurrió un error al intentar borrar los mensajes.");
+      });
   }
   if (message.content.startsWith(prefix + "ping")) {
     message.channel.send({ content: `La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.**. ${msgEmote}` });
