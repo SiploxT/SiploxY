@@ -16,7 +16,6 @@
 
 ## ⚠ Problemas Conocidos
 
-- s!userinfo - Todavía no funciona correctamente.
 - s!randomcap (BETA) - Algunas capturas no existen o no cargan.
 
 
