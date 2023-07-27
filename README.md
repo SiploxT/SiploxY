@@ -20,4 +20,4 @@
 
 
 ## 📜 Licencia
-Este proyecto utiliza la licencia de "[GNU Affero General Public License v3.0](https://github.com/SiploxT/SiploxY/blob/main/LICENSE)"\
+Este proyecto utiliza la licencia de "[GNU Affero General Public License v3.0](https://github.com/SiploxT/SiploxY/blob/main/LICENSE)"
