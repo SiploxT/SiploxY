@@ -62,7 +62,7 @@ client.on("messageCreate", async (message) => {
     const embedHelp = new Discord.EmbedBuilder()
       .setTitle(`**📑 | Comandos |** ${msgEmote}`)
       .setDescription(`_48 comandos en total > <_`)
-      .addFields({ name: `▸ 🔧 Utilidad`, value: "> ``poll`` | ``reminder`` | ``avatar (av)`` | ``userinfo (ui)`` | ``serverinfo`` | ``servericon`` | ``rolinfo`` | ``roles`` | ``purge`` | ``ping`` | ``snipe``" })
+      .addFields({ name: `▸ 🔧 Utilidad`, value: "> ``poll`` | ``reminder`` | ``avatar (av)`` | ``userinfo (ui)`` | ``serverinfo (si)`` | ``servericon (sc)`` | ``rolinfo (ri)`` | ``roles`` | ``purge`` | ``ping`` | ``snipe``" })
       .addFields({ name: `▸ 🎲 Entretenimiento`, value: "> ``meme`` | ``say (ss)`` | ``roulette`` | ``8ball`` | ``dado`` | ``coinflip`` | ``randomuser`` | ``randomcap [BETA]``" })
       .addFields({ name: `▸ 🖼 Imagen`, value: "> ``ìmg`` | ``capybara`` | ``neko`` | ``cat`` | ``sadcat`` | ``dog``" })
       .addFields({ name: `▸ 🎭 Interacción`, value: "> ``kiss`` | ``hug`` | ``cuddle`` | ``lick`` | ``pat`` | ``poke`` | ``nap`` | ``dance`` | ``slap`` | ``bite`` | ``punch`` | ``kill``" })
@@ -227,7 +227,7 @@ client.on("messageCreate", async (message) => {
       message.channel.send({ content: `No se encontró al usuario especificado ${msgEmote}` });
     }
   }
-  if (message.content.startsWith(prefix + "serverinfo")) {
+  if (message.content.startsWith(prefix + "serverinfo") || message.content.startsWith(prefix + "si")) {
     const server = message.guild // Info del server
     await server.members.fetch();
     // ↓↓↓ Cantidad de Usuarios
@@ -279,7 +279,7 @@ client.on("messageCreate", async (message) => {
     message.channel.send({ embeds: [embedServer] })
 
   }
-  if (message.content.startsWith(prefix + "servericon")) {
+  if (message.content.startsWith(prefix + "servericon") || message.content.startsWith(prefix + "sc")) {
     let icon = message.guild.iconURL({ size: 2048, dyamic: true })
     let id = message.guild;
 
@@ -291,7 +291,7 @@ client.on("messageCreate", async (message) => {
 
     message.channel.send({ embeds: [embedIcon] })
   }
-  if (message.content.startsWith(prefix + "rolinfo")) {
+  if (message.content.startsWith(prefix + "rolinfo") || message.content.startsWith(prefix + "ri")) {
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const rol = message.mentions.roles.first() || message.guild.roles.cache.get(args[1]) || message.guild.roles.cache.find(role => role.name === args.slice(1).join(" "));
   
