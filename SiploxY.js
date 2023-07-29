@@ -14,6 +14,7 @@ const client = new Discord.Client({
 const config = require("./config.json");
 const fetch = require('node-fetch');
 const axios = require('axios');
+const cheerio = require('cheerio');
 const ms = require('ms');
 const {Client} = require('google-img.js');
 const google = new Client(config.CSE_ID, config.CSE_API_KEY);
@@ -510,9 +511,22 @@ client.on("messageCreate", async (message) => {
     const randomCharacters = generateRandomCharacters(6);
     const link = prnt + randomCharacters;
   
-    message.channel.send({ content: link });
-  }
-
+    axios.get(link)
+    .then(response => {
+      if (response.status === 200) {
+        const html = response.data;
+        const $ = cheerio.load(html);
+        const imgSrc = $('.under-image img').attr('src');
+        if (imgSrc) {
+          message.channel.send({ content: imgSrc });
+        } else {
+          message.channel.send({ content: "No se pudo encontrar la imagen." });
+        }
+      } else {
+        message.channel.send({ content: "Hubo un problema al obtener la imagen." });
+      }
+    })
+}
 
   // COMANDOS DE IMAGENES ♥ ♥ ♥ //
   // COMANDOS DE IMAGENES ♥ ♥ ♥ //
