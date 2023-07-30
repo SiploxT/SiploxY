@@ -59,7 +59,7 @@ client.on("messageCreate", async (message) => {
   let days = 0
   if (message.author.bot) return;
   const args = message.content.trim().split(/ +/g);
-  if (message.content.startsWith(prefix + 'help')) {
+  if (message.content.startsWith(prefix + 'help') || message.content.startsWith("<@955869268359127050> help")) {
     const embedHelp = new Discord.EmbedBuilder()
       .setTitle(`**📑 | Comandos |** ${msgEmote}`)
       .setDescription(`_48 comandos en total > <_`)
@@ -73,7 +73,7 @@ client.on("messageCreate", async (message) => {
 
     message.channel.send({ embeds: [embedHelp] })
   }
-
+  
 
   // COMANDOS DE UTILIDAD ♥ ♥ ♥ //
   // COMANDOS DE UTILIDAD ♥ ♥ ♥ //
