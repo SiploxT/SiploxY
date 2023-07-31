@@ -16,7 +16,7 @@
 
 ## ⚠ Problemas Conocidos
 
-- s!randomcap (BETA) - Algunas capturas no existen o no cargan.
+- s!randomcap (BETA) - Algunas capturas no existen.
 
 
 ## 📜 Licencia
