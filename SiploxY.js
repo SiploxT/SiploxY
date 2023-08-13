@@ -544,6 +544,10 @@ client.on("messageCreate", async (message) => {
 
   if (message.content.startsWith(prefix + "img")) {
     const query = message.content.slice(5);
+    if (!query) {
+      return message.channel.send(`Necesitas buscar algo para conseguir una imagen ${msgEmote}`);
+    }
+  
     google.search(query).then(async result => {
       var totalImages = result.length;
       if (result[0] == undefined) return message.channel.send({ content: "No se han encontrado imágenes" });
