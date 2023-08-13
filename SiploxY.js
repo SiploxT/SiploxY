@@ -542,17 +542,19 @@ client.on("messageCreate", async (message) => {
   // COMANDOS DE IMAGENES ♥ ♥ ♥ //
   // COMANDOS DE IMAGENES ♥ ♥ ♥ //
 
-  if(message.content.startsWith(prefix + "img")) {
-    const query = message.content.slice(5); 
-    google.search(query).then(result => {
-      var currentImage = 0;
-      var totalImages = result.length
-      if(result[0] == undefined) return message.channel.send({content: "No se han encontrado imagenes"});
+  if (message.content.startsWith(prefix + "img")) {
+    const query = message.content.slice(5);
+    google.search(query).then(async result => {
+      var totalImages = result.length;
+      if (result[0] == undefined) return message.channel.send({ content: "No se han encontrado imágenes" });
+  
+      var currentImage = Math.floor(Math.random() * totalImages);
+      const dominantColor = await getColorFromURL(result[currentImage].url);
       const imgEmbed = new Discord.EmbedBuilder()
-      .setTitle(`Imagen de **~${query} ~**`)
-      .setImage(result[currentImage].url)
-      .setColor("ffffff")
-      message.channel.send({embeds: [imgEmbed]})
+        .setTitle(`Imagen de **~${query} ~**`)
+        .setImage(result[currentImage].url)
+        .setColor(dominantColor);
+      message.channel.send({ embeds: [imgEmbed] });
     });
   }
   
