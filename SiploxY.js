@@ -16,6 +16,7 @@ const fetch = require('node-fetch');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const ms = require('ms');
+const { getColorFromURL } = require('color-thief-node');
 const {Client} = require('google-img.js');
 const google = new Client(config.CSE_ID, config.CSE_API_KEY);
 
@@ -168,26 +169,36 @@ client.on("messageCreate", async (message) => {
   if (message.content.startsWith(prefix + "avatar") || message.content.startsWith(prefix + "av")) {
     let user;
     const args = message.content.slice(prefix.length).trim().split(/ +/);
-
+  
     if (message.mentions.members.first()) {
       user = message.mentions.members.first();
     } else if (args[1]) {
       const guildMembers = message.guild.members.cache;
       user = guildMembers.find(member => member.user.username.toLowerCase() === args[1].toLowerCase());
-
+  
       if (!user) {
         user = guildMembers.get(args[1]);
       }
     } else {
       user = message.member;
     }
-
+  
     if (user) {
       let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048 });
+      const avatarWEBP = await user.user.displayAvatarURL({ extension: "webp", size: 512 });
+      const avatarPNG = await user.user.displayAvatarURL({ extension: "png", size: 512 });
+      const avatarJPG = await user.user.displayAvatarURL({ extension: "jpg", size: 512 });
+      const avatarJPEG = await user.user.displayAvatarURL({ extension: "jpeg", size: 512 });
+      const dominantColor = await getColorFromURL(avatarPNG);
+      function rgbToHex(r, g, b) {
+        return "#" + ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1).toUpperCase();
+      }
+  
       const embedAvatar = new Discord.EmbedBuilder()
-        .setDescription(`Avatar de ${user} -  ${msgEmote}`)
+        .setDescription(`**Avatar de ${user} - ${msgEmote}**\n\n▸ 📷 Formatos\n> [WEBP](${avatarWEBP}) | [PNG](${avatarPNG}) | [JPG](${avatarJPG}) | [JPEG](${avatarJPEG})\n\n▸🖌️ Color dominante\n> HEX: ${rgbToHex(dominantColor[0], dominantColor[1], dominantColor[2])}\n> RGB: ${dominantColor} `)
         .setImage(avatar)
-        .setColor("#9C59B6")
+        .setColor(dominantColor);
+  
       message.channel.send({ embeds: [embedAvatar] });
     } else {
       message.channel.send({ content: `No se encontró al usuario especificado ${msgEmote}` });
