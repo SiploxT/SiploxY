@@ -64,11 +64,11 @@ client.on("messageCreate", async (message) => {
     const embedHelp = new Discord.EmbedBuilder()
       .setTitle(`**📑 | Comandos |** ${msgEmote}`)
       .setDescription(`_48 comandos en total > <_`)
-      .addFields({ name: `▸ 🔧 Utilidad`, value: "> ``poll`` | ``reminder`` | ``avatar (av)`` | ``userinfo (ui)`` | ``serverinfo (si)`` | ``servericon (sc)`` | ``rolinfo (ri)`` | ``roles`` | ``purge`` | ``ping`` | ``snipe``" })
-      .addFields({ name: `▸ 🎲 Entretenimiento`, value: "> ``meme`` | ``say (ss)`` | ``roulette`` | ``8ball`` | ``dado`` | ``coinflip`` | ``randomuser`` | ``randomcap [BETA]``" })
-      .addFields({ name: `▸ 🖼 Imagen`, value: "> ``ìmg`` | ``capybara`` | ``neko`` | ``cat`` | ``sadcat`` | ``dog``" })
-      .addFields({ name: `▸ 🎭 Interacción`, value: "> ``kiss`` | ``hug`` | ``cuddle`` | ``lick`` | ``pat`` | ``poke`` | ``nap`` | ``dance`` | ``slap`` | ``bite`` | ``punch`` | ``kill``" })
-      .addFields({ name: `▸ 😄 Emoción`, value: "> ``suprise`` | ``happy`` | ``blush`` | ``sleepy`` | ``neutral`` | ``confused`` | ``angry`` | ``disgust`` | ``fear`` | ``cry``" })
+      .addFields({ name: `▸ 🔧 Utilidad`, value: "> ``avatar (av)`` | ``ping`` | ``poll`` | ``purge`` | ``reminder`` | ``rolinfo (ri)`` | ``roles`` | ``servericon (sc)`` | ``serverinfo (si)`` | ``snipe`` | ``userinfo (ui)``" })
+      .addFields({ name: `▸ 🎲 Entretenimiento`, value: "> ``meme```| ``say (ss)``| ``8ball`` | ``coinflip`` | ``dado`` | ``randomuser`` | ``roulette`` | ``randomcap [BETA]``" })
+      .addFields({ name: `▸ 🖼 Imagen`, value: "> ``img`` | ``capybara`` | ``cat`` | ``dog`` | ``neko`` | ``sadcat``" })
+      .addFields({ name: `▸ 🎭 Interacción`, value: "> ``bite`` | ``cuddle`` | ``dance`` | ``hug`` | ``kill`` | ``kiss`` | ``lick`` | ``nap`` | ``pat`` | ``poke`` | ``punch`` | ``slap``" })
+      .addFields({ name: `▸ 😄 Emoción`, value: "> ``angry`` | ``blush`` | ``confused`` | ``cry`` | ``disgust`` | ``fear`` | ``happy`` | ``neutral`` | ``sleepy`` | ``suprise``" })
       .setFooter({text: `s!botinfo para más información`})
       .setColor("#9C59B6")
 
@@ -121,51 +121,6 @@ client.on("messageCreate", async (message) => {
   
     message.channel.send({ embeds: [embedInfo] });
   }
-  if (message.content.startsWith(prefix + "poll")) {
-    const regex = /"(.*?)"/g;
-    const args = message.content.match(regex);
-
-    if (!args || args.length < 2) {
-      message.channel.send({ content: `Para utilizar el comando poll, debes delimitar las preguntas y respuestas con comillas. ${msgEmote}\n**Por ejemplo:** s!poll \"¿Qué hora es?\" \"La una\" \"Las dos\"` });
-      return;
-    }
-
-    const question = args[0].replace(/"/g, "").trim();
-    const options = args.slice(1).map(option => option.replace(/"/g, "").trim());
-
-    const embedPoll = new Discord.EmbedBuilder()
-      .setTitle(question)
-      .setDescription(options.map((option, index) => `${index + 1}. ${option}`).join('\n'))
-      .setColor("#9C59B6")
-
-    message.channel.send({ embeds: [embedPoll] }).then(sentEmbed => {
-      for (let i = 0; i < options.length; i++) {
-        sentEmbed.react(`${i + 1}\u20E3`);
-      }
-    });
-  }
-  if (message.content.startsWith(prefix + "reminder")) {
-    const argsReminder = message.content.slice(prefix.length).trim().split(/ +/);
-    if (argsReminder.length < 3) {
-      message.channel.send({ content: "Por favor, usa el comando correctamente: s!reminder [tiempo] [recordatorio]" });
-      return;
-    }
-
-    const time = argsReminder[1];
-    const textReminder = argsReminder.slice(2).join(' ');
-
-    if (!ms(time)) {
-      message.channel.send({ content: "Por favor, usa el comando correctamente: s!reminder [tiempo] [recordatorio]" });
-      return;
-    }
-
-    message.channel.send({ content: `Entendido, te lo recordaré dentro de **${time}**.` });
-
-    setTimeout(() => {
-      message.channel.send({ content: `${message.author}: Recuerda hacer lo siguiente - ${textReminder}.` });
-      message.channel.send({ content: `Me has pedido recordarte esto hace: ${time}` });
-    }, ms(time));
-  }
   if (message.content.startsWith(prefix + "avatar") || message.content.startsWith(prefix + "av")) {
     let user;
     const args = message.content.slice(prefix.length).trim().split(/ +/);
@@ -204,40 +159,143 @@ client.on("messageCreate", async (message) => {
       message.channel.send({ content: `No se encontró al usuario especificado ${msgEmote}` });
     }
   }
-  if (message.content.startsWith(prefix + "userinfo") || message.content.startsWith(prefix + "ui")) {
-    let user;
-    const args = message.content.slice(prefix.length).trim().split(/ +/);
+  if (message.content.startsWith(prefix + "ping")) {
+    message.channel.send({ content: `La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.**. ${msgEmote}` });
+  }
+  if (message.content.startsWith(prefix + "poll")) {
+    const regex = /"(.*?)"/g;
+    const args = message.content.match(regex);
 
-    if (message.mentions.members.first()) {
-      user = message.mentions.members.first();
-    } else if (args[1]) {
-      const guildMembers = message.guild.members.cache;
-      user = guildMembers.find(member => member.user.username.toLowerCase() === args[1].toLowerCase());
-
-      if (!user) {
-        user = guildMembers.get(args[1]);
-      }
-    } else {
-      user = message.member;
+    if (!args || args.length < 2) {
+      message.channel.send({ content: `Para utilizar el comando poll, debes delimitar las preguntas y respuestas con comillas. ${msgEmote}\n**Por ejemplo:** s!poll \"¿Qué hora es?\" \"La una\" \"Las dos\"` });
+      return;
     }
 
-    let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048 })
+    const question = args[0].replace(/"/g, "").trim();
+    const options = args.slice(1).map(option => option.replace(/"/g, "").trim());
 
-    if (user) {
-      const embeduserinfo = new Discord.EmbedBuilder()
-      .setAuthor({name: user.displayName, iconURL: avatar})
-      .setTitle(`Información de ${user.displayName} - ${msgEmote} `)
-      .addFields({name: `Roles`, value: `${user.roles.cache.map(r => r).join(' ')}`})
-      .addFields({name: `Fecha de unión`, value: `<t:${parseInt(user.joinedAt / 1000)}:R>`, inline: true})
-      .addFields({name: `Fecha de creación`, value: `<t:${parseInt(user.user.createdAt.getTime() / 1000)}:R>`, inline: true})
-      .setThumbnail(avatar)
-      .setFooter({text: `User ID:` + `${user.id}`})
+    const embedPoll = new Discord.EmbedBuilder()
+      .setTitle(question)
+      .setDescription(options.map((option, index) => `${index + 1}. ${option}`).join('\n'))
       .setColor("#9C59B6")
 
-      message.channel.send({ embeds : [embeduserinfo]})
-    } else {
-      message.channel.send({ content: `No se encontró al usuario especificado ${msgEmote}` });
+    message.channel.send({ embeds: [embedPoll] }).then(sentEmbed => {
+      for (let i = 0; i < options.length; i++) {
+        sentEmbed.react(`${i + 1}\u20E3`);
+      }
+    });
+  }
+  if (message.content.startsWith(prefix + "purge") || message.content.startsWith(prefix + "pur")) {
+    if (!message.member.permissions.has(Discord.PermissionsBitField.Flags.ManageMessages)) {
+      return message.reply(`Solo los administradores pueden usar este comando. ${msgEmote}`);
     }
+  
+    const args = message.content.slice(prefix.length).trim().split(/ +/);
+    const amount = parseInt(args[1]);
+  
+    if (isNaN(amount) || amount <= 0) {
+      return message.reply(`Por favor, proporciona un número válido de mensajes a eliminar. ${msgEmote}`);
+    }
+  
+    message.channel.bulkDelete(amount + 1)
+      .then((messages) => {
+        if (messages.size > 2) {
+          message.channel.send(`Se han borrado **${messages.size - 1}** mensajes. ${msgEmote}`);
+        } else if (messages.size === 2) {
+          message.channel.send(`Se ha borrado **un** mensaje. ${msgEmote}`);
+        } else {
+          message.channel.send(`No se ha borrado ningún mensaje adicional al comando. ${msgEmote}`);
+        }
+  
+        console.log(`Usuario ${message.author.tag} borró ${messages.size - 1} mensajes en el servidor ${message.guild.name}.`);
+      })
+      .catch((error) => {
+        console.error("Error al intentar borrar mensajes:", error);
+        message.channel.send("Ocurrió un error al intentar borrar los mensajes.");
+      });
+  }
+  if (message.content.startsWith(prefix + "reminder")) {
+    const argsReminder = message.content.slice(prefix.length).trim().split(/ +/);
+    if (argsReminder.length < 3) {
+      message.channel.send({ content: "Por favor, usa el comando correctamente: s!reminder [tiempo] [recordatorio]" });
+      return;
+    }
+
+    const time = argsReminder[1];
+    const textReminder = argsReminder.slice(2).join(' ');
+
+    if (!ms(time)) {
+      message.channel.send({ content: "Por favor, usa el comando correctamente: s!reminder [tiempo] [recordatorio]" });
+      return;
+    }
+
+    message.channel.send({ content: `Entendido, te lo recordaré dentro de **${time}**.` });
+
+    setTimeout(() => {
+      message.channel.send({ content: `${message.author}: Recuerda hacer lo siguiente - ${textReminder}.` });
+      message.channel.send({ content: `Me has pedido recordarte esto hace: ${time}` });
+    }, ms(time));
+  }
+  if (message.content.startsWith(prefix + "rolinfo") || message.content.startsWith(prefix + "ri")) {
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    const rol = message.mentions.roles.first() || message.guild.roles.cache.get(args[1]) || message.guild.roles.cache.find(role => role.name === args.slice(1).join(" "));
+  
+    if (!rol) return message.channel.send(`Tienes que mencionar un rol o proporcionar su ID o nombre para que pueda mostrarte su información. ${msgEmote}`);
+  
+    let mencionable = {
+      'true': 'Sí',
+      'false': 'No'
+    }
+    let separado = {
+      'true': 'Sí',
+      'false': 'No'
+    }
+    let sistema = {
+      'true': 'Sí',
+      'false': 'No'
+    }
+  
+    const permisos = rol.permissions.toArray().join('\`, \`');
+  
+    const rolEmbed = new Discord.EmbedBuilder()
+      .setDescription(`**Información del rol - ${msgEmote}**`)
+      .addFields({ name: "Nombre:", value: `- ${rol.name}` })
+      .addFields({ name: "ID:", value: `- ${rol.id}` })
+      .addFields({ name: "Usuarios con el rol:", value: `- ${rol.members.size}` })
+      .addFields({ name: "Posición:", value: `- ${rol.rawPosition}` })
+      .addFields({ name: "HexColor:", value: `- ${rol.hexColor}` })
+      .addFields({ name: "Mencionable:", value: `- ${mencionable[rol.mentionable]}` })
+      .addFields({ name: "Separado:", value: `- ${separado[rol.hoist]}` })
+      .addFields({ name: "Gestionado por el sistema:", value: `- ${sistema[rol.managed]}` })
+      .addFields({ name: "Permisos:", value: `- \`${permisos}\`` })
+      .setColor(rol.hexColor);
+  
+    message.channel.send({ embeds: [rolEmbed] });
+  }
+  if (message.content.startsWith(prefix + "roles")) {
+    let icon = message.guild.iconURL({ size: 2048, dyamic: true })
+    let id = message.guild;
+    const embedRoles = new Discord.EmbedBuilder()
+      .setTitle(`Roles de ~${id.name} ~`)
+      .setThumbnail(icon)
+      .setDescription(`${id.roles.cache.map(r => r.name).join(", ")}`)
+      .setFooter({ text: 'Lista de roles de ' + message.guild.name })
+      .setColor("#9C59B6")
+
+    message.channel.send({ embeds: [embedRoles] });
+
+  }
+  if (message.content.startsWith(prefix + "servericon") || message.content.startsWith(prefix + "sc")) {
+    let icon = message.guild.iconURL({ size: 2048, dyamic: true })
+    let id = message.guild;
+
+    const embedIcon = new Discord.EmbedBuilder()
+
+      .setTitle("El icono de " + message.guild.name + " es:")
+      .setColor("#9C59B6")
+      .setImage(icon)
+
+    message.channel.send({ embeds: [embedIcon] })
   }
   if (message.content.startsWith(prefix + "serverinfo") || message.content.startsWith(prefix + "si")) {
     const server = message.guild // Info del server
@@ -291,99 +349,6 @@ client.on("messageCreate", async (message) => {
     message.channel.send({ embeds: [embedServer] })
 
   }
-  if (message.content.startsWith(prefix + "servericon") || message.content.startsWith(prefix + "sc")) {
-    let icon = message.guild.iconURL({ size: 2048, dyamic: true })
-    let id = message.guild;
-
-    const embedIcon = new Discord.EmbedBuilder()
-
-      .setTitle("El icono de " + message.guild.name + " es:")
-      .setColor("#9C59B6")
-      .setImage(icon)
-
-    message.channel.send({ embeds: [embedIcon] })
-  }
-  if (message.content.startsWith(prefix + "rolinfo") || message.content.startsWith(prefix + "ri")) {
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const rol = message.mentions.roles.first() || message.guild.roles.cache.get(args[1]) || message.guild.roles.cache.find(role => role.name === args.slice(1).join(" "));
-  
-    if (!rol) return message.channel.send(`Tienes que mencionar un rol o proporcionar su ID o nombre para que pueda mostrarte su información. ${msgEmote}`);
-  
-    let mencionable = {
-      'true': 'Sí',
-      'false': 'No'
-    }
-    let separado = {
-      'true': 'Sí',
-      'false': 'No'
-    }
-    let sistema = {
-      'true': 'Sí',
-      'false': 'No'
-    }
-  
-    const permisos = rol.permissions.toArray().join('\`, \`');
-  
-    const rolEmbed = new Discord.EmbedBuilder()
-      .setDescription(`**Información del rol - ${msgEmote}**`)
-      .addFields({ name: "Nombre:", value: `- ${rol.name}` })
-      .addFields({ name: "ID:", value: `- ${rol.id}` })
-      .addFields({ name: "Usuarios con el rol:", value: `- ${rol.members.size}` })
-      .addFields({ name: "Posición:", value: `- ${rol.rawPosition}` })
-      .addFields({ name: "HexColor:", value: `- ${rol.hexColor}` })
-      .addFields({ name: "Mencionable:", value: `- ${mencionable[rol.mentionable]}` })
-      .addFields({ name: "Separado:", value: `- ${separado[rol.hoist]}` })
-      .addFields({ name: "Gestionado por el sistema:", value: `- ${sistema[rol.managed]}` })
-      .addFields({ name: "Permisos:", value: `- \`${permisos}\`` })
-      .setColor(rol.hexColor);
-  
-    message.channel.send({ embeds: [rolEmbed] });
-  }
-  if (message.content.startsWith(prefix + "roles")) {
-    let icon = message.guild.iconURL({ size: 2048, dyamic: true })
-    let id = message.guild;
-    const embedRoles = new Discord.EmbedBuilder()
-      .setTitle(`Roles de ~${id.name} ~`)
-      .setThumbnail(icon)
-      .setDescription(`${id.roles.cache.map(r => r.name).join(", ")}`)
-      .setFooter({ text: 'Lista de roles de ' + message.guild.name })
-      .setColor("#9C59B6")
-
-    message.channel.send({ embeds: [embedRoles] });
-
-  }
-  if (message.content.startsWith(prefix + "purge") || message.content.startsWith(prefix + "pur")) {
-    if (!message.member.permissions.has(Discord.PermissionsBitField.Flags.ManageMessages)) {
-      return message.reply(`Solo los administradores pueden usar este comando. ${msgEmote}`);
-    }
-  
-    const args = message.content.slice(prefix.length).trim().split(/ +/);
-    const amount = parseInt(args[1]);
-  
-    if (isNaN(amount) || amount <= 0) {
-      return message.reply(`Por favor, proporciona un número válido de mensajes a eliminar. ${msgEmote}`);
-    }
-  
-    message.channel.bulkDelete(amount + 1)
-      .then((messages) => {
-        if (messages.size > 2) {
-          message.channel.send(`Se han borrado **${messages.size - 1}** mensajes. ${msgEmote}`);
-        } else if (messages.size === 2) {
-          message.channel.send(`Se ha borrado **un** mensaje. ${msgEmote}`);
-        } else {
-          message.channel.send(`No se ha borrado ningún mensaje adicional al comando. ${msgEmote}`);
-        }
-  
-        console.log(`Usuario ${message.author.tag} borró ${messages.size - 1} mensajes en el servidor ${message.guild.name}.`);
-      })
-      .catch((error) => {
-        console.error("Error al intentar borrar mensajes:", error);
-        message.channel.send("Ocurrió un error al intentar borrar los mensajes.");
-      });
-  }
-  if (message.content.startsWith(prefix + "ping")) {
-    message.channel.send({ content: `La latencia del API de Discord es de **${Math.round(client.ws.ping)}ms.**. ${msgEmote}` });
-  }
   if (message.content.startsWith(prefix + "snipe")) {
     let snipe = snipes.get(message.channel.id)
     if (!snipe) return message.channel.send('No hay ningún mensaje borrado al que hacerle snipe unu')
@@ -395,6 +360,41 @@ client.on("messageCreate", async (message) => {
       .setColor("#9C59B6")
     message.channel.send({ embeds: [embedSnipe] })
 
+  }
+  if (message.content.startsWith(prefix + "userinfo") || message.content.startsWith(prefix + "ui")) {
+    let user;
+    const args = message.content.slice(prefix.length).trim().split(/ +/);
+
+    if (message.mentions.members.first()) {
+      user = message.mentions.members.first();
+    } else if (args[1]) {
+      const guildMembers = message.guild.members.cache;
+      user = guildMembers.find(member => member.user.username.toLowerCase() === args[1].toLowerCase());
+
+      if (!user) {
+        user = guildMembers.get(args[1]);
+      }
+    } else {
+      user = message.member;
+    }
+
+    let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048 })
+
+    if (user) {
+      const embeduserinfo = new Discord.EmbedBuilder()
+      .setAuthor({name: user.displayName, iconURL: avatar})
+      .setTitle(`Información de ${user.displayName} - ${msgEmote} `)
+      .addFields({name: `Roles`, value: `${user.roles.cache.map(r => r).join(' ')}`})
+      .addFields({name: `Fecha de unión`, value: `<t:${parseInt(user.joinedAt / 1000)}:R>`, inline: true})
+      .addFields({name: `Fecha de creación`, value: `<t:${parseInt(user.user.createdAt.getTime() / 1000)}:R>`, inline: true})
+      .setThumbnail(avatar)
+      .setFooter({text: `User ID:` + `${user.id}`})
+      .setColor("#9C59B6")
+
+      message.channel.send({ embeds : [embeduserinfo]})
+    } else {
+      message.channel.send({ content: `No se encontró al usuario especificado ${msgEmote}` });
+    }
   }
 
 
@@ -449,6 +449,27 @@ client.on("messageCreate", async (message) => {
     message.delete();
     message.channel.send(msg);
   }
+  if (message.content.startsWith(prefix + "8ball")) {
+    const args = message.content.slice(7)
+    if (!args) return message.channel.send({ content: `Necesitas preguntarme algo para que pueda responderte ${msgEmote}` })
+    let respuesta = ["Sis", "Non", "Puede ser", "Es lo mas probable", "Las probabilidades son bajas", "No lo creo", "Definitivamente.", "Definitivamente no."]
+    var random = respuesta[Math.floor(Math.random() * respuesta.length)]
+
+
+    message.channel.send({ content: random })
+  }
+  if (message.content.startsWith(prefix + "coinflip")) {
+    let respuestacoin = [":coin: ¡Te ha salido **cara**! :coin: ", ":coin: ¡Te ha salido **cruz**! :coin: "]
+    var randomcoin = respuestacoin[Math.floor(Math.random() * respuestacoin.length)]
+
+    message.channel.send({ content: randomcoin })
+  }
+  if (message.content.startsWith(prefix + "dado")) {
+    let respuestadado = ["🎲 ¡Te ha salido un **1**!", "🎲 ¡Te ha salido un **2**!", "🎲 ¡Te ha salido un **3**!", "🎲 ¡Te ha salido un **4**!", "🎲 ¡Te ha salido un **5**!", "🎲 ¡Te ha salido un **6**!"]
+    var randomdado = respuestadado[Math.floor(Math.random() * respuestadado.length)]
+
+    message.channel.send({ content: randomdado })
+  }
   if (message.content.startsWith(prefix + "roulette")) {
     const argRuleta = message.content.slice(prefix.length + 9).trim();
     
@@ -466,27 +487,6 @@ client.on("messageCreate", async (message) => {
     const selectedopciones = opciones[randomopciones];
   
     message.channel.send({ content: `La ruleta ha hablado... **¡${selectedopciones}!**` });
-  }
-  if (message.content.startsWith(prefix + "8ball")) {
-    const args = message.content.slice(7)
-    if (!args) return message.channel.send({ content: `Necesitas preguntarme algo para que pueda responderte ${msgEmote}` })
-    let respuesta = ["Sis", "Non", "Puede ser", "Es lo mas probable", "Las probabilidades son bajas", "No lo creo", "Definitivamente.", "Definitivamente no."]
-    var random = respuesta[Math.floor(Math.random() * respuesta.length)]
-
-
-    message.channel.send({ content: random })
-  }
-  if (message.content.startsWith(prefix + "dado")) {
-    let respuestadado = ["🎲 ¡Te ha salido un **1**!", "🎲 ¡Te ha salido un **2**!", "🎲 ¡Te ha salido un **3**!", "🎲 ¡Te ha salido un **4**!", "🎲 ¡Te ha salido un **5**!", "🎲 ¡Te ha salido un **6**!"]
-    var randomdado = respuestadado[Math.floor(Math.random() * respuestadado.length)]
-
-    message.channel.send({ content: randomdado })
-  }
-  if (message.content.startsWith(prefix + "coinflip")) {
-    let respuestacoin = [":coin: ¡Te ha salido **cara**! :coin: ", ":coin: ¡Te ha salido **cruz**! :coin: "]
-    var randomcoin = respuestacoin[Math.floor(Math.random() * respuestacoin.length)]
-
-    message.channel.send({ content: randomcoin })
   }
   if (message.content.startsWith(prefix + "randomuser") || message.content.startsWith(prefix + "ru")) {
     const randomMember = message.guild.members.cache.random();
@@ -836,34 +836,20 @@ client.on("messageCreate", async (message) => {
   // COMANDOS DE EMOCIONES ♥ ♥ ♥ //
   // COMANDOS DE EMOCIONES ♥ ♥ ♥ //
 
-
-  if (message.content.startsWith(prefix + "suprise")) {
-    let user = message.author.username
-    var respuestasuprise = ["https://media.tenor.com/VqgdK6STvZ0AAAAC/anime-fan27-idoly-pride.gif", "https://media.tenor.com/sHRwuETGrQAAAAAC/nichijou-hakase-shinonome.gif", "https://media.tenor.com/0gwoVD1Q6GQAAAAC/kaguya-shocked.gif", "https://media.tenor.com/ceZmZ6VDgeQAAAAC/hifumi-bubblyroz.gif", "https://media.tenor.com/mBG7KOJUyFwAAAAC/murenase-seton-gakuen-anime.gif", "https://media.tenor.com/xUU2lMEE79kAAAAC/idolypride-anime.gif", "https://media.tenor.com/hGCzNZNt5CYAAAAC/princess-connect-re-dive-kokkoro.gif", "https://media.tenor.com/4YbFUNwW9f8AAAAC/pokemon-surprised.gif", "https://media.tenor.com/OgwGtVKmXWAAAAAM/shocked-shy.gif",
-      "https://media.tenor.com/gAvUv5tY1pkAAAAM/anime-shocked.gif", "https://media.tenor.com/lrKi_mKGrXcAAAAM/chivalry-chivalry-of-a-failed-knight.gif", "https://media.tenor.com/nRrlYt8w7v8AAAAd/anime-smile.gif", "https://media.tenor.com/h3Uz-hrhgJgAAAAC/shocked-face.gif", "https://media.tenor.com/Y-L5r7LP_t0AAAAC/hologra-hololive.gif", "https://media.tenor.com/TmenruYgq0IAAAAC/fright-surprised.gif", "https://media.tenor.com/CSxTrBGvOOwAAAAC/hitoribocchi-shocked.gif", "https://media.tenor.com/nZk9wHCTBe0AAAAM/spy-x-family-anya.gif", "https://media.tenor.com/qp7g9UD7UeAAAAAC/anime-wow.gif", "https://media.tenor.com/ui1h5F1eIcIAAAAC/umaru-shocked.gif",
-      "https://media.tenor.com/A8Gv0K7mcvkAAAAC/shocked-scared-sailormoon-usagi-anime-oh-what.gif", "https://media.tenor.com/kfA-u3R5Ca8AAAAC/sailor-moon-shocked.gif", "https://media.tenor.com/OXyKtUKn_HIAAAAC/anime-karakei-jouzo-no-takagi-san.gif", "https://media.tenor.com/fZ4qQGQfSzgAAAAC/anime-kon-azusa.gif", "https://media.tenor.com/BkPzcaCsWAwAAAAC/omg-overwhelmed.gif", "https://media.tenor.com/PofuJvzbaIQAAAAC/loli-shy.gif", "https://media.tenor.com/XAMUJ6bzBJ8AAAAM/awkward-pout.gif"]
-    let randomsuprise = respuestasuprise[Math.floor(respuestasuprise.length * Math.random())]
-
-    const embedsuprise = new Discord.EmbedBuilder()
-      .setDescription(`**${user}** se acaba de sorprender o.o`)
-      .setColor("#FF00FF")
-      .setImage(randomsuprise)
-
-    message.channel.send({ embeds: [embedsuprise] })
-  }
-  if (message.content.startsWith(prefix + "happy")) {
+  if (message.content.startsWith(prefix + "angry")) {
     let user = message.author.username;
-    var respuestahappy = ["https://media.tenor.com/VrUxJZFdmIsAAAAC/anime-excited.gif", "https://media.tenor.com/myCsjxxbtXAAAAAC/anime-happy.gif", "https://media.tenor.com/z88st-CKXoUAAAAM/chika-yeah.gif", "https://media.tenor.com/g8rtlSwFcdEAAAAd/slow-loop-koharu-minagi.gif", "https://media.tenor.com/EbNeN8Sf8QwAAAAC/umaru-hyper.gif", "https://media.tenor.com/ruU09sGPcCwAAAAd/happy-anime.gif", "https://media.tenor.com/U1p83COiAPYAAAAC/anime-happy-anime-smile.gif", "https://media.tenor.com/PdmxWTNnUmMAAAAC/anime-pastel-anime.gif", "https://media.tenor.com/nBWlYPbKxzwAAAAC/anime-happy.gif",
-      "https://media.tenor.com/wFtRdoHX-ssAAAAM/dance-happy.gif", "https://media.tenor.com/IaZLfsFCcXYAAAAC/happy-anime.gif", "https://media.tenor.com/gDmWTiOVQWgAAAAC/anime-girl-anime-blush.gif", "https://media.tenor.com/gRKru3THlwEAAAAC/dance-happy.gif", "https://media.tenor.com/2nvCQF2f_CkAAAAC/anime-excited.gif", "https://media.tenor.com/J5LExU-5d5IAAAAC/excited-anime.gif", "https://media.tenor.com/Rm4OcZRX-t4AAAAC/anime-taisho-otome-fairy-tale.gif", "https://media.tenor.com/Z4vXY2p1MfoAAAAC/anime-happy-anime-excited.gif", "https://media.tenor.com/G9sGj8ccKlwAAAAC/anime-tama.gif", "https://media.tenor.com/mSWD-MGgfjMAAAAC/anime-love.gif",
-      "https://media.tenor.com/yASBwuAbiMwAAAAC/k-on-yui.gif", "https://media.tenor.com/C-4eLcs8WvwAAAAC/dandidave-anime.gif", "https://media.tenor.com/00ZUfBZQtYgAAAAd/animehappy-animejump.gif", "https://media.tenor.com/Qrsl__S64NAAAAAC/chiyo-happy.gif", "https://media.tenor.com/EWartg4MlxoAAAAM/anime-maid.gif", "https://media.tenor.com/WaoSXVPfPxQAAAAC/miku-dance.gif"]
-    let randomhappy = respuestahappy[Math.floor(respuestahappy.length * Math.random())]
+    var respuestaangry = ["https://media.tenor.com/A8YunXqxo80AAAAd/anime-angry.gif", "https://media.tenor.com/MvKZZ7JCkUMAAAAC/anime-angry.gif", "https://media.tenor.com/MvKZZ7JCkUMAAAAC/anime-angry.gif", "https://media.tenor.com/lBlcEFqoDnEAAAAC/annoyed-anime.gif", "https://media.tenor.com/G_YeALOH-iAAAAAC/mao-amatsuka-mad.gif", "https://media.tenor.com/VvTZho_Jgg0AAAAd/chihiro-komiya-shounen-maid.gif", "https://media.tenor.com/cYRAeQqpaUMAAAAC/anime-angry-slow-loop.gif", "https://media.tenor.com/V27d_O9uXncAAAAC/anime-angry.gif", "https://media.tenor.com/rzDkOlEDun0AAAAC/hayase-nagatoro-nagatoro-angry.gif",
+      "https://media.tenor.com/4QHcmuULKwYAAAAd/anime-angry.gif", "https://media.tenor.com/PuKJo_l7J0YAAAAC/anime-angry.gif", "https://media.tenor.com/X3x3Y2mp2W8AAAAC/anime-angry.gif", "https://media.tenor.com/OEKhE7FXwsoAAAAC/anime-angry.gif", "https://media.tenor.com/5xVuXqAsc4wAAAAC/anime-otoboku.gif", "https://media.tenor.com/JL9HvHll2AkAAAAM/ohnaruto-muni-d4dj-first-mix.gif", "https://media.tenor.com/hkoyf1VeaZ4AAAAC/anime-angry.gif", "https://media.tenor.com/hG3EbO4GcggAAAAd/angry-funny-anime-funny-anime-expression.gif", "https://media.tenor.com/8hvhKVawxukAAAAC/anime-angry.gif", "https://media.tenor.com/M81x9BprIRoAAAAC/jujutsu-kaisen-itadori-yuji.gif",
+      "https://media.tenor.com/Jj7RpBC7U_AAAAAC/anime-girl.gif", "https://media.tenor.com/RbyYe_UqBa0AAAAC/anime-angry.gif", "https://media.tenor.com/A6qb9JrfUqgAAAAC/anime-mad.gif", "https://media.tenor.com/xF-qZ7VI3kQAAAAC/angry-anime.gif", "https://media.tenor.com/fPmvVumanvYAAAAC/anime-angry.gif", "https://media.tenor.com/4TVxspu_cPoAAAAC/angry-upset.gif", "https://media.tenor.com/9JjBiqaxzdAAAAAC/anime-angry.gif", "https://media.tenor.com/fdEsoTcPdxAAAAAM/angry-anime.gif", "https://media.tenor.com/M7Khm9KQhYgAAAAC/triggered-anime.gif", "https://media.tenor.com/zlR3u2nyQa0AAAAC/anime-choi-mochimazzi.gif", "https://media.tenor.com/x6A8PDqmXBMAAAAC/angry-anime.gif",
+      "https://media.tenor.com/1oyFbLZFQacAAAAM/food-wars.gif", "https://media.tenor.com/Ka_512MVvtMAAAAC/angry-serious.gif", "https://media.tenor.com/V7dWl7ew6WgAAAAM/mad-upset.gif", "https://media.tenor.com/R_0gDRtBfYgAAAAC/angry-mad.gif", "https://media.tenor.com/zN2l_oa9dXMAAAAC/anime-angry.gif", "https://media.tenor.com/SyTog5hqeJ4AAAAM/ascendance-of-a-bookworm-honzuki-no-gekokujou.gif", "https://media.tenor.com/FOxMtwKRT9UAAAAM/mad-the-demon.gif", "https://media.tenor.com/bUrYo-oxMjEAAAAM/impey-anime.gif", "https://media.tenor.com/wCAz0pjt05wAAAAC/angry-wtf.gif", "https://media.tenor.com/ehNEdsdCqtYAAAAC/angry-handgun.gif"]
+    let randomangry = respuestaangry[Math.floor(respuestaangry.length * Math.random())]
 
-    const embedhappy = new Discord.EmbedBuilder()
-      .setDescription(`**${user}** esta feliz ^-^`)
-      .setColor("#FFD700")
-      .setImage(randomhappy)
+    const embedangry = new Discord.EmbedBuilder()
+      .setDescription(`** ${user} ** se acaba de enfadar. ಠ_ಠ`)
+      .setColor("#FF0000")
+      .setImage(randomangry)
 
-    message.channel.send({ embeds: [embedhappy] })
+    message.channel.send({ embeds: [embedangry] })
   }
   if (message.content.startsWith(prefix + "blush")) {
     let user = message.author.username;
@@ -878,33 +864,6 @@ client.on("messageCreate", async (message) => {
       .setImage(randomblush)
 
     message.channel.send({ embeds: [embedblush] })
-  }
-  if (message.content.startsWith(prefix + "sleepy")) {
-    let user = message.author.username;
-    var respuestasleepy = ["https://media.tenor.com/MmjEo1QitoAAAAAC/little-anime.gif", "https://media.tenor.com/V5Y3vaFq7DcAAAAC/kanna-kawai.gif", "https://media.tenor.com/3Ti1nP8Mj6kAAAAM/yawn-nadeshiko.gif", "https://media.tenor.com/EMH0zrVV6LcAAAAM/sleepy-anime.gif", "https://media.tenor.com/wlI49Z28sawAAAAC/anime-sleepy.gif", "https://media.tenor.com/re9a71mA5xwAAAAC/nogamenolife-shiro.gif", "https://media.tenor.com/1UjVG4tHsPQAAAAC/lucky-star-yawn.gif", "https://media.tenor.com/hKli6TsxXYMAAAAC/tsukasa-anime.gif", "https://media.tenor.com/HouEItJq5tUAAAAM/sleepy.gif", "https://media.tenor.com/Izq6jHHDk20AAAAC/idolypride-anime.gif",
-      "https://media.tenor.com/L-XEzWbwm7IAAAAC/sleepy-sleepy-head.gif", "https://media.tenor.com/XcHZuEE48ngAAAAC/sleepy-yui.gif", "https://media.tenor.com/LVk1PDpuBmgAAAAC/anime-%E5%B0%8F%E6%9E%97%E3%81%95%E3%82%93%E3%81%A1%E3%81%AE%E3%83%A1%E3%82%A4%E3%83%89%E3%83%A9%E3%82%B4%E3%83%B3.gif", "https://media.tenor.com/i50gylGKwksAAAAC/cat-kitten.gif", "https://media.tenor.com/w5GG4ONbOh0AAAAC/sleepy-tired.gif", "https://media.tenor.com/1n6B6fRfZbUAAAAd/anime-sleepy.gif", "https://media.tenor.com/2w2IMfn9HDIAAAAd/sleep-sleepy.gif", "https://media.tenor.com/9WyP2MJlWiYAAAAC/kanna-sleepy.gif", "https://media.tenor.com/EFCJtCvJ39EAAAAM/himouto-umaru-chan-sylphynford-tachibana.gif",
-      "https://media.tenor.com/UygbJyHNMGUAAAAd/kiniro-mosaic-anime.gif", "https://media.tenor.com/BWx0XihzC9kAAAAd/anime-tired.gif", "https://media.tenor.com/ygF2TTmLCFwAAAAd/kanna-sleep-kanna.gif", "https://media.tenor.com/IsTHG9u7a40AAAAC/anime-brush-teeth.gif"]
-    let randomsleepy = respuestasleepy[Math.floor(respuestasleepy.length * Math.random())]
-
-    const embedsleepy = new Discord.EmbedBuilder()
-      .setDescription(`** ${user} ** esta muriendose de sueño... ≡(▔﹏▔)≡`)
-      .setColor("#6A6Af7")
-      .setImage(randomsleepy)
-
-    message.channel.send({ embeds: [embedsleepy] })
-  }
-  if (message.content.startsWith(prefix + "neutral")) {
-    let user = message.author.username;
-    var respuestaneutral = ["https://media.tenor.com/DlqkARzWq3wAAAAd/really-anime-seriously.gif", "https://media.tenor.com/-htQlAzVwKcAAAAM/anime-blinking.gif", "https://media.tenor.com/ontwohzKkvgAAAAC/lucia-omori.gif", "https://media.tenor.com/FFd634daPcoAAAAC/laid-back-camp-anime.gif", "https://media.tenor.com/O1LYOF4_6GIAAAAC/kel-omori-neutral.gif", "https://media.tenor.com/09ExK7gMpwIAAAAC/oh-fr-luffy.gif", "https://media.tenor.com/_0i19uunKJ8AAAAC/anime-oops.gif", "https://media.tenor.com/V_0ti1a3_GoAAAAC/loading-azurlane.gif", "https://media.tenor.com/Mv4YPxF3jiYAAAAM/wondering-really.gif", "https://media.tenor.com/qayXeWAKNIsAAAAC/omori-neutral-omori.gif", "https://media.tenor.com/hZJlNhWdhF0AAAAC/mafumafu-mafu.gif",
-      "https://media.tenor.com/VVnBNQberP4AAAAM/black-bullet-rentaro-satomi.gif", "https://media.tenor.com/XWpLSR7jXbkAAAAC/neutral-neutral-hero-omori.gif", "https://media.tenor.com/EW2jyyfAVJgAAAAC/omori-mari.gif", "https://media.tenor.com/8-qZ7KZQ1zwAAAAC/aesthetic-anime.gif", "https://media.tenor.com/XNP23mZA8G8AAAAM/megumin-konosuba.gif", "https://media.tenor.com/K51g9qGNCegAAAAC/real-aubrey-emotions-omori-aubrey.gif", "https://media.tenor.com/DuTjduKPeIkAAAAd/neutral-face-floating.gif", "https://media.tenor.com/Ol-nEvmc8EoAAAAd/writing-write.gif", "https://media.tenor.com/bIOQRofK7jUAAAAC/pory-porymations.gif", "https://media.tenor.com/eWn9himEnrEAAAAC/komi-komisan.gif"]
-    let randomneutral = respuestaneutral[Math.floor(respuestaneutral.length * Math.random())]
-
-    const embedneutral = new Discord.EmbedBuilder()
-      .setDescription(`** ${user} ** no tiene nada que decir. ...(。_。)`)
-      .setColor("#808080")
-      .setImage(randomneutral)
-
-    message.channel.send({ embeds: [embedneutral] })
   }
   if (message.content.startsWith(prefix + "confused")) {
     let user = message.author.user;
@@ -921,20 +880,21 @@ client.on("messageCreate", async (message) => {
 
     message.channel.send({ embeds: [embedconfused] })
   }
-  if (message.content.startsWith(prefix + "angry")) {
+  if (message.content.startsWith(prefix + "cry")) {
     let user = message.author.username;
-    var respuestaangry = ["https://media.tenor.com/A8YunXqxo80AAAAd/anime-angry.gif", "https://media.tenor.com/MvKZZ7JCkUMAAAAC/anime-angry.gif", "https://media.tenor.com/MvKZZ7JCkUMAAAAC/anime-angry.gif", "https://media.tenor.com/lBlcEFqoDnEAAAAC/annoyed-anime.gif", "https://media.tenor.com/G_YeALOH-iAAAAAC/mao-amatsuka-mad.gif", "https://media.tenor.com/VvTZho_Jgg0AAAAd/chihiro-komiya-shounen-maid.gif", "https://media.tenor.com/cYRAeQqpaUMAAAAC/anime-angry-slow-loop.gif", "https://media.tenor.com/V27d_O9uXncAAAAC/anime-angry.gif", "https://media.tenor.com/rzDkOlEDun0AAAAC/hayase-nagatoro-nagatoro-angry.gif",
-      "https://media.tenor.com/4QHcmuULKwYAAAAd/anime-angry.gif", "https://media.tenor.com/PuKJo_l7J0YAAAAC/anime-angry.gif", "https://media.tenor.com/X3x3Y2mp2W8AAAAC/anime-angry.gif", "https://media.tenor.com/OEKhE7FXwsoAAAAC/anime-angry.gif", "https://media.tenor.com/5xVuXqAsc4wAAAAC/anime-otoboku.gif", "https://media.tenor.com/JL9HvHll2AkAAAAM/ohnaruto-muni-d4dj-first-mix.gif", "https://media.tenor.com/hkoyf1VeaZ4AAAAC/anime-angry.gif", "https://media.tenor.com/hG3EbO4GcggAAAAd/angry-funny-anime-funny-anime-expression.gif", "https://media.tenor.com/8hvhKVawxukAAAAC/anime-angry.gif", "https://media.tenor.com/M81x9BprIRoAAAAC/jujutsu-kaisen-itadori-yuji.gif",
-      "https://media.tenor.com/Jj7RpBC7U_AAAAAC/anime-girl.gif", "https://media.tenor.com/RbyYe_UqBa0AAAAC/anime-angry.gif", "https://media.tenor.com/A6qb9JrfUqgAAAAC/anime-mad.gif", "https://media.tenor.com/xF-qZ7VI3kQAAAAC/angry-anime.gif", "https://media.tenor.com/fPmvVumanvYAAAAC/anime-angry.gif", "https://media.tenor.com/4TVxspu_cPoAAAAC/angry-upset.gif", "https://media.tenor.com/9JjBiqaxzdAAAAAC/anime-angry.gif", "https://media.tenor.com/fdEsoTcPdxAAAAAM/angry-anime.gif", "https://media.tenor.com/M7Khm9KQhYgAAAAC/triggered-anime.gif", "https://media.tenor.com/zlR3u2nyQa0AAAAC/anime-choi-mochimazzi.gif", "https://media.tenor.com/x6A8PDqmXBMAAAAC/angry-anime.gif",
-      "https://media.tenor.com/1oyFbLZFQacAAAAM/food-wars.gif", "https://media.tenor.com/Ka_512MVvtMAAAAC/angry-serious.gif", "https://media.tenor.com/V7dWl7ew6WgAAAAM/mad-upset.gif", "https://media.tenor.com/R_0gDRtBfYgAAAAC/angry-mad.gif", "https://media.tenor.com/zN2l_oa9dXMAAAAC/anime-angry.gif", "https://media.tenor.com/SyTog5hqeJ4AAAAM/ascendance-of-a-bookworm-honzuki-no-gekokujou.gif", "https://media.tenor.com/FOxMtwKRT9UAAAAM/mad-the-demon.gif", "https://media.tenor.com/bUrYo-oxMjEAAAAM/impey-anime.gif", "https://media.tenor.com/wCAz0pjt05wAAAAC/angry-wtf.gif", "https://media.tenor.com/ehNEdsdCqtYAAAAC/angry-handgun.gif"]
-    let randomangry = respuestaangry[Math.floor(respuestaangry.length * Math.random())]
+    var respuestacry = ["https://media.tenor.com/VcdTcSy-sJMAAAAC/sad-cry.gif", "https://media.tenor.com/eh1Zchfmz4sAAAAC/anime-tears.gif", "https://media.tenor.com/8WAGBT7LgA0AAAAC/anime-cry-hinagiku.gif", "https://media.tenor.com/v_FOnNyYuGcAAAAC/cry-k-on.gif", "https://media.tenor.com/JiWSJK_p0IYAAAAM/bocchi-bocchitherock.gif", "https://media.tenor.com/t5Cj3hpyYfAAAAAC/anime-cry.gif",
+      "https://media.tenor.com/tK-bs8K6ZQIAAAAd/remi-horimiya.gif", "https://media.tenor.com/kMrB8yNbzrQAAAAC/jahy-sama-jahy.gif", "https://media.tenor.com/h2RyGfmdvXEAAAAC/mushoku-tensei-eris.gif", "https://media.tenor.com/r2DGstl2IWEAAAAC/raiden-shogun-ei.gif", "https://media.tenor.com/6qJBThILOTcAAAAC/shikimoris-not-just-cute-shikimori.gif", "https://media.tenor.com/_eEcwl8Mn50AAAAC/akebi-chan-no-sailor-anime-cry.gif",
+      "https://media.tenor.com/qrEyPG0mDVYAAAAC/aharen-san-anime-cry.gif", "https://media.tenor.com/OhuSWqAsQH4AAAAC/anime-girl-sad-sad.gif", "https://media.tenor.com/0SxceifWNeEAAAAC/shachiku-san-anime-cry.gif", "https://media.tenor.com/IHVd7sXB66YAAAAC/anime-cry-hinagiku.gif", "https://media.tenor.com/N2qSCBkdracAAAAC/neko-anime.gif", "https://media.tenor.com/0qj0aqZ0nucAAAAC/anya-spy-x-family-anime-anya-crying.gif", "https://media.tenor.com/CiYd21Aj0wsAAAAC/alluka-cry.gif", "https://media.tenor.com/pj3qEJIblVoAAAAC/cry-anime.gif", "https://media.tenor.com/RzoUQx2aFbMAAAAM/show-by-rock-cyan-hijirikawa.gif",
+      "https://media.tenor.com/Q0HUwg81A_0AAAAd/anime-cry.gif", "https://media.tenor.com/q0nNfTktQ7wAAAAC/crying-anime.gif", "https://media.tenor.com/zOiOQIcAHk8AAAAC/ilulu-ilulu-crying.gif", "https://media.tenor.com/UFDx5_Hq_EUAAAAC/keion-cry.gif", "https://media.tenor.com/glWRAhtVU5AAAAAC/cry.gif", "https://media.tenor.com/96Hp6CanFZ0AAAAd/anime-cry.gif", "https://media.tenor.com/_586RpXd1fUAAAAC/anime-crying.gif", "https://media.tenor.com/BX9nojvy0gYAAAAC/crying-drenched.gif", "https://media.tenor.com/K5-GfLeXrcIAAAAd/jahy-sama-jahy.gif", "https://media.tenor.com/bAWKEYF4IAUAAAAC/anime-sailor-moon.gif",
+      "https://media.tenor.com/5BjwVWDXPCYAAAAC/luffy-cry.gif", "https://media.tenor.com/Lhv3hUPh5DUAAAAC/chika-anime.gif", "https://media.tenor.com/zDOUtOWpLmcAAAAC/neko-anime.gif", "https://media.tenor.com/6VuHq13q8FkAAAAC/sobbu-sobbing.gif", "https://media.tenor.com/6VuHq13q8FkAAAAC/sobbu-sobbing.gif", "https://media.tenor.com/eykEa3uLHiYAAAAC/cry-sad.gif", "https://media.tenor.com/bKbenMKAFfMAAAAC/anime-cry.gif", "https://media.tenor.com/9hMsz2XSoDYAAAAC/anime-anime-girl.gif", "https://media.tenor.com/rfhztq1on6gAAAAC/anime-lucky-star.gif"]
+    let randomcry = respuestacry[Math.floor(respuestacry.length * Math.random())]
 
-    const embedangry = new Discord.EmbedBuilder()
-      .setDescription(`** ${user} ** se acaba de enfadar. ಠ_ಠ`)
-      .setColor("#FF0000")
-      .setImage(randomangry)
+    const embedcry = new Discord.EmbedBuilder()
+      .setDescription(`** ${user} ** se ha echado a llorar ::>_<::`)
+      .setColor("#6495ED")
+      .setImage(randomcry)
 
-    message.channel.send({ embeds: [embedangry] })
+    message.channel.send({ embeds: [embedcry] })
   }
   if (message.content.startsWith(prefix + "disgust")) {
     let user = message.author.username;
@@ -965,21 +925,61 @@ client.on("messageCreate", async (message) => {
 
     message.channel.send({ embeds: [embedfear] })
   }
-  if (message.content.startsWith(prefix + "cry")) {
+  if (message.content.startsWith(prefix + "happy")) {
     let user = message.author.username;
-    var respuestacry = ["https://media.tenor.com/VcdTcSy-sJMAAAAC/sad-cry.gif", "https://media.tenor.com/eh1Zchfmz4sAAAAC/anime-tears.gif", "https://media.tenor.com/8WAGBT7LgA0AAAAC/anime-cry-hinagiku.gif", "https://media.tenor.com/v_FOnNyYuGcAAAAC/cry-k-on.gif", "https://media.tenor.com/JiWSJK_p0IYAAAAM/bocchi-bocchitherock.gif", "https://media.tenor.com/t5Cj3hpyYfAAAAAC/anime-cry.gif",
-      "https://media.tenor.com/tK-bs8K6ZQIAAAAd/remi-horimiya.gif", "https://media.tenor.com/kMrB8yNbzrQAAAAC/jahy-sama-jahy.gif", "https://media.tenor.com/h2RyGfmdvXEAAAAC/mushoku-tensei-eris.gif", "https://media.tenor.com/r2DGstl2IWEAAAAC/raiden-shogun-ei.gif", "https://media.tenor.com/6qJBThILOTcAAAAC/shikimoris-not-just-cute-shikimori.gif", "https://media.tenor.com/_eEcwl8Mn50AAAAC/akebi-chan-no-sailor-anime-cry.gif",
-      "https://media.tenor.com/qrEyPG0mDVYAAAAC/aharen-san-anime-cry.gif", "https://media.tenor.com/OhuSWqAsQH4AAAAC/anime-girl-sad-sad.gif", "https://media.tenor.com/0SxceifWNeEAAAAC/shachiku-san-anime-cry.gif", "https://media.tenor.com/IHVd7sXB66YAAAAC/anime-cry-hinagiku.gif", "https://media.tenor.com/N2qSCBkdracAAAAC/neko-anime.gif", "https://media.tenor.com/0qj0aqZ0nucAAAAC/anya-spy-x-family-anime-anya-crying.gif", "https://media.tenor.com/CiYd21Aj0wsAAAAC/alluka-cry.gif", "https://media.tenor.com/pj3qEJIblVoAAAAC/cry-anime.gif", "https://media.tenor.com/RzoUQx2aFbMAAAAM/show-by-rock-cyan-hijirikawa.gif",
-      "https://media.tenor.com/Q0HUwg81A_0AAAAd/anime-cry.gif", "https://media.tenor.com/q0nNfTktQ7wAAAAC/crying-anime.gif", "https://media.tenor.com/zOiOQIcAHk8AAAAC/ilulu-ilulu-crying.gif", "https://media.tenor.com/UFDx5_Hq_EUAAAAC/keion-cry.gif", "https://media.tenor.com/glWRAhtVU5AAAAAC/cry.gif", "https://media.tenor.com/96Hp6CanFZ0AAAAd/anime-cry.gif", "https://media.tenor.com/_586RpXd1fUAAAAC/anime-crying.gif", "https://media.tenor.com/BX9nojvy0gYAAAAC/crying-drenched.gif", "https://media.tenor.com/K5-GfLeXrcIAAAAd/jahy-sama-jahy.gif", "https://media.tenor.com/bAWKEYF4IAUAAAAC/anime-sailor-moon.gif",
-      "https://media.tenor.com/5BjwVWDXPCYAAAAC/luffy-cry.gif", "https://media.tenor.com/Lhv3hUPh5DUAAAAC/chika-anime.gif", "https://media.tenor.com/zDOUtOWpLmcAAAAC/neko-anime.gif", "https://media.tenor.com/6VuHq13q8FkAAAAC/sobbu-sobbing.gif", "https://media.tenor.com/6VuHq13q8FkAAAAC/sobbu-sobbing.gif", "https://media.tenor.com/eykEa3uLHiYAAAAC/cry-sad.gif", "https://media.tenor.com/bKbenMKAFfMAAAAC/anime-cry.gif", "https://media.tenor.com/9hMsz2XSoDYAAAAC/anime-anime-girl.gif", "https://media.tenor.com/rfhztq1on6gAAAAC/anime-lucky-star.gif"]
-    let randomcry = respuestacry[Math.floor(respuestacry.length * Math.random())]
+    var respuestahappy = ["https://media.tenor.com/VrUxJZFdmIsAAAAC/anime-excited.gif", "https://media.tenor.com/myCsjxxbtXAAAAAC/anime-happy.gif", "https://media.tenor.com/z88st-CKXoUAAAAM/chika-yeah.gif", "https://media.tenor.com/g8rtlSwFcdEAAAAd/slow-loop-koharu-minagi.gif", "https://media.tenor.com/EbNeN8Sf8QwAAAAC/umaru-hyper.gif", "https://media.tenor.com/ruU09sGPcCwAAAAd/happy-anime.gif", "https://media.tenor.com/U1p83COiAPYAAAAC/anime-happy-anime-smile.gif", "https://media.tenor.com/PdmxWTNnUmMAAAAC/anime-pastel-anime.gif", "https://media.tenor.com/nBWlYPbKxzwAAAAC/anime-happy.gif",
+      "https://media.tenor.com/wFtRdoHX-ssAAAAM/dance-happy.gif", "https://media.tenor.com/IaZLfsFCcXYAAAAC/happy-anime.gif", "https://media.tenor.com/gDmWTiOVQWgAAAAC/anime-girl-anime-blush.gif", "https://media.tenor.com/gRKru3THlwEAAAAC/dance-happy.gif", "https://media.tenor.com/2nvCQF2f_CkAAAAC/anime-excited.gif", "https://media.tenor.com/J5LExU-5d5IAAAAC/excited-anime.gif", "https://media.tenor.com/Rm4OcZRX-t4AAAAC/anime-taisho-otome-fairy-tale.gif", "https://media.tenor.com/Z4vXY2p1MfoAAAAC/anime-happy-anime-excited.gif", "https://media.tenor.com/G9sGj8ccKlwAAAAC/anime-tama.gif", "https://media.tenor.com/mSWD-MGgfjMAAAAC/anime-love.gif",
+      "https://media.tenor.com/yASBwuAbiMwAAAAC/k-on-yui.gif", "https://media.tenor.com/C-4eLcs8WvwAAAAC/dandidave-anime.gif", "https://media.tenor.com/00ZUfBZQtYgAAAAd/animehappy-animejump.gif", "https://media.tenor.com/Qrsl__S64NAAAAAC/chiyo-happy.gif", "https://media.tenor.com/EWartg4MlxoAAAAM/anime-maid.gif", "https://media.tenor.com/WaoSXVPfPxQAAAAC/miku-dance.gif"]
+    let randomhappy = respuestahappy[Math.floor(respuestahappy.length * Math.random())]
 
-    const embedcry = new Discord.EmbedBuilder()
-      .setDescription(`** ${user} ** se ha echado a llorar ::>_<::`)
-      .setColor("#6495ED")
-      .setImage(randomcry)
+    const embedhappy = new Discord.EmbedBuilder()
+      .setDescription(`**${user}** esta feliz ^-^`)
+      .setColor("#FFD700")
+      .setImage(randomhappy)
 
-    message.channel.send({ embeds: [embedcry] })
+    message.channel.send({ embeds: [embedhappy] })
   }
+  if (message.content.startsWith(prefix + "neutral")) {
+    let user = message.author.username;
+    var respuestaneutral = ["https://media.tenor.com/DlqkARzWq3wAAAAd/really-anime-seriously.gif", "https://media.tenor.com/-htQlAzVwKcAAAAM/anime-blinking.gif", "https://media.tenor.com/ontwohzKkvgAAAAC/lucia-omori.gif", "https://media.tenor.com/FFd634daPcoAAAAC/laid-back-camp-anime.gif", "https://media.tenor.com/O1LYOF4_6GIAAAAC/kel-omori-neutral.gif", "https://media.tenor.com/09ExK7gMpwIAAAAC/oh-fr-luffy.gif", "https://media.tenor.com/_0i19uunKJ8AAAAC/anime-oops.gif", "https://media.tenor.com/V_0ti1a3_GoAAAAC/loading-azurlane.gif", "https://media.tenor.com/Mv4YPxF3jiYAAAAM/wondering-really.gif", "https://media.tenor.com/qayXeWAKNIsAAAAC/omori-neutral-omori.gif", "https://media.tenor.com/hZJlNhWdhF0AAAAC/mafumafu-mafu.gif",
+      "https://media.tenor.com/VVnBNQberP4AAAAM/black-bullet-rentaro-satomi.gif", "https://media.tenor.com/XWpLSR7jXbkAAAAC/neutral-neutral-hero-omori.gif", "https://media.tenor.com/EW2jyyfAVJgAAAAC/omori-mari.gif", "https://media.tenor.com/8-qZ7KZQ1zwAAAAC/aesthetic-anime.gif", "https://media.tenor.com/XNP23mZA8G8AAAAM/megumin-konosuba.gif", "https://media.tenor.com/K51g9qGNCegAAAAC/real-aubrey-emotions-omori-aubrey.gif", "https://media.tenor.com/DuTjduKPeIkAAAAd/neutral-face-floating.gif", "https://media.tenor.com/Ol-nEvmc8EoAAAAd/writing-write.gif", "https://media.tenor.com/bIOQRofK7jUAAAAC/pory-porymations.gif", "https://media.tenor.com/eWn9himEnrEAAAAC/komi-komisan.gif"]
+    let randomneutral = respuestaneutral[Math.floor(respuestaneutral.length * Math.random())]
+
+    const embedneutral = new Discord.EmbedBuilder()
+      .setDescription(`** ${user} ** no tiene nada que decir. ...(。_。)`)
+      .setColor("#808080")
+      .setImage(randomneutral)
+
+    message.channel.send({ embeds: [embedneutral] })
+  }
+  if (message.content.startsWith(prefix + "sleepy")) {
+    let user = message.author.username;
+    var respuestasleepy = ["https://media.tenor.com/MmjEo1QitoAAAAAC/little-anime.gif", "https://media.tenor.com/V5Y3vaFq7DcAAAAC/kanna-kawai.gif", "https://media.tenor.com/3Ti1nP8Mj6kAAAAM/yawn-nadeshiko.gif", "https://media.tenor.com/EMH0zrVV6LcAAAAM/sleepy-anime.gif", "https://media.tenor.com/wlI49Z28sawAAAAC/anime-sleepy.gif", "https://media.tenor.com/re9a71mA5xwAAAAC/nogamenolife-shiro.gif", "https://media.tenor.com/1UjVG4tHsPQAAAAC/lucky-star-yawn.gif", "https://media.tenor.com/hKli6TsxXYMAAAAC/tsukasa-anime.gif", "https://media.tenor.com/HouEItJq5tUAAAAM/sleepy.gif", "https://media.tenor.com/Izq6jHHDk20AAAAC/idolypride-anime.gif",
+      "https://media.tenor.com/L-XEzWbwm7IAAAAC/sleepy-sleepy-head.gif", "https://media.tenor.com/XcHZuEE48ngAAAAC/sleepy-yui.gif", "https://media.tenor.com/LVk1PDpuBmgAAAAC/anime-%E5%B0%8F%E6%9E%97%E3%81%95%E3%82%93%E3%81%A1%E3%81%AE%E3%83%A1%E3%82%A4%E3%83%89%E3%83%A9%E3%82%B4%E3%83%B3.gif", "https://media.tenor.com/i50gylGKwksAAAAC/cat-kitten.gif", "https://media.tenor.com/w5GG4ONbOh0AAAAC/sleepy-tired.gif", "https://media.tenor.com/1n6B6fRfZbUAAAAd/anime-sleepy.gif", "https://media.tenor.com/2w2IMfn9HDIAAAAd/sleep-sleepy.gif", "https://media.tenor.com/9WyP2MJlWiYAAAAC/kanna-sleepy.gif", "https://media.tenor.com/EFCJtCvJ39EAAAAM/himouto-umaru-chan-sylphynford-tachibana.gif",
+      "https://media.tenor.com/UygbJyHNMGUAAAAd/kiniro-mosaic-anime.gif", "https://media.tenor.com/BWx0XihzC9kAAAAd/anime-tired.gif", "https://media.tenor.com/ygF2TTmLCFwAAAAd/kanna-sleep-kanna.gif", "https://media.tenor.com/IsTHG9u7a40AAAAC/anime-brush-teeth.gif"]
+    let randomsleepy = respuestasleepy[Math.floor(respuestasleepy.length * Math.random())]
+
+    const embedsleepy = new Discord.EmbedBuilder()
+      .setDescription(`** ${user} ** esta muriendose de sueño... ≡(▔﹏▔)≡`)
+      .setColor("#6A6Af7")
+      .setImage(randomsleepy)
+
+    message.channel.send({ embeds: [embedsleepy] })
+  }
+  if (message.content.startsWith(prefix + "suprise")) {
+    let user = message.author.username
+    var respuestasuprise = ["https://media.tenor.com/VqgdK6STvZ0AAAAC/anime-fan27-idoly-pride.gif", "https://media.tenor.com/sHRwuETGrQAAAAAC/nichijou-hakase-shinonome.gif", "https://media.tenor.com/0gwoVD1Q6GQAAAAC/kaguya-shocked.gif", "https://media.tenor.com/ceZmZ6VDgeQAAAAC/hifumi-bubblyroz.gif", "https://media.tenor.com/mBG7KOJUyFwAAAAC/murenase-seton-gakuen-anime.gif", "https://media.tenor.com/xUU2lMEE79kAAAAC/idolypride-anime.gif", "https://media.tenor.com/hGCzNZNt5CYAAAAC/princess-connect-re-dive-kokkoro.gif", "https://media.tenor.com/4YbFUNwW9f8AAAAC/pokemon-surprised.gif", "https://media.tenor.com/OgwGtVKmXWAAAAAM/shocked-shy.gif",
+      "https://media.tenor.com/gAvUv5tY1pkAAAAM/anime-shocked.gif", "https://media.tenor.com/lrKi_mKGrXcAAAAM/chivalry-chivalry-of-a-failed-knight.gif", "https://media.tenor.com/nRrlYt8w7v8AAAAd/anime-smile.gif", "https://media.tenor.com/h3Uz-hrhgJgAAAAC/shocked-face.gif", "https://media.tenor.com/Y-L5r7LP_t0AAAAC/hologra-hololive.gif", "https://media.tenor.com/TmenruYgq0IAAAAC/fright-surprised.gif", "https://media.tenor.com/CSxTrBGvOOwAAAAC/hitoribocchi-shocked.gif", "https://media.tenor.com/nZk9wHCTBe0AAAAM/spy-x-family-anya.gif", "https://media.tenor.com/qp7g9UD7UeAAAAAC/anime-wow.gif", "https://media.tenor.com/ui1h5F1eIcIAAAAC/umaru-shocked.gif",
+      "https://media.tenor.com/A8Gv0K7mcvkAAAAC/shocked-scared-sailormoon-usagi-anime-oh-what.gif", "https://media.tenor.com/kfA-u3R5Ca8AAAAC/sailor-moon-shocked.gif", "https://media.tenor.com/OXyKtUKn_HIAAAAC/anime-karakei-jouzo-no-takagi-san.gif", "https://media.tenor.com/fZ4qQGQfSzgAAAAC/anime-kon-azusa.gif", "https://media.tenor.com/BkPzcaCsWAwAAAAC/omg-overwhelmed.gif", "https://media.tenor.com/PofuJvzbaIQAAAAC/loli-shy.gif", "https://media.tenor.com/XAMUJ6bzBJ8AAAAM/awkward-pout.gif"]
+    let randomsuprise = respuestasuprise[Math.floor(respuestasuprise.length * Math.random())]
+
+    const embedsuprise = new Discord.EmbedBuilder()
+      .setDescription(`**${user}** se acaba de sorprender o.o`)
+      .setColor("#FF00FF")
+      .setImage(randomsuprise)
+
+    message.channel.send({ embeds: [embedsuprise] })
+  }
+
 });
 client.login(config.token);
