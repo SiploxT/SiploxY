@@ -15,6 +15,8 @@ const config = require("./config.json");
 const fetch = require('node-fetch');
 const axios = require('axios');
 const cheerio = require('cheerio');
+const CharacterAI = require('node_characterai');
+let characterAIInstance = null;
 const ms = require('ms');
 const { getColorFromURL } = require('color-thief-node');
 const {Client} = require('google-img.js');
@@ -65,7 +67,7 @@ client.on("messageCreate", async (message) => {
       .setTitle(`**📑 | Comandos |** ${msgEmote}`)
       .setDescription(`_48 comandos en total > <_`)
       .addFields({ name: `▸ 🔧 Utilidad`, value: "> ``avatar (av)`` | ``ping`` | ``poll`` | ``purge`` | ``reminder`` | ``rolinfo (ri)`` | ``roles`` | ``servericon (sc)`` | ``serverinfo (si)`` | ``snipe`` | ``userinfo (ui)``" })
-      .addFields({ name: `▸ 🎲 Entretenimiento`, value: "> ``meme```| ``say (ss)``| ``8ball`` | ``coinflip`` | ``dado`` | ``randomuser`` | ``roulette`` | ``randomcap [BETA]``" })
+      .addFields({ name: `▸ 🎲 Entretenimiento`, value: "> ``meme``` | ``say (ss)``| ``8ball`` | ``coinflip`` | ``dado`` | ``randomuser`` | ``roulette`` | ``randomcap [BETA]``" })
       .addFields({ name: `▸ 🖼 Imagen`, value: "> ``img`` | ``capybara`` | ``cat`` | ``dog`` | ``neko`` | ``sadcat``" })
       .addFields({ name: `▸ 🎭 Interacción`, value: "> ``bite`` | ``cuddle`` | ``dance`` | ``hug`` | ``kill`` | ``kiss`` | ``lick`` | ``nap`` | ``pat`` | ``poke`` | ``punch`` | ``slap``" })
       .addFields({ name: `▸ 😄 Emoción`, value: "> ``angry`` | ``blush`` | ``confused`` | ``cry`` | ``disgust`` | ``fear`` | ``happy`` | ``neutral`` | ``sleepy`` | ``suprise``" })
