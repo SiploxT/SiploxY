@@ -71,7 +71,7 @@ client.on("messageCreate", async (message) => {
       .addFields({ name: `▸ 🖼 Imagen`, value: "> ``img`` | ``capybara`` | ``cat`` | ``dog`` | ``neko`` | ``sadcat``" })
       .addFields({ name: `▸ 🎭 Interacción`, value: "> ``bite`` | ``cuddle`` | ``dance`` | ``hug`` | ``kill`` | ``kiss`` | ``lick`` | ``nap`` | ``pat`` | ``poke`` | ``punch`` | ``slap``" })
       .addFields({ name: `▸ 😄 Emoción`, value: "> ``angry`` | ``blush`` | ``confused`` | ``cry`` | ``disgust`` | ``fear`` | ``happy`` | ``neutral`` | ``sleepy`` | ``suprise``" })
-      .addFields({name: `▸ 📦 Otros`, value: "> ``chat``"})
+      .addFields({name: `▸ 📦 Otros`, value: "> ``chat (BETA)``"})
       .setFooter({text: `s!botinfo para más información`})
       .setColor("#9C59B6")
 
