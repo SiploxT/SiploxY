@@ -71,6 +71,7 @@ client.on("messageCreate", async (message) => {
       .addFields({ name: `▸ 🖼 Imagen`, value: "> ``img`` | ``capybara`` | ``cat`` | ``dog`` | ``neko`` | ``sadcat``" })
       .addFields({ name: `▸ 🎭 Interacción`, value: "> ``bite`` | ``cuddle`` | ``dance`` | ``hug`` | ``kill`` | ``kiss`` | ``lick`` | ``nap`` | ``pat`` | ``poke`` | ``punch`` | ``slap``" })
       .addFields({ name: `▸ 😄 Emoción`, value: "> ``angry`` | ``blush`` | ``confused`` | ``cry`` | ``disgust`` | ``fear`` | ``happy`` | ``neutral`` | ``sleepy`` | ``suprise``" })
+      .addFields({name: `▸ 📦 Otros`, value: "> ``chat``"})
       .setFooter({text: `s!botinfo para más información`})
       .setColor("#9C59B6")
 
@@ -981,6 +982,34 @@ client.on("messageCreate", async (message) => {
       .setImage(randomsuprise)
 
     message.channel.send({ embeds: [embedsuprise] })
+  }
+
+
+  // OTROS ♥ ♥ ♥ //
+  // OTROS ♥ ♥ ♥ //
+
+  if(message.content.startsWith(prefix + "chat")){
+    let text = args.join(" ")
+    let user = message.author
+
+    let waitmessage = message.reply({ content: "Pensando... (^人^)" })
+
+    if (!characterAIInstance) {
+      characterAIInstance = new CharacterAI();
+      await characterAIInstance.authenticateWithToken(config.TOKEN_AI);
+    }
+
+    let characterId = config.ID_AI
+    const chat = await characterAIInstance.createOrContinueChat(characterId);
+
+    message.channel.sendTyping();
+
+    const response = await chat.sendAndAwaitResponse(`${text}`, true)
+    const embedResponse = new Discord.EmbedBuilder()
+    .setColor("#F0E4EA")
+    .setDescription(response.text)
+    message.reply({ embeds: [embedResponse] })
+
   }
 
 });
