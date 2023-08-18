@@ -289,13 +289,13 @@ client.on("messageCreate", async (message) => {
 
   }
   if (message.content.startsWith(prefix + "servericon") || message.content.startsWith(prefix + "sc")) {
-    let icon = message.guild.iconURL({ size: 2048, dyamic: true })
-    let id = message.guild;
+    let icon = message.guild.iconURL({ extension: "png", size: 2048, dyamic: true })
+    const dominantColor = await getColorFromURL(icon);
 
     const embedIcon = new Discord.EmbedBuilder()
 
       .setTitle("El icono de " + message.guild.name + " es:")
-      .setColor("#9C59B6")
+      .setColor(dominantColor)
       .setImage(icon)
 
     message.channel.send({ embeds: [embedIcon] })
@@ -320,7 +320,7 @@ client.on("messageCreate", async (message) => {
     // ↓↓↓ Nivel de Verificación
     const verificationLevel = server.verificationLevel;
     // ↓↓↓ Icono del Servidor
-    let icon = message.guild.iconURL({ size: 2048, dyamic: true })
+    let icon = message.guild.iconURL({ extension: "png", size: 2048, dyamic: true })
     // ↓↓↓ Nivel de Verificación
     function getVerificationLevelText(level) {
       switch (level) {
@@ -339,6 +339,8 @@ client.on("messageCreate", async (message) => {
       }
     }
 
+    const dominantColor = await getColorFromURL(icon);
+
     const embedServer = new Discord.EmbedBuilder()
       .setTitle(`Información del server - ${msgEmote}`)
       .setDescription(`**Nombre:** ${server.name}\n**ID:** ${server.id}`)
@@ -347,7 +349,7 @@ client.on("messageCreate", async (message) => {
       .addFields({ name: '__Estados de los Usuarios__', value: `- En línea: ${onlineMembers}\n- Ausente: ${idleMembers}\n- No molestar: ${dndMembers}\n- Desconectado: ${offlineMembers}` })
       .addFields({ name: '__Canales__', value: `- Total: ${totalChannels}\n- Texto: ${textChannels}\n- Voz: ${voiceChannels}\n- Hilos: ${threadChannels}` })
       .addFields({ name: '__Nivel de Verificación__', value: `- ${getVerificationLevelText(verificationLevel)}` })
-      .setColor("#9C59B6")
+      .setColor(dominantColor)
 
     message.channel.send({ embeds: [embedServer] })
 
@@ -381,7 +383,8 @@ client.on("messageCreate", async (message) => {
       user = message.member;
     }
 
-    let avatar = user.user.displayAvatarURL({ dynamic: true, size: 2048 })
+    let avatar = user.user.displayAvatarURL({ extension: "png", dynamic: true, size: 2048 })
+    const dominantColor = await getColorFromURL(avatar);
 
     if (user) {
       const embeduserinfo = new Discord.EmbedBuilder()
@@ -392,7 +395,7 @@ client.on("messageCreate", async (message) => {
       .addFields({name: `Fecha de creación`, value: `<t:${parseInt(user.user.createdAt.getTime() / 1000)}:R>`, inline: true})
       .setThumbnail(avatar)
       .setFooter({text: `User ID:` + `${user.id}`})
-      .setColor("#9C59B6")
+      .setColor(dominantColor)
 
       message.channel.send({ embeds : [embeduserinfo]})
     } else {
