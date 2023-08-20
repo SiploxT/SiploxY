@@ -15,6 +15,7 @@ const config = require("./config.json");
 const fetch = require('node-fetch');
 const axios = require('axios');
 const cheerio = require('cheerio');
+const puppeteer = require('puppeteer');
 const CharacterAI = require('node_characterai');
 let characterAIInstance = null;
 const ms = require('ms');
@@ -65,13 +66,13 @@ client.on("messageCreate", async (message) => {
   if (message.content.startsWith(prefix + 'help') || message.content.startsWith("<@955869268359127050> help")) {
     const embedHelp = new Discord.EmbedBuilder()
       .setTitle(`**📑 | Comandos |** ${msgEmote}`)
-      .setDescription(`_48 comandos en total > <_`)
+      .setDescription(`_50 comandos en total > <_`)
       .addFields({ name: `▸ 🔧 Utilidad`, value: "> ``avatar (av)`` | ``ping`` | ``poll`` | ``purge`` | ``reminder`` | ``rolinfo (ri)`` | ``roles`` | ``servericon (sc)`` | ``serverinfo (si)`` | ``snipe`` | ``userinfo (ui)``" })
-      .addFields({ name: `▸ 🎲 Entretenimiento`, value: "> ``meme``` | ``say (ss)``| ``8ball`` | ``coinflip`` | ``dado`` | ``randomuser`` | ``roulette`` | ``randomcap [BETA]``" })
-      .addFields({ name: `▸ 🖼 Imagen`, value: "> ``img`` | ``capybara`` | ``cat`` | ``dog`` | ``neko`` | ``sadcat``" })
+      .addFields({ name: `▸ 🎲 Entretenimiento`, value: "> ``meme`` | ``say (ss)``| ``8ball`` | ``coinflip`` | ``dado`` | ``randomuser`` | ``roulette`` | ``randomcap [BETA]``" })
+      .addFields({ name: `▸ 🖼 Imagen`, value: "> ``capybara`` | ``cat`` | ``dog`` | ``neko`` | ``sadcat``" })
       .addFields({ name: `▸ 🎭 Interacción`, value: "> ``bite`` | ``cuddle`` | ``dance`` | ``hug`` | ``kill`` | ``kiss`` | ``lick`` | ``nap`` | ``pat`` | ``poke`` | ``punch`` | ``slap``" })
       .addFields({ name: `▸ 😄 Emoción`, value: "> ``angry`` | ``blush`` | ``confused`` | ``cry`` | ``disgust`` | ``fear`` | ``happy`` | ``neutral`` | ``sleepy`` | ``suprise``" })
-      .addFields({name: `▸ 📦 Otros`, value: "> ``chat (BETA)``"})
+      .addFields({name: `▸ 📦 Otros`, value: "> ``ìmg`` | ``youtube (yt)`` | ``chat [BETA]``"})
       .setFooter({text: `s!botinfo para más información`})
       .setColor("#9C59B6")
 
@@ -548,25 +549,6 @@ client.on("messageCreate", async (message) => {
   // COMANDOS DE IMAGENES ♥ ♥ ♥ //
   // COMANDOS DE IMAGENES ♥ ♥ ♥ //
 
-  if (message.content.startsWith(prefix + "img")) {
-    const query = message.content.slice(5);
-    if (!query) {
-      return message.channel.send(`Necesitas buscar algo para conseguir una imagen ${msgEmote}`);
-    }
-  
-    google.search(query).then(async result => {
-      var totalImages = result.length;
-      if (result[0] == undefined) return message.channel.send({ content: "No se han encontrado imágenes" });
-  
-      var currentImage = Math.floor(Math.random() * totalImages);
-      const dominantColor = await getColorFromURL(result[currentImage].url);
-      const imgEmbed = new Discord.EmbedBuilder()
-        .setTitle(`Imagen de **~${query} ~**`)
-        .setImage(result[currentImage].url)
-        .setColor(dominantColor);
-      message.channel.send({ embeds: [imgEmbed] });
-    });
-  }
   
   if (message.content.startsWith(prefix + "capybara")) {
     var capy = ["capybara ?!", "capybara !  !! !", "^__^", "coconut doggy", "o my gosh", "cappy blappy"]
@@ -991,29 +973,86 @@ client.on("messageCreate", async (message) => {
   // OTROS ♥ ♥ ♥ //
   // OTROS ♥ ♥ ♥ //
 
-  if(message.content.startsWith(prefix + "chat")){
-    let text = args.join(" ")
-    let user = message.author
-
-    let waitmessage = message.reply({ content: "Pensando... (^人^)" })
-
-    if (!characterAIInstance) {
-      characterAIInstance = new CharacterAI();
-      await characterAIInstance.authenticateWithToken(config.TOKEN_AI);
+  if (message.content.startsWith(prefix + "img")) {
+    const query = message.content.slice(5);
+    if (!query) {
+      return message.channel.send(`Necesitas buscar algo para conseguir una imagen ${msgEmote}`);
     }
-
-    let characterId = config.ID_AI
-    const chat = await characterAIInstance.createOrContinueChat(characterId);
-
-    message.channel.sendTyping();
-
-    const response = await chat.sendAndAwaitResponse(`${text}`, true)
-    const embedResponse = new Discord.EmbedBuilder()
-    .setColor("#F0E4EA")
-    .setDescription(response.text)
-    message.reply({ embeds: [embedResponse] })
-
+  
+    google.search(query)
+      .then(async result => {
+        var totalImages = result.length;
+        if (result[0] == undefined) return message.channel.send({ content: "No se han encontrado imágenes" });
+  
+        var currentImage = Math.floor(Math.random() * totalImages);
+        const dominantColor = await getColorFromURL(result[currentImage].url);
+        const imgEmbed = new Discord.EmbedBuilder()
+          .setTitle(`Imagen de **~${query} ~**`)
+          .setImage(result[currentImage].url)
+          .setColor(dominantColor);
+        message.channel.send({ embeds: [imgEmbed] });
+      })
+      .catch(async error => {
+        console.error("Error:", error);
+        await message.channel.send("Ocurrió un error al procesar la solicitud. Por favor, inténtalo nuevamente más tarde.");
+  
+        // Reiniciar el bot
+        await client.destroy();
+        await client.login(config.token);
+      });
   }
+  if (message.content.startsWith(prefix + "youtube") || message.content.startsWith(prefix + "yt")) {
+    const query = message.content.slice(prefix.length + 8);
+  
+    fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&key=${config.YOUTUBE_API_KEY}`)
+      .then(response => response.json())
+      .then(data => {
+
+        if (data.items.length > 0) {
+          const videoId = data.items[0].id.videoId; // Obtener el ID del primer video de los resultados
+          const videoURL = `https://www.youtube.com/watch?v=${videoId}`; // Construir la URL del video
+  
+          message.channel.send(`${videoURL}`);
+        } else {
+          message.channel.send("No se encontraron resultados para tu búsqueda.");
+        }
+      })
+      .catch(error => {
+        console.error("Error al realizar la búsqueda en YouTube:", error);
+        message.channel.send("Ocurrió un error al buscar en YouTube. Por favor, inténtalo nuevamente más tarde.");
+      });
+  }
+  if (message.content.startsWith(prefix + "chat")) {
+    let text = args.join(" ");
+    let user = message.author;
+
+    let waitMessage = await message.reply({ content: "Pensando... (^人^)" });
+
+    try {
+        if (!characterAIInstance) {
+            characterAIInstance = new CharacterAI();
+            await characterAIInstance.authenticateWithToken(config.TOKEN_AI);
+        }
+
+        let characterId = config.ID_AI;
+        const chat = await characterAIInstance.createOrContinueChat(characterId);
+
+        message.channel.sendTyping();
+
+        const response = await chat.sendAndAwaitResponse(text, true);
+        const embedResponse = new Discord.MessageEmbed()
+            .setColor("#F0E4EA")
+            .setDescription(response.text);
+
+        await message.reply({ embeds: [embedResponse] });
+    } catch (error) {
+        console.error("Error:", error);
+        await waitMessage.edit("Ocurrió un error al procesar la solicitud. Por favor, inténtalo nuevamente más tarde.");
+        await client.destroy();
+        await client.login(config.token);
+    }
+}
+
 
 });
 client.login(config.token);
