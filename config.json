@@ -4,5 +4,6 @@
   "CSE_ID": "El ID de tu Custom Search Engine (https://cse.google.com/cse)",
   "CSE_API_KEY": "El API KEY de tu Custom Search engine (https://cse.google.com/cse), mas informacion de como sacar estos datos en https://github.com/Mendo6472/google-img.js"
   "ID_AI": "El ID del personaje de Character ai (https://github.com/realcoloride/node_characterai)",
-  "TOKEN_AI": "El token de tu cuenta de Character ai (https://github.com/realcoloride/node_characterai)"
+  "TOKEN_AI": "El token de tu cuenta de Character ai (https://github.com/realcoloride/node_characterai)",
+  "YOUTUBE_API_KEY": "El API KEY de tu YouTube Data API 3 (https://developers.google.com/youtube/?hl=es_419)"
 }
