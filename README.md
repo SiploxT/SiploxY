@@ -16,9 +16,7 @@
 
 ## ⚠ Problemas Conocidos
 
-- s!randomcap (BETA) - Algunas capturas no existen. (Este es un problema de la propia página, no tiene solución.)
-- s!chat (BETA) - Todavía no responde correctamente a los mensajes.
-
+- s!randomcap (BETA) - Algunas capturas no existen. (Este es un problema de la propia página, no tiene solución.
 
 ## 📜 Licencia
 Este proyecto utiliza la licencia de "[GNU Affero General Public License v3.0](https://github.com/SiploxT/SiploxY/blob/main/LICENSE)"
