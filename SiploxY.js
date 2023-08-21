@@ -1031,7 +1031,7 @@ client.on("messageCreate", async (message) => {
     try {
         if (!characterAIInstance) {
             characterAIInstance = new CharacterAI();
-            await characterAIInstance.authenticateWithToken(config.TOKEN_AI);
+            await characterAIInstance.authenticateAsGuest();
         }
 
         let characterId = config.ID_AI;
@@ -1040,7 +1040,7 @@ client.on("messageCreate", async (message) => {
         message.channel.sendTyping();
 
         const response = await chat.sendAndAwaitResponse(text, true);
-        const embedResponse = new Discord.MessageEmbed()
+        const embedResponse = new Discord.EmbedBuilder()
             .setColor("#F0E4EA")
             .setDescription(response.text);
 
