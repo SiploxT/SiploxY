@@ -1025,33 +1025,29 @@ client.on("messageCreate", async (message) => {
   if (message.content.startsWith(prefix + "chat")) {
     let text = args.join(" ");
     let user = message.author;
-
+  
     let waitMessage = await message.reply({ content: "Pensando... (^人^)" });
-
+  
     try {
-        if (!characterAIInstance) {
-            characterAIInstance = new CharacterAI();
-            await characterAIInstance.authenticateAsGuest();
-        }
-
-        let characterId = config.ID_AI;
-        const chat = await characterAIInstance.createOrContinueChat(characterId);
-
-        message.channel.sendTyping();
-
-        const response = await chat.sendAndAwaitResponse(text, true);
-        const embedResponse = new Discord.EmbedBuilder()
-            .setColor("#F0E4EA")
-            .setDescription(response.text);
-
-        await message.reply({ embeds: [embedResponse] });
+      if (!characterAIInstance) {
+        characterAIInstance = new CharacterAI();
+        await characterAIInstance.authenticateAsGuest();
+      }
+  
+      let characterId = config.ID_AI;
+      const chat = await characterAIInstance.createOrContinueChat(characterId);
+  
+      message.channel.sendTyping();
+  
+      const response = await chat.sendAndAwaitResponse(text, true);
+      await waitMessage.edit({ content: response.text });
     } catch (error) {
-        console.error("Error:", error);
-        await waitMessage.edit("Ocurrió un error al procesar la solicitud. Por favor, inténtalo nuevamente más tarde.");
-        await client.destroy();
-        await client.login(config.token);
+      console.error("Error:", error);
+      await waitMessage.edit("Ocurrió un error al procesar la solicitud. Por favor, inténtalo nuevamente más tarde.");
+      await client.destroy();
+      await client.login(config.token);
     }
-}
+  }
 
 
 });
