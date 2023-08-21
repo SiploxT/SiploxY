@@ -12,7 +12,7 @@
 - Prefix: [s!](https://github.com/SiploxT/SiploxY/blob/main/config.json)
 - Discord.js: [14.11.0](https://github.com/SiploxT/SiploxY/blob/main/package.json)
 - Hay un comando help para poder ver todos los comandos disponibles. (s!help)
-- El bot cuenta con comandos de utilidad, entretenimiento, imagenes, interacción y de emociones.
+- El bot cuenta con comandos de utilidad, entretenimiento, imagenes, interacción, emociones y otros.
 
 ## ⚠ Problemas Conocidos
 
