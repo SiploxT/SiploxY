@@ -72,7 +72,7 @@ client.on("messageCreate", async (message) => {
       .addFields({ name: `▸ 🖼 Imagen`, value: "> ``capybara`` | ``cat`` | ``dog`` | ``neko`` | ``sadcat``" })
       .addFields({ name: `▸ 🎭 Interacción`, value: "> ``bite`` | ``cuddle`` | ``dance`` | ``hug`` | ``kill`` | ``kiss`` | ``lick`` | ``nap`` | ``pat`` | ``poke`` | ``punch`` | ``slap``" })
       .addFields({ name: `▸ 😄 Emoción`, value: "> ``angry`` | ``blush`` | ``confused`` | ``cry`` | ``disgust`` | ``fear`` | ``happy`` | ``neutral`` | ``sleepy`` | ``suprise``" })
-      .addFields({name: `▸ 📦 Otros`, value: "> ``ìmg`` | ``youtube (yt)`` | ``chat [BETA]``"})
+      .addFields({name: `▸ 📦 Otros`, value: "> ``ìmg`` | ``gif [BETA]`` | ``youtube (yt)`` | ``chat [BETA]``"})
       .setFooter({text: `s!botinfo para más información`})
       .setColor("#9C59B6")
 
@@ -999,6 +999,33 @@ client.on("messageCreate", async (message) => {
         // Reiniciar el bot
         await client.destroy();
         await client.login(config.token);
+      });
+  }
+  if (message.content.startsWith(prefix + "gif")) {
+    const tenorApiKey = config.TENOR_API_KEY;
+  
+    const searchTerm = message.content.slice(prefix.length + 4);
+    fetch(`https://api.tenor.com/v1/search?q=${encodeURIComponent(searchTerm)}&key=${tenorApiKey}&limit=1`)
+      .then(response => response.json())
+      .then(data => {
+        // Verifica si se encontraron resultados
+        if (data.results && data.results.length > 0) {
+          // Obtiene el enlace del gif
+          const gifUrl = data.results[0].media[0].gif.url;
+          // Envía el gif al canal
+          const embedgif = new Discord.EmbedBuilder()
+            .setImage(gifUrl)
+            .setTitle(`**Gif de ~ ${searchTerm} ~**`)
+            .setColor("Purple");
+          message.channel.send(embedgif);
+        } else {
+          // Si no se encontraron resultados, envía un mensaje de error
+          message.channel.send("No se encontraron gifs para ese término de búsqueda.");
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        message.channel.send("Ocurrió un error al buscar el gif. Por favor, inténtalo nuevamente más tarde.");
       });
   }
   if (message.content.startsWith(prefix + "youtube") || message.content.startsWith(prefix + "yt")) {
