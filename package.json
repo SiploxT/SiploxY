@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "2048.js": "^1.0.2",
-    "axios": "^1.4.0",
+    "axios": "^1.6.0",
     "canvas": "^2.11.2",
     "cheerio": "^1.0.0-rc.12",
     "color-thief-node": "^1.0.4",
