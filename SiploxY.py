@@ -19,7 +19,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     
-    ## Help
+    ## Lista de comandos
 
     if message.content.startswith(f"{prefix}help"):
         embed = discord.Embed(
@@ -34,20 +34,28 @@ async def on_message(message):
     ## Utilidad
 
     if message.content.startswith(f"{prefix}avatar"):
-
         if message.mentions:
-            user = message.mentions[0]
+            user = message.mentions[0]  # Toma el primer usuario mencionado
         else:
-            user = message.autho
+            user = message.author  # Si no hay menciones, usa el autor del mensaje
 
-        avatar_url = user.display_avatar.url
+        # Base URL del avatar usando diferentes formatos soportados por Discord
+        avatar_url_png = user.display_avatar.with_format("png").url
+        avatar_url_webp = user.display_avatar.with_format("webp").url
+        avatar_url_jpg = user.display_avatar.with_format("jpg").url
+        avatar_url_jpeg = user.display_avatar.with_format("jpeg").url
+
+        # Enlaces a diferentes formatos
+        links_text = f"> [PNG]({avatar_url_png}) | [WEBP]({avatar_url_webp}) | [JPG]({avatar_url_jpg}) | [JPEG]({avatar_url_jpeg})"
 
         embed = discord.Embed(
-            title=f"| Avatar de {user} |",
-            description=f"[Enlace de la imagen]({avatar_url})",
-            colour=discord.Color.from_rgb(255,255,255)
+            title=f" :art:  | Avatar de {user} |",
+            colour=discord.Color.from_rgb(255, 255, 255)
         )
-        embed.set_image(url=avatar_url)
+        embed.set_image(url=avatar_url_png)  # Establece la imagen del embed como PNG
+
+        # Añadir el campo con los enlaces a diferentes formatos
+        embed.add_field(name="Enlaces a otros formatos", value=links_text, inline=False)
 
         await message.channel.send(embed=embed)
         
