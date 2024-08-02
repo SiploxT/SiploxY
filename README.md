@@ -5,9 +5,9 @@
 [![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/)
 ![Lenguaje](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
-## 📜 Licencia
-Este proyecto utiliza la licencia de "[GNU Affero General Public License v3.0](https://github.com/SiploxT/SiploxY/blob/main/LICENSE)"
-
 ## ⚠ Problemas conocidos
 
 - s!servericon (s!si) hace que las imagenes disminuyan de resolución al cambiar el formato
+
+## 📜 Licencia
+Este proyecto utiliza la licencia de "[GNU Affero General Public License v3.0](https://github.com/SiploxT/SiploxY/blob/main/LICENSE)"
