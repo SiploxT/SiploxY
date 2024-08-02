@@ -22,18 +22,20 @@ async def on_message(message):
     ## Lista de comandos
 
     if message.content.startswith(f"{prefix}help"):
+
         embed = discord.Embed(
             title="📑 | Comandos |",
             colour=discord.Color.from_rgb(255, 255, 255)
         )
-
-        embed.add_field(name="Utilidad", value="> ``avatar``")
+        
+        embed.add_field(name="▸ 🔧 Utilidad", value="> ``servericon (si)`` | ``avatar (a)``")
         
         await message.channel.send(embed=embed)
 
     ## Utilidad
 
-    if message.content.startswith(f"{prefix}avatar"):
+    if message.content.startswith(f"{prefix}avatar") or message.content.startswith(f"{prefix}a"):
+
         if message.mentions:
             user = message.mentions[0]
         else:
@@ -50,12 +52,29 @@ async def on_message(message):
             title=f" :art:  | Avatar de {user} |",
             colour=discord.Color.from_rgb(255, 255, 255)
         )
+        embed.add_field(name="Enlaces a otros formatos", value=links_text, inline=False)
         embed.set_image(url=avatar_url_png)
 
+        await message.channel.send(embed=embed)
+
+    if message.content.startswith(f"{prefix}servericon") or message.content.startswith(f"{prefix}si"):
+        GuildName = message.guild.name
+
+        icon_url_png = f"{message.guild.icon.url}.png"
+        icon_url_webp = f"{message.guild.icon.url}.webp"
+        icon_url_jpg = f"{message.guild.icon.url}.jpg"
+        icon_url_jpeg = f"{message.guild.icon.url}.jpeg"
+
+        links_text = f"> [PNG]({icon_url_png}) | [WEBP]({icon_url_webp}) | [JPG]({icon_url_jpg}) | [JPEG]({icon_url_jpeg})"
+
+        embed = discord.Embed(
+            title=f" :art:  | Icono de {GuildName} |",
+            colour=discord.Color.from_rgb(255, 255, 255)
+        )
         embed.add_field(name="Enlaces a otros formatos", value=links_text, inline=False)
+        embed.set_image(url=f"{message.guild.icon.url}")
 
         await message.channel.send(embed=embed)
-        
-# Introducir tu token: https://discord.com/developers/applications
 
-client.run(TOKEN)
+# Reemplazar "TOKEN" por una token de bot. (https://discord.com/developers/applications)
+client.run("TOKEN")
