@@ -27,7 +27,7 @@ async def on_message(message):
             title="📑 | Comandos |",
             colour=discord.Color.from_rgb(255, 255, 255)
         )
-        
+
         embed.add_field(name="▸ 🔧 Utilidad", value="> ``servericon (si)`` | ``avatar (a)``")
         
         await message.channel.send(embed=embed)
@@ -60,10 +60,10 @@ async def on_message(message):
     if message.content.startswith(f"{prefix}servericon") or message.content.startswith(f"{prefix}si"):
         GuildName = message.guild.name
 
-        icon_url_png = f"{message.guild.icon.url}.png"
-        icon_url_webp = f"{message.guild.icon.url}.webp"
-        icon_url_jpg = f"{message.guild.icon.url}.jpg"
-        icon_url_jpeg = f"{message.guild.icon.url}.jpeg"
+        icon_url_png = message.guild.icon.with_format("png").url
+        icon_url_webp = message.guild.icon.with_format("webp").url
+        icon_url_jpg = message.guild.icon.with_format("jpg").url
+        icon_url_jpeg = message.guild.icon.with_format("jpeg").url
 
         links_text = f"> [PNG]({icon_url_png}) | [WEBP]({icon_url_webp}) | [JPG]({icon_url_jpg}) | [JPEG]({icon_url_jpeg})"
 
@@ -72,7 +72,7 @@ async def on_message(message):
             colour=discord.Color.from_rgb(255, 255, 255)
         )
         embed.add_field(name="Enlaces a otros formatos", value=links_text, inline=False)
-        embed.set_image(url=f"{message.guild.icon.url}")
+        embed.set_image(url=icon_url_png)
 
         await message.channel.send(embed=embed)
 
