@@ -43,7 +43,7 @@ async def on_message(message):
             colour=discord.Color.from_rgb(255, 255, 255)
         )
 
-        embed.add_field(name="▸ 🔧 Utilidad", value="> ``servericon (si)`` | ``avatar (a)`` | ``banner (b) | ``ping``")
+        embed.add_field(name="▸ 🔧 Utilidad", value="> ``servericon (si)`` | ``avatar (a)`` | ``banner (b)`` | ``ping``")
         
         await message.channel.send(embed=embed)
 
