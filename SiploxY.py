@@ -1,4 +1,6 @@
 import discord
+import os
+import sys
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -14,11 +16,24 @@ async def on_ready():
 @client.event
 async def on_message(message):
 
-    # Anti-loop
+    ## Anti-loop
 
     if message.author == client.user:
         return
     
+    ## Reset
+    
+    if message.content.startswith(f"{prefix}r"):
+
+        ## Debes cambiar la ID de usuario a la del developer de este bot. (Pueden ser varias IDs)
+        if message.author.id == 666280222324162560 or message.author.id == 1116003595440111736:
+            
+            await message.channel.send(f"Reiniciando el cliente {client.user}...")
+            os.execv(sys.executable, ['python'] + sys.argv)
+
+        else:
+            await message.channel.send("No tienes permisos para reiniciar el cliente.")
+
     ## Lista de comandos
 
     if message.content.startswith(f"{prefix}help"):
@@ -28,11 +43,14 @@ async def on_message(message):
             colour=discord.Color.from_rgb(255, 255, 255)
         )
 
-        embed.add_field(name="▸ 🔧 Utilidad", value="> ``servericon (si)`` | ``avatar (a)`` | ``banner (b)")
+        embed.add_field(name="▸ 🔧 Utilidad", value="> ``servericon (si)`` | ``avatar (a)`` | ``banner (b) | ``ping``")
         
         await message.channel.send(embed=embed)
 
     ## Utilidad
+
+    if message.content.startswith(f"{prefix}ping"):
+       await message.channel.send(f"La latencia de {client.user} es de **{round(client.latency * 1000)}ms**.")
 
     if message.content.startswith(f"{prefix}servericon") or message.content.startswith(f"{prefix}si"):
         GuildName = message.guild.name
@@ -45,7 +63,7 @@ async def on_message(message):
         links_text = f"> [PNG]({icon_url_png}) | [WEBP]({icon_url_webp}) | [JPG]({icon_url_jpg}) | [JPEG]({icon_url_jpeg})"
 
         embed = discord.Embed(
-            title=f" :art:  | Icono de {GuildName} |",
+            title=f" :art:  | Icono de **{GuildName}** |",
             colour=discord.Color.from_rgb(255, 255, 255)
         )
         embed.add_field(name="Enlaces a otros formatos", value=links_text, inline=False)
@@ -73,7 +91,7 @@ async def on_message(message):
         links_text = f"> [PNG]({avatar_url_png}) | [WEBP]({avatar_url_webp}) | [JPG]({avatar_url_jpg}) | [JPEG]({avatar_url_jpeg})"
 
         embed = discord.Embed(
-            title=f" :art:  | Avatar de {user} |",
+            title=f" :art:  | Avatar de **{user}** |",
             colour=discord.Color.from_rgb(255, 255, 255)
         )
         embed.add_field(name="Enlaces a otros formatos", value=links_text, inline=False)
@@ -104,7 +122,7 @@ async def on_message(message):
             links_text = f"> [PNG]({banner_url_png}) | [WEBP]({banner_url_webp}) | [JPG]({banner_url_jpg}) | [JPEG]({banner_url_jpeg})"
 
             embed = discord.Embed(
-                title=f" :art:  | Banner de {user} |",
+                title=f" :art:  | Banner de **{user}** |",
                 colour=discord.Color.from_rgb(255, 255, 255)
             )
             embed.add_field(name="Enlaces a otros formatos", value=links_text, inline=False)
@@ -113,6 +131,9 @@ async def on_message(message):
             await message.channel.send(embed=embed)
         else:
             await message.channel.send(f"{user} no tiene un banner.")
+
+        if message.content.startswith(f"{prefix}ping"):
+            await message.channel.send(f"La latencia de {client.user} es de **{round(client.latency * 1000)}ms**.")
 
 # Reemplazar "TOKEN" por una token de bot. (https://discord.com/developers/applications)
 client.run("TOKEN")
