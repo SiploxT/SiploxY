@@ -55,8 +55,13 @@ async def on_message(message):
 
     if message.content.startswith(f"{prefix}avatar") or message.content.startswith(f"{prefix}a"):
 
+        partes = message.content.split(" ")
+
         if message.mentions:
             user = message.mentions[0]
+        elif len(partes)>1:
+            await message.channel.send(f"Menciona a un usuario para ver su avatar. \nEj: s!a <@955869268359127050>")
+            return
         else:
             user = message.author
 
@@ -78,8 +83,13 @@ async def on_message(message):
 
     if message.content.startswith(f"{prefix}banner") or message.content.startswith(f"{prefix}b"):
 
+        partes = message.content.split(" ")
+
         if message.mentions:
             user_id = message.mentions[0].id
+        elif len(partes)>1:
+            await message.channel.send(f"Menciona a un usuario para ver su banner. \nEj: s!b <@955869268359127050>")
+            return
         else:
             user_id = message.author.id
 
