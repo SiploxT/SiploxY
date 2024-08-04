@@ -135,5 +135,5 @@ async def on_message(message):
         if message.content.startswith(f"{prefix}ping"):
             await message.channel.send(f"La latencia de {client.user} es de **{round(client.latency * 1000)}ms**.")
 
-# Reemplazar "TOKEN" por una token de bot. (https://discord.com/developers/applications)
+# Reemplazar "TOKEN" por una token de cliente. (https://discord.com/developers/applications)
 client.run("TOKEN")
