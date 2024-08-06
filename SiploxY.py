@@ -3,6 +3,8 @@ import os
 import sys
 
 intents = discord.Intents.default()
+intents.members = True
+intents.presences = True
 intents.message_content = True
 
 client = discord.Client(intents=intents)
@@ -51,13 +53,17 @@ async def on_message(message):
 
     if message.content.startswith(f"{prefix}serverinfo") or message.content.startswith(f"{prefix}si"):
 
+        TotalMembers = message.guild.member_count
+        Bots = sum(1 for member in message.guild.members if member.bot)
+        Users = TotalMembers-Bots # Se restan la cantidad de bots a la cantidad de todos los miembros totales (Bots y usuarios), lo que resulta en la cantidad de usuarios.
+
         embed = discord.Embed(
-            title = f" 🖨️   | Información de {message.guild.name} |",
+            title = f" 🖨️ | Información de {message.guild.name} |",
             colour = discord.Color.from_rgb(255, 255, 255)
         )
         embed.set_thumbnail(url=message.guild.icon.with_format("png").url)
-        embed.add_field(name="Miembros", value=f"Total: {message.guild.member_count}\nUsuarios: {sum(1 for member in message.guild.members if not member.bot)}\nBots: {sum(1 for member in message.guild.members if member.bot)}")
-        embed.add_field(name="Estados", value=f"Conectados: {sum(1 for member in message.guild.members if member.status == discord.Status.online)}\nNo molestar: {sum(1 for member in message.guild.members if member.status == discord.Status.dnd)}\nAusentes: {sum(1 for member in message.guild.members if member.status == discord.Status.idle)}\nDesconectados: {sum(1 for member in message.guild.members if member.status == discord.Status.idle)}")
+        embed.add_field(name="Miembros", value=f":bust_in_silhouette: Total: {TotalMembers}\n🧑🏻 Usuarios: {Users}\n:robot: Bots: {Bots}")
+        embed.add_field(name="Estados", value=f" 💚 Conectados: {sum(1 for member in message.guild.members if member.status == discord.Status.online)}\n❤️ No molestar: {sum(1 for member in message.guild.members if member.status == discord.Status.dnd)}\n🧡 Ausentes: {sum(1 for member in message.guild.members if member.status == discord.Status.idle)}\n:grey_heart: Desconectados: {sum(1 for member in message.guild.members if member.status == discord.Status.offline)}")
 
         await message.channel.send(embed=embed)
 
@@ -141,7 +147,7 @@ async def on_message(message):
             await message.channel.send(f"{user} no tiene un banner.")
 
         if message.content.startswith(f"{prefix}ping"):
-            await message.channel.send(f"La latencia de {client.user} es de **{round(client.latency * 1000)}ms**.")   
+            await message.channel.send(f"La latencia de {client.user} es de **{round(client.latency * 1000)}ms**.") 
 
 # Reemplazar "TOKEN" por una token de cliente. (https://discord.com/developers/applications)
 client.run("TOKEN")
