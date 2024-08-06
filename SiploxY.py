@@ -39,21 +39,29 @@ async def on_message(message):
     if message.content.startswith(f"{prefix}help"):
 
         embed = discord.Embed(
-            title="📑 | Comandos |",
-            colour=discord.Color.from_rgb(255, 255, 255)
+            title = "📑 | Comandos |",
+            colour = discord.Color.from_rgb(255, 255, 255)
         )
 
-        embed.add_field(name="▸ 🔧 Utilidad", value="> ``servericon (si)`` | ``avatar (a)`` | ``banner (b)`` | ``ping``")
+        embed.add_field(name="▸ 🔧 Utilidad", value="> ``servericon (sc)`` | ``avatar (a)`` | ``banner (b)`` | ``ping``")
         
         await message.channel.send(embed=embed)
 
     ## Utilidad
 
-    if message.content.startswith(f"{prefix}ping"):
-       await message.channel.send(f"La latencia de {client.user} es de **{round(client.latency * 1000)}ms**.")
+    if message.content.startswith(f"{prefix}serverinfo") or message.content.startswith(f"{prefix}si"):
 
-    if message.content.startswith(f"{prefix}servericon") or message.content.startswith(f"{prefix}si"):
-        GuildName = message.guild.name
+        embed = discord.Embed(
+            title = f" 🖨️   | Información de {message.guild.name} |",
+            colour = discord.Color.from_rgb(255, 255, 255)
+        )
+        embed.set_thumbnail(url=message.guild.icon.with_format("png").url)
+        embed.add_field(name="Miembros", value=f"Total: {message.guild.member_count}\nUsuarios: {sum(1 for member in message.guild.members if not member.bot)}\nBots: {sum(1 for member in message.guild.members if member.bot)}")
+        embed.add_field(name="Estados", value=f"Conectados: {sum(1 for member in message.guild.members if member.status == discord.Status.online)}\nNo molestar: {sum(1 for member in message.guild.members if member.status == discord.Status.dnd)}\nAusentes: {sum(1 for member in message.guild.members if member.status == discord.Status.idle)}\nDesconectados: {sum(1 for member in message.guild.members if member.status == discord.Status.idle)}")
+
+        await message.channel.send(embed=embed)
+
+    if message.content.startswith(f"{prefix}servericon") or message.content.startswith(f"{prefix}sc"):
 
         icon_url_png = message.guild.icon.with_format("png").url
         icon_url_webp = message.guild.icon.with_format("webp").url
@@ -63,8 +71,8 @@ async def on_message(message):
         links_text = f"> [PNG]({icon_url_png}) | [WEBP]({icon_url_webp}) | [JPG]({icon_url_jpg}) | [JPEG]({icon_url_jpeg})"
 
         embed = discord.Embed(
-            title=f" :art:  | Icono de **{GuildName}** |",
-            colour=discord.Color.from_rgb(255, 255, 255)
+            title = f" :art:  | Icono de **{message.guild.name}** |",
+            colour = discord.Color.from_rgb(255, 255, 255)
         )
         embed.add_field(name="Enlaces a otros formatos", value=links_text, inline=False)
         embed.set_image(url=icon_url_png)
@@ -91,8 +99,8 @@ async def on_message(message):
         links_text = f"> [PNG]({avatar_url_png}) | [WEBP]({avatar_url_webp}) | [JPG]({avatar_url_jpg}) | [JPEG]({avatar_url_jpeg})"
 
         embed = discord.Embed(
-            title=f" :art:  | Avatar de **{user}** |",
-            colour=discord.Color.from_rgb(255, 255, 255)
+            title = f" :art:  | Avatar de **{user}** |",
+            colour = discord.Color.from_rgb(255, 255, 255)
         )
         embed.add_field(name="Enlaces a otros formatos", value=links_text, inline=False)
         embed.set_image(url=avatar_url_png)
@@ -122,8 +130,8 @@ async def on_message(message):
             links_text = f"> [PNG]({banner_url_png}) | [WEBP]({banner_url_webp}) | [JPG]({banner_url_jpg}) | [JPEG]({banner_url_jpeg})"
 
             embed = discord.Embed(
-                title=f" :art:  | Banner de **{user}** |",
-                colour=discord.Color.from_rgb(255, 255, 255)
+                title = f" :art:  | Banner de **{user}** |",
+                colour = discord.Color.from_rgb(255, 255, 255)
             )
             embed.add_field(name="Enlaces a otros formatos", value=links_text, inline=False)
             embed.set_image(url=banner_url_png)
@@ -133,7 +141,7 @@ async def on_message(message):
             await message.channel.send(f"{user} no tiene un banner.")
 
         if message.content.startswith(f"{prefix}ping"):
-            await message.channel.send(f"La latencia de {client.user} es de **{round(client.latency * 1000)}ms**.")
+            await message.channel.send(f"La latencia de {client.user} es de **{round(client.latency * 1000)}ms**.")   
 
 # Reemplazar "TOKEN" por una token de cliente. (https://discord.com/developers/applications)
 client.run("TOKEN")
