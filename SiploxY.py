@@ -45,7 +45,7 @@ async def on_message(message):
             colour = discord.Color.from_rgb(255, 255, 255)
         )
 
-        embed.add_field(name="▸ 🔧 Utilidad", value="> ``serverinfo (si)`` | ``servericon (sc)`` | ``avatar (a)`` | ``banner (b)`` | ``ping (p)``")
+        embed.add_field(name="▸ 🔧 Utilidad", value="> ``serverinfo (si)`` | ``servericon (sc)`` | ``userinfo (ui)`` | ``avatar (a)`` | ``banner (b)`` | ``ping (p)``")
         
         await message.channel.send(embed=embed)
 
@@ -72,7 +72,7 @@ async def on_message(message):
 
         embed = discord.Embed(
             title = f" 🖨️ | Información de {message.guild.name} |",
-            colour = discord.Color.from_rgb(255, 255, 255)
+            colour=discord.Color.from_rgb(255, 255, 255)
         )
         embed.set_thumbnail(url=message.guild.icon.with_format("png").url)
         embed.add_field(name="__Miembros__", value=f":bust_in_silhouette: Total: {TotalMembers}\n\n🧑🏻 Usuarios: {Users}\n:robot: Bots: {Bots}")
@@ -94,7 +94,7 @@ async def on_message(message):
 
         embed = discord.Embed(
             title = f" :art:  | Icono de **{message.guild.name}** |",
-            colour = discord.Color.from_rgb(255, 255, 255)
+            colour=discord.Color.from_rgb(255, 255, 255)
         )
         embed.add_field(name="__Enlaces a otros formatos__", value=links_text, inline=False)
         embed.set_image(url=icon_url_png)
@@ -119,11 +119,11 @@ async def on_message(message):
         )
     
         embed.set_thumbnail(url=user.display_avatar.with_format("png").url)
-        embed.add_field(name="__Fecha de creación__", value=f"{user.created_at.strftime("%d/%m/%Y a las %H:%M")}")
-        embed.add_field(name="__Fecha de unión__", value=f"{user.joined_at.strftime("%d%m%Y a las %H:%M")}", inline=False)
+        embed.add_field(name="__Fecha de creación__", value=f"{user.created_at.strftime("%d/%m/%Y a las %H:%M")}", inline=False)
+        embed.add_field(name="__Fecha de unión__", value=f"{user.joined_at.strftime("%d/%m/%Y a las %H:%M")}", inline=False)
         embed.add_field(name="__ID de usuario__", value=f"{user.id}")
 
-    await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed)
 
     if message.content.startswith(f"{prefix}avatar") or message.content.startswith(f"{prefix}a"):
 
@@ -146,7 +146,7 @@ async def on_message(message):
 
         embed = discord.Embed(
             title = f" :art:  | Avatar de **{user}** |",
-            colour = discord.Color.from_rgb(255, 255, 255)
+            colour = user.accent_color
         )
         embed.add_field(name="__Enlaces a otros formatos__", value=links_text, inline=False)
         embed.set_image(url=avatar_url_png)
@@ -168,6 +168,7 @@ async def on_message(message):
         user = await client.fetch_user(user_id)    
 
         if user.banner:
+
             banner_url_png = user.banner.with_format("png").url
             banner_url_webp = user.banner.with_format("webp").url
             banner_url_jpg = user.banner.with_format("jpg").url
@@ -177,14 +178,35 @@ async def on_message(message):
 
             embed = discord.Embed(
                 title = f" :art:  | Banner de **{user}** |",
-                colour = discord.Color.from_rgb(255, 255, 255)
+                colour=discord.Color.from_rgb(255, 255, 255)
             )
             embed.add_field(name="__Enlaces a otros formatos__", value=links_text, inline=False)
             embed.set_image(url=banner_url_png)
 
             await message.channel.send(embed=embed)
+
         else:
-            await message.channel.send(f"{user} no tiene un banner.")
+
+            color_hex = f"{user.accent_color.value:06x}"
+            AccentBanner = f"https://singlecolorimage.com/get/{color_hex}/1000x300"
+
+            if user.accent_color:
+                embed = discord.Embed(
+                    title=f"🎨 | Color de acento de **{user}** |",
+                    colour=user.accent_color
+                )
+                embed.set_image(url=AccentBanner)
+
+                await message.channel.send(embed=embed)
+
+            else:
+
+                embed = discord.Embed(
+                    title=f"🎨 | Información de **{user}** |",
+                    description="Este usuario no tiene un banner ni un color de acento establecido.",
+                    colour=discord.Color.from_rgb(255, 255, 255)
+                )
+                message.channel.send(embed=embed)
 
         if message.content.startswith(f"{prefix}ping") or message.content.startswith(f"{prefix}p"):
             await message.channel.send(f"La latencia de {client.user} es de **{round(client.latency * 1000)}ms**.")
