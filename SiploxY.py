@@ -101,6 +101,30 @@ async def on_message(message):
 
         await message.channel.send(embed=embed)
 
+    if message.content.startswith(f"{prefix}userinfo") or message.content.startswith(f"{prefix}ui"):
+
+        partes = message.content.split(" ")
+
+        if message.mentions:
+            user = message.mentions[0]
+        elif len(partes) > 1:
+            await message.channel.send(f"Menciona a un usuario para ver su perfil.\nEj: {prefix}ui @usuario")
+            return
+        else:
+            user = message.author
+
+        embed = discord.Embed(
+            title=f"🖨️ | Información de **{user} |**",
+            colour=user.accent_color
+        )
+    
+        embed.set_thumbnail(url=user.display_avatar.with_format("png").url)
+        embed.add_field(name="__Fecha de creación__", value=f"{user.created_at.strftime("%d/%m/%Y a las %H:%M")}")
+        embed.add_field(name="__Fecha de unión__", value=f"{user.joined_at.strftime("%d%m%Y a las %H:%M")}", inline=False)
+        embed.add_field(name="__ID de usuario__", value=f"{user.id}")
+
+    await message.channel.send(embed=embed)
+
     if message.content.startswith(f"{prefix}avatar") or message.content.startswith(f"{prefix}a"):
 
         partes = message.content.split(" ")
