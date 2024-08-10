@@ -99,7 +99,7 @@ async def on_message(message):
         embed.add_field(name="__Enlaces a otros formatos__", value=links_text, inline=False)
         embed.set_image(url=icon_url_png)
 
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed) 
 
     if message.content.startswith(f"{prefix}userinfo") or message.content.startswith(f"{prefix}ui"):
 
@@ -206,10 +206,24 @@ async def on_message(message):
                     description="Este usuario no tiene un banner ni un color de acento establecido.",
                     colour=discord.Color.from_rgb(255, 255, 255)
                 )
-                message.channel.send(embed=embed)
+                await message.channel.send(embed=embed)
 
-        if message.content.startswith(f"{prefix}ping") or message.content.startswith(f"{prefix}p"):
-            await message.channel.send(f"La latencia de {client.user} es de **{round(client.latency * 1000)}ms**.")
+    if message.content.startswith(f"{prefix}ping") or message.content.startswith(f"{prefix}p"):
+        await message.channel.send(f"La latencia de {client.user} es de **{round(client.latency * 1000)}ms**.")
+
+    ## Entretenimiento
+
+    if message.content.startswith(f"{prefix}say") or message.content.startswith(f"{prefix}s"):
+    
+        if message.content.startswith(f"{prefix}say"):
+            content = message.content[len(f"{prefix}say"):].strip()
+        else:
+            content = message.content[len(f"{prefix}s"):].strip()
+
+        print(f"El usuario \"{message.author}\" ha escrito: \"{content}\" en {message.guild}, {message.channel}. (s!say)")
+
+        await message.delete()
+        await message.channel.send(content)
 
 # Reemplazar "TOKEN" por una token de cliente. (https://discord.com/developers/applications)
 client.run("TOKEN")
