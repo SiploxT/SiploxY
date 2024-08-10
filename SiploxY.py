@@ -46,6 +46,7 @@ async def on_message(message):
         )
 
         embed.add_field(name="▸ 🔧 Utilidad", value="> ``serverinfo (si)`` | ``servericon (sc)`` | ``userinfo (ui)`` | ``avatar (a)`` | ``banner (b)`` | ``ping (p)``")
+        embed.add_field(name="▸ :balloon: Entretenimiento", value="> ``say``")
         
         await message.channel.send(embed=embed)
 
