@@ -1,6 +1,7 @@
 import discord
 import os
 import sys
+import random
 
 intents = discord.Intents.default()
 intents.members = True
@@ -44,9 +45,8 @@ async def on_message(message):
             title = "📑 | Comandos |",
             colour = discord.Color.from_rgb(255, 255, 255)
         )
-
-        embed.add_field(name="▸ 🔧 Utilidad", value="> ``serverinfo (si)`` | ``servericon (sc)`` | ``userinfo (ui)`` | ``avatar (a)`` | ``banner (b)`` | ``ping (p)``")
-        embed.add_field(name="▸ :balloon: Entretenimiento", value="> ``say``")
+        embed.add_field(name="▸ 🔧 Utilidad", value="> ``serverinfo (si)`` | ``servericon (sc)`` | ``userinfo (ui)`` | ``avatar (a)`` | ``banner (b)`` | ``ping (p)``", inline=False)
+        embed.add_field(name="▸ :balloon: Entretenimiento", value="> ``say (s)``")
         
         await message.channel.send(embed=embed)
 
@@ -213,6 +213,12 @@ async def on_message(message):
         await message.channel.send(f"La latencia de {client.user} es de **{round(client.latency * 1000)}ms**.")
 
     ## Entretenimiento
+
+    if message.content.startswith(f"{prefix}coinflip") or message.content.startswith(f"{prefix}cf"):
+
+        coinflip = random.choice([":coin: | ¡Ha salido **cara**!", ":coin: | ¡Ha salido **cruz**!"])
+
+        await message.channel.send(coinflip)
 
     if message.content.startswith(f"{prefix}say") or message.content.startswith(f"{prefix}s"):
     
