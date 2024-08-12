@@ -1,7 +1,8 @@
-import discord
-import os
-import sys
-import random
+import discord # Libreria de discord.py
+import os # Usado para reiniciar el cliente
+import sys # Usado para reiniciar el cliente
+import random # Libreria random de python para comandos que utilicen respuestas aleatorias.
+import asyncio # Libreria asyncio de python para hacer que un comando tarde cierto tiempo en ser respondido.
 
 intents = discord.Intents.default()
 intents.members = True
@@ -213,6 +214,19 @@ async def on_message(message):
         await message.channel.send(f"La latencia de {client.user} es de **{round(client.latency * 1000)}ms**.")
 
     ## Entretenimiento
+
+    if message.content.startswith(f"{prefix}dice"):
+
+        dice ="🎲 | El dado está tirando"
+
+        message.channel.send(dice)
+
+        for i in range(3):
+            await asyncio.sleep(0.5)
+            dice += '.'
+            await message.edit(content=dice)
+
+        await message.channel.edit(f"🎲 | El dado acaba de tirar... {random.randint(1, 6)}")
 
     if message.content.startswith(f"{prefix}coinflip") or message.content.startswith(f"{prefix}cf"):
 
