@@ -7,11 +7,11 @@
 
 ## ✍ Instalación y Configuración
 
-- Para hacer funcionar al bot, es necesario añadir una TOKEN de cliente:
+- Para hacer funcionar al bot, es necesario añadir una TOKEN de cliente dentro del archivo config.py:
 
 ```py
 # Reemplazar TOKEN por una token de cliente. (https://discord.com/developers/applications)
-client.run("TOKEN")
+token ="TOKEN"
 ```
 
 - Para ejecutar comandos que requieran permiso de uno o varios usuarios, es necesario cambiar el ID de estos en el archivo:
