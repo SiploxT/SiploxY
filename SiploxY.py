@@ -48,7 +48,7 @@ async def on_message(message):
             colour = discord.Color.from_rgb(255, 255, 255)
         )
         embed.add_field(name="▸ 🔧 Utilidad", value="> ``serverinfo (si)`` | ``servericon (sc)`` | ``userinfo (ui)`` | ``avatar (a)`` | ``banner (b)`` | ``ping (p)``", inline=False)
-        embed.add_field(name="▸ :balloon: Entretenimiento", value="> ``say (s)``")
+        embed.add_field(name="▸ :balloon: Entretenimiento", value="> ``dice`` | ``coinflip (cf) | ``say (s)``")
         
         await message.channel.send(embed=embed)
 
