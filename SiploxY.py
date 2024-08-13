@@ -1,7 +1,8 @@
 import discord # Libreria de discord.py
+import config # Archivo con los datos del cliente (Token)
 import os # Usado para reiniciar el cliente
 import sys # Usado para reiniciar el cliente
-import random # Libreria random de python para comandos que utilicen respuestas aleatorias.
+import random # Libreria "random" de python para comandos que utilicen respuestas aleatorias.
 import asyncio # Libreria asyncio de python para hacer que un comando tarde cierto tiempo en ser respondido.
 
 intents = discord.Intents.default()
@@ -217,22 +218,33 @@ async def on_message(message):
 
     if message.content.startswith(f"{prefix}dice"):
 
-        dice ="🎲 | El dado está tirando"
+        dice = "🎲 | El dado está tirando"
 
-        message.channel.send(dice)
+        DiceMessage = await message.channel.send(dice)
 
         for i in range(3):
             await asyncio.sleep(0.5)
             dice += '.'
-            await message.edit(content=dice)
+            await DiceMessage.edit(content=dice)
 
-        await message.channel.edit(f"🎲 | El dado acaba de tirar... {random.randint(1, 6)}")
+        await asyncio.sleep(0.5)
+
+        await DiceMessage.edit(content=f"🎲 | ¡El dado acaba de tirar un **{random.randint(1, 6)}**!")
 
     if message.content.startswith(f"{prefix}coinflip") or message.content.startswith(f"{prefix}cf"):
 
-        coinflip = random.choice([":coin: | ¡Ha salido **cara**!", ":coin: | ¡Ha salido **cruz**!"])
+        coin = ":coin: | Lanzando moneda"
 
-        await message.channel.send(coinflip)
+        CoinMessage = await message.channel.send(coin)
+
+        for i in range(3):
+            await asyncio.sleep(0.5)
+            coin += '.'
+            await CoinMessage.edit(content=coin)
+
+        await asyncio.sleep(0.5)
+
+        await CoinMessage.edit(content=f":coin: | ¡Acaba de salir **{random.choice(["cara", "cruz"])}**!")
 
     if message.content.startswith(f"{prefix}say") or message.content.startswith(f"{prefix}s"):
     
@@ -246,5 +258,5 @@ async def on_message(message):
         await message.delete()
         await message.channel.send(content)
 
-# Reemplazar "TOKEN" por una token de cliente. (https://discord.com/developers/applications)
-client.run("TOKEN")
+# Configurar en el archivo config.py
+client.run(config.token)
