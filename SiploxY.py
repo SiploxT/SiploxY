@@ -28,7 +28,7 @@ async def on_message(message):
     
     ## Reset
     
-    if message.content.startswith(f"{prefix}r"):
+    if message.content.startswith(f"{prefix}reset"):
 
         ## Debes cambiar la ID de usuario a la del developer de este bot. (Pueden ser varias IDs)
         if message.author.id == 666280222324162560 or message.author.id == 1116003595440111736:
@@ -48,7 +48,7 @@ async def on_message(message):
             colour = discord.Color.from_rgb(255, 255, 255)
         )
         embed.add_field(name="▸ 🔧 Utilidad", value="> ``serverinfo (si)`` | ``servericon (sc)`` | ``userinfo (ui)`` | ``avatar (a)`` | ``banner (b)`` | ``ping (p)``", inline=False)
-        embed.add_field(name="▸ :balloon: Entretenimiento", value="> ``dice`` | ``coinflip (cf) | ``say (s)``")
+        embed.add_field(name="▸ :balloon: Entretenimiento", value="> ``dice`` | ``coinflip (cf)`` | ``say (s)``")
         
         await message.channel.send(embed=embed)
 
@@ -215,6 +215,29 @@ async def on_message(message):
         await message.channel.send(f"La latencia de {client.user} es de **{round(client.latency * 1000)}ms**.")
 
     ## Entretenimiento
+    
+    if message.content.startswith(f"{prefix}roulette"):
+
+        content = message.content[len(f"{prefix}say"):].strip()
+        options = [option.strip() for option in content.split(',')]
+
+        if len(options) < 2:
+            await message.channel.send("Debes proporcionar al menos dos opciones.")
+            return
+        
+        choice = random.choice(options)
+
+        roulette = ":question: | La ruleta dice"
+        RouletteMessage = await message.channel.send(roulette)
+
+        for i in range(3):
+            await asyncio.sleep(0.5)
+            roulette += '.'
+            await RouletteMessage.edit(content=roulette)
+
+        await asyncio.sleep(0.5)
+
+        await RouletteMessage.edit(content=f":question: | ¡La ruleta dice... **{choice}**!")
 
     if message.content.startswith(f"{prefix}dice"):
 
@@ -252,6 +275,9 @@ async def on_message(message):
             content = message.content[len(f"{prefix}say"):].strip()
         else:
             content = message.content[len(f"{prefix}s"):].strip()
+
+        if not content:
+            await message.channel.send("Debes escribir algo para que lo repita.\nEj: s!say ¡Hola! ")
 
         print(f"El usuario \"{message.author}\" ha escrito: \"{content}\" en {message.guild}, {message.channel}. (s!say)")
 
