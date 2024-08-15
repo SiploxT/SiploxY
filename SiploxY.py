@@ -28,7 +28,7 @@ async def on_message(message):
     
     ## Reset
     
-    if message.content.startswith(f"{prefix}reset"):
+    if message.content.startswith(f"{prefix}reset") or message.content.startswith(f"{prefix}re"):
 
         ## Debes cambiar la ID de usuario a la del developer de este bot. (Pueden ser varias IDs)
         if message.author.id == 666280222324162560 or message.author.id == 1116003595440111736:
@@ -47,10 +47,37 @@ async def on_message(message):
             title = "📑 | Comandos |",
             colour = discord.Color.from_rgb(255, 255, 255)
         )
-        embed.add_field(name="▸ 🔧 Utilidad", value="> ``serverinfo (si)`` | ``servericon (sc)`` | ``userinfo (ui)`` | ``avatar (a)`` | ``banner (b)`` | ``ping (p)``", inline=False)
-        embed.add_field(name="▸ :balloon: Entretenimiento", value="> ``dice`` | ``coinflip (cf)`` | ``say (s)``")
+        embed.add_field(name="▸ :gear: Moderación", value="> ``purge``")
+        embed.add_field(name="▸ 🔧 Utilidad", value="> ``serverinfo (si)`` | ``servericon (sc)`` | ``userinfo (ui)`` | ``avatar (a)`` | ``banner (b)`` | ``ping``", inline=False)
+        embed.add_field(name="▸ :balloon: Entretenimiento", value="> ``roulette`` | ``dice`` | ``coinflip (cf)`` | ``say (s)``")
         
         await message.channel.send(embed=embed)
+
+    ## Moderación
+
+    if message.content.startswith(f"{prefix}purge"):
+
+        if message.author.guild_permissions.manage_messages:
+
+            args = message.content.split()
+            if len(args) == 2 and args[1].isdigit():
+                AmountMessages = int(args[1])
+
+                if AmountMessages < 1:
+                    await message.channel.send("Debes especificar un número de mensajes a borrar.\nEj: s!purge 10")
+                    return
+                
+                await message.channel.purge(limit=AmountMessages + 1)
+                await message.channel.send(f"Se han eliminado **{AmountMessages}** mensajes de **{message.channel}**.")
+            
+            else:
+
+                await message.channel.send("Debes indicar un número válido de mensajes que borrar.\nEj: s!purge 10")
+                
+        else:
+
+            await message.channel.send("No tienes permisos para eliminar mensajes.")
+
 
     ## Utilidad
 
@@ -209,9 +236,9 @@ async def on_message(message):
                     description="Este usuario no tiene un banner ni un color de acento establecido.",
                     colour=discord.Color.from_rgb(255, 255, 255)
                 )
-                await message.channel.send(embed=embed)
+                await message.channel.send(embed=embed)  
 
-    if message.content.startswith(f"{prefix}ping") or message.content.startswith(f"{prefix}p"):
+    if message.content.startswith(f"{prefix}ping"):
         await message.channel.send(f"La latencia de {client.user} es de **{round(client.latency * 1000)}ms**.")
 
     ## Entretenimiento
@@ -222,7 +249,7 @@ async def on_message(message):
         options = [option.strip() for option in content.split(',')]
 
         if len(options) < 2:
-            await message.channel.send("Debes proporcionar al menos dos opciones.")
+            await message.channel.send("Debes proporcionar al menos dos opciones, separadas por comas.")
             return
         
         choice = random.choice(options)
