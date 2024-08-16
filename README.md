@@ -21,7 +21,8 @@ token = "TOKEN"
 if message.author.id == 666280222324162560 or message.author.id == 1116003595440111736:
 ```
 
-- Por último, para iniciar el cliente, simplemente se introduce un comando en el CMD:
+- Por último, para iniciar el cliente, se introduce este comando en el CMD: <br/>
+(Dentro de la carpeta en la que se encuentra el archivo)
 
 ```py
 py -3 SiploxY.py
