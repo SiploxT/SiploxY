@@ -268,18 +268,55 @@ async def on_message(message):
 
     if message.content.startswith(f"{prefix}dice"):
 
-        dice = "🎲 | El dado está tirando"
+        content = message.content.split()
 
-        DiceMessage = await message.channel.send(dice)
+        veces = 1
+
+        if len(content) > 1:
+            try:
+                veces = int(content[1])
+                
+                if veces < 1 or veces > 20:
+                    await message.channel.send("Debes tirar entre 1 a 20 dados.")
+                    return
+                
+            except ValueError:
+                await message.channel.send("Debes introducir un número de dados que tirar.")
+                return
+            
+        if veces == 1:
+            dice = "🎲 | El dado acaba de tirar un"
+            DiceMessage = await message.channel.send(dice)
+        
+        else: 
+            dice = "🎲 | Los dados acaban de tirar un"
+            DiceMessage = await message.channel.send(dice)
 
         for i in range(3):
             await asyncio.sleep(0.5)
-            dice += '.'
+            dice += "."
             await DiceMessage.edit(content=dice)
 
-        await asyncio.sleep(0.5)
+        resultados = [] # Se crea una lista en la que se añadirán los valores del dado.
 
-        await DiceMessage.edit(content=f"🎲 | ¡El dado acaba de tirar un **{random.randint(1, 6)}**!")
+        for i in range(veces):
+            await asyncio.sleep(0.5)
+            resultado = str(random.randint(1,6))
+            resultados.append(resultado)
+
+            if i == 0:
+                dice += f" **{resultado}**"
+            elif i == veces-1:
+                dice += f", **{resultado}**."
+            else:
+                dice += f", **{resultado}**"
+
+            await DiceMessage.edit(content=dice)
+
+        if veces>1:
+            suma = sum(int(x) for x in resultados)
+            dice += f"\n🎲 | La suma de los dados es: **{suma}**."
+            await DiceMessage.edit(content=dice)
 
     if message.content.startswith(f"{prefix}coinflip") or message.content.startswith(f"{prefix}cf"):
 
